@@ -1,0 +1,2 @@
+# ingles
+Verbos Regulares Pronunciación
