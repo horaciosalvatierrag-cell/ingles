@@ -3,12 +3,13 @@ import { regularVerbs } from './data/regularVerbs';
 import { irregularVerbs } from './data/irregularVerbs';
 import { dialogues } from './data/dialogues';
 import DialogueView from './components/DialogueView';
+import DictionaryView from './components/DictionaryView';
 
 type VerbType = 'regular' | 'irregular';
 type FeedbackType = 'success' | 'error' | 'neutral' | null;
 type Verb = typeof regularVerbs[0] | typeof irregularVerbs[0];
-type AppSection = 'verbs' | 'dialogues';
-type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues';
+type AppSection = 'verbs' | 'dialogues' | 'dictionary';
+type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary';
 
 interface LevelInfo {
   id: Level;
@@ -25,6 +26,7 @@ const levels: LevelInfo[] = [
   { id: 'B2', name: 'Nivel B2', description: 'Intermedio Alto', icon: '⭐', color: 'from-purple-400 to-purple-600' },
   { id: 'C1', name: 'Nivel C1', description: 'Avanzado', icon: '🏆', color: 'from-yellow-400 to-orange-600' },
   { id: 'dialogues', name: 'Diálogos', description: 'Conversaciones', icon: '💬', color: 'from-pink-400 to-rose-600' },
+  { id: 'dictionary', name: 'Diccionario', description: '1390+ palabras', icon: '📖', color: 'from-indigo-400 to-blue-600' },
 ];
 
 function App() {
@@ -190,6 +192,8 @@ function App() {
     setActiveLevel(level);
     if (level === 'dialogues') {
       setAppSection('dialogues');
+    } else if (level === 'dictionary') {
+      setAppSection('dictionary');
     } else {
       setAppSection('verbs');
     }
@@ -257,9 +261,10 @@ function App() {
         {/* Sidebar Footer */}
         <div className="p-4 border-t border-white/10">
           <div className="bg-white/5 rounded-xl p-3">
-            <p className="text-purple-200 text-xs">📊 Progreso</p>
+            <p className="text-purple-200 text-xs">📊 Contenido</p>
             <p className="text-white text-sm font-bold">{regularVerbs.length + irregularVerbs.length} verbos</p>
             <p className="text-purple-300 text-xs">{dialogues.length} diálogos</p>
+            <p className="text-purple-300 text-xs">1390+ palabras</p>
           </div>
         </div>
       </aside>
@@ -575,6 +580,11 @@ function App() {
                 </div>
               )}
             </>
+          )}
+
+          {/* DICTIONARY SECTION */}
+          {appSection === 'dictionary' && (
+            <DictionaryView />
           )}
 
           {/* General Info */}
