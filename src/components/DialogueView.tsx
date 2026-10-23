@@ -308,6 +308,8 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
     switch (speaker) {
       case 'technician': return 'from-blue-500/20 to-cyan-500/20 border-blue-400/30';
       case 'customer': return 'from-green-500/20 to-emerald-500/20 border-green-400/30';
+      case 'professor': return 'from-indigo-500/20 to-blue-500/20 border-indigo-400/30';
+      case 'student': return 'from-amber-500/20 to-yellow-500/20 border-amber-400/30';
       case 'narrator': return 'from-purple-500/20 to-pink-500/20 border-purple-400/30';
       default: return 'from-gray-500/20 to-gray-500/20 border-gray-400/30';
     }
@@ -317,6 +319,8 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
     switch (speaker) {
       case 'technician': return '👨‍💻';
       case 'customer': return '👩';
+      case 'professor': return '👨‍🏫';
+      case 'student': return '👩‍🎓';
       case 'narrator': return '📖';
       default: return '💬';
     }
