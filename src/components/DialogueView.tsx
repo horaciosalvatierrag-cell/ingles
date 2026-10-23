@@ -18,6 +18,8 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
   const recognitionRef = useRef<any>(null);
   const dialogueContainerRef = useRef<HTMLDivElement>(null);
+  const isPlayingRef = useRef<boolean>(false);
+  const timeoutRef = useRef<any>(null);
 
   // Initialize Speech Recognition
   useEffect(() => {
@@ -29,6 +31,17 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
       recognition.maxAlternatives = 3;
       recognitionRef.current = recognition;
     }
+  }, []);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      isPlayingRef.current = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      window.speechSynthesis.cancel();
+    };
   }, []);
 
   // Text-to-Speech
@@ -67,14 +80,31 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
   const playDialogue = useCallback(() => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
+      // Clear any pending timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      
+      // Set playing flag
+      isPlayingRef.current = true;
+      
       const lines = dialogue.lines.filter(l => l.speaker !== 'narrator');
       
       let currentIndex = 0;
       
       const speakNext = () => {
+        // Check if playback was stopped
+        if (!isPlayingRef.current) {
+          setCurrentPlayingId(null);
+          setHighlightedLine(null);
+          return;
+        }
+        
         if (currentIndex >= lines.length) {
           setCurrentPlayingId(null);
           setHighlightedLine(null);
+          isPlayingRef.current = false;
           return;
         }
 
@@ -100,12 +130,14 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
 
         utterance.onend = () => {
           currentIndex++;
-          setTimeout(speakNext, 500); // Pause between lines
+          // Store timeout ID so we can clear it if needed
+          timeoutRef.current = setTimeout(speakNext, 500);
         };
 
         utterance.onerror = () => {
           currentIndex++;
-          setTimeout(speakNext, 500);
+          // Store timeout ID so we can clear it if needed
+          timeoutRef.current = setTimeout(speakNext, 500);
         };
 
         window.speechSynthesis.speak(utterance);
@@ -116,6 +148,16 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
   }, [dialogue, speechRate]);
 
   const stopDialogue = () => {
+    // Set flag to stop playback
+    isPlayingRef.current = false;
+    
+    // Clear any pending timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    
+    // Cancel speech synthesis
     window.speechSynthesis.cancel();
     setCurrentPlayingId(null);
     setHighlightedLine(null);
