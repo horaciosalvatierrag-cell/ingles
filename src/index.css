@@ -26,8 +26,23 @@
   }
 }
 
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
 }
 
 .animate-pulse-ring {
@@ -36,7 +51,7 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -45,7 +60,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: rgba(168, 85, 247, 0.3);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -61,8 +76,8 @@
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  height: 6px;
-  border-radius: 3px;
+  height: 4px;
+  border-radius: 2px;
   background: rgba(255, 255, 255, 0.2);
   outline: none;
 }
@@ -70,16 +85,16 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #a855f7;
   cursor: pointer;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #a855f7;
   cursor: pointer;
@@ -90,4 +105,51 @@ input[type="range"]::-moz-range-thumb {
 ::selection {
   background: rgba(168, 85, 247, 0.4);
   color: white;
+}
+
+/* Responsive text truncation */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .grid-cols-12 {
+    gap: 0.25rem;
+  }
+}
+
+/* Sidebar transition for mobile */
+@media (max-width: 1024px) {
+  aside {
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+/* Dialog line highlight animation */
+@keyframes highlight-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.2);
+  }
+}
+
+.line-highlight {
+  animation: highlight-pulse 1.5s infinite;
+}
+
+/* Ensure body doesn't scroll when sidebar is open on mobile */
+body.sidebar-open {
+  overflow: hidden;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
 }
