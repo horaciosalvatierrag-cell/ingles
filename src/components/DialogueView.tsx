@@ -16,10 +16,13 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
   const [currentPlayingId, setCurrentPlayingId] = useState<number | null>(null);
   const [showTranslations, setShowTranslations] = useState(true);
   const [highlightedLine, setHighlightedLine] = useState<number | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [pausedAtIndex, setPausedAtIndex] = useState<number>(0);
   const recognitionRef = useRef<any>(null);
   const dialogueContainerRef = useRef<HTMLDivElement>(null);
   const isPlayingRef = useRef<boolean>(false);
   const timeoutRef = useRef<any>(null);
+  const currentIndexRef = useRef<number>(0);
 
   // Initialize Speech Recognition
   useEffect(() => {
@@ -78,8 +81,8 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
     }
   }, [speechRate]);
 
-  // Play entire dialogue
-  const playDialogue = useCallback(() => {
+  // Play entire dialogue from a specific index
+  const playDialogueFromIndex = useCallback((startIndex: number = 0) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       // Clear any pending timeout
@@ -90,10 +93,11 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
       
       // Set playing flag
       isPlayingRef.current = true;
+      setIsPaused(false);
       
       const lines = dialogue.lines.filter(l => l.speaker !== 'narrator');
       
-      let currentIndex = 0;
+      currentIndexRef.current = startIndex;
       
       const speakNext = () => {
         // Check if playback was stopped
@@ -103,14 +107,15 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
           return;
         }
         
-        if (currentIndex >= lines.length) {
+        if (currentIndexRef.current >= lines.length) {
           setCurrentPlayingId(null);
           setHighlightedLine(null);
           isPlayingRef.current = false;
+          setIsPaused(false);
           return;
         }
 
-        const line = lines[currentIndex];
+        const line = lines[currentIndexRef.current];
         const utterance = new SpeechSynthesisUtterance(line.text);
         utterance.lang = 'en-US';
         utterance.rate = speechRate;
@@ -133,13 +138,13 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
         };
 
         utterance.onend = () => {
-          currentIndex++;
+          currentIndexRef.current++;
           // Store timeout ID so we can clear it if needed
           timeoutRef.current = setTimeout(speakNext, 500);
         };
 
         utterance.onerror = () => {
-          currentIndex++;
+          currentIndexRef.current++;
           // Store timeout ID so we can clear it if needed
           timeoutRef.current = setTimeout(speakNext, 500);
         };
@@ -150,6 +155,11 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
       speakNext();
     }
   }, [dialogue, speechRate]);
+
+  // Play from beginning
+  const playDialogue = useCallback(() => {
+    playDialogueFromIndex(0);
+  }, [playDialogueFromIndex]);
 
   const stopDialogue = () => {
     // Set flag to stop playback
@@ -165,6 +175,22 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
     window.speechSynthesis.cancel();
     setCurrentPlayingId(null);
     setHighlightedLine(null);
+    
+    // Save current position and show pause state
+    setPausedAtIndex(currentIndexRef.current);
+    setIsPaused(true);
+  };
+
+  // Continue from where it was stopped
+  const continueDialogue = () => {
+    playDialogueFromIndex(pausedAtIndex);
+  };
+
+  // Restart from beginning
+  const restartDialogue = () => {
+    setPausedAtIndex(0);
+    setIsPaused(false);
+    playDialogueFromIndex(0);
   };
 
   // Levenshtein distance
@@ -319,18 +345,37 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
 
         {/* Controls */}
         <div className="flex flex-wrap gap-2">
-          <button
-            onClick={playDialogue}
-            className="px-4 py-2 bg-green-500/30 text-green-200 rounded-lg hover:bg-green-500/50 transition-all text-sm font-medium border border-green-400/30"
-          >
-            ▶ Reproducir todo
-          </button>
-          <button
-            onClick={stopDialogue}
-            className="px-4 py-2 bg-red-500/30 text-red-200 rounded-lg hover:bg-red-500/50 transition-all text-sm font-medium border border-red-400/30"
-          >
-            ⏹ Detener
-          </button>
+          {!isPaused ? (
+            <>
+              <button
+                onClick={playDialogue}
+                className="px-4 py-2 bg-green-500/30 text-green-200 rounded-lg hover:bg-green-500/50 transition-all text-sm font-medium border border-green-400/30"
+              >
+                ▶ Reproducir todo
+              </button>
+              <button
+                onClick={stopDialogue}
+                className="px-4 py-2 bg-red-500/30 text-red-200 rounded-lg hover:bg-red-500/50 transition-all text-sm font-medium border border-red-400/30"
+              >
+                ⏹ Detener
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={continueDialogue}
+                className="px-4 py-2 bg-blue-500/30 text-blue-200 rounded-lg hover:bg-blue-500/50 transition-all text-sm font-medium border border-blue-400/30"
+              >
+                ▶️ Continuar
+              </button>
+              <button
+                onClick={restartDialogue}
+                className="px-4 py-2 bg-yellow-500/30 text-yellow-200 rounded-lg hover:bg-yellow-500/50 transition-all text-sm font-medium border border-yellow-400/30"
+              >
+                🔄 Reiniciar
+              </button>
+            </>
+          )}
           <button
             onClick={() => setShowTranslations(!showTranslations)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
@@ -352,6 +397,16 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
             🎤 Modo Práctica {practiceMode ? 'ON' : 'OFF'}
           </button>
         </div>
+
+        {/* Paused indicator */}
+        {isPaused && (
+          <div className="mt-3 p-3 bg-yellow-500/10 border border-yellow-400/30 rounded-xl animate-fade-in">
+            <p className="text-yellow-200 text-sm text-center">
+              ⏸️ Diálogo pausado en la línea <span className="font-bold text-white">{pausedAtIndex + 1}</span> de{' '}
+              <span className="font-bold text-white">{dialogue.lines.filter(l => l.speaker !== 'narrator').length}</span>
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Practice Panel */}
