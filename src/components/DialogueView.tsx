@@ -54,7 +54,9 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
       utterance.pitch = 1;
 
       const voices = window.speechSynthesis.getVoices();
-      const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'))
+      // Priorizar voces americanas (en-US)
+      const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Female'))
+        || voices.find(v => v.lang === 'en-US')
         || voices.find(v => v.lang.startsWith('en-US'))
         || voices.find(v => v.lang.startsWith('en'));
       if (englishVoice) utterance.voice = englishVoice;
@@ -114,7 +116,9 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
         utterance.rate = speechRate;
 
         const voices = window.speechSynthesis.getVoices();
-        const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'))
+        // Priorizar voces americanas (en-US)
+        const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Female'))
+          || voices.find(v => v.lang === 'en-US')
           || voices.find(v => v.lang.startsWith('en-US'))
           || voices.find(v => v.lang.startsWith('en'));
         if (englishVoice) utterance.voice = englishVoice;
