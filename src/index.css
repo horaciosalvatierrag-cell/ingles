@@ -153,3 +153,180 @@ body.sidebar-open {
     min-height: -webkit-fill-available;
   }
 }
+
+/* Windows 11 light palette: mica surfaces, neutral text and Windows blue. */
+.windows-theme {
+  color: #1f1f1f;
+  background: linear-gradient(135deg, #f5f6f8 0%, #eaf2fa 52%, #f3f3f3 100%) !important;
+}
+
+.windows-theme .bg-gradient-to-br {
+  background-image: linear-gradient(135deg, #f5f6f8 0%, #eaf2fa 52%, #f3f3f3 100%) !important;
+}
+
+.windows-theme .bg-gradient-to-r {
+  background-image: linear-gradient(105deg, #0078d4 0%, #0067c0 100%) !important;
+}
+
+.windows-theme [class~="bg-black/40"],
+.windows-theme [class~="bg-black/30"] {
+  background-color: rgb(255 255 255 / 78%) !important;
+}
+
+.windows-theme [class~="bg-black/10"],
+.windows-theme [class~="bg-black/15"],
+.windows-theme [class~="bg-black/20"],
+.windows-theme [class~="bg-black/25"] {
+  background-color: rgb(255 255 255 / 58%) !important;
+}
+
+.windows-theme [class~="bg-white/5"] { background-color: rgb(255 255 255 / 54%) !important; }
+.windows-theme [class~="bg-white/10"] { background-color: rgb(255 255 255 / 70%) !important; }
+.windows-theme [class~="bg-white/20"] { background-color: rgb(255 255 255 / 88%) !important; }
+.windows-theme [class~="bg-slate-950/20"],
+.windows-theme [class~="bg-slate-950/25"],
+.windows-theme [class~="bg-slate-950/30"],
+.windows-theme [class~="bg-slate-900/70"],
+.windows-theme [class~="bg-slate-900"] {
+  background-color: rgb(255 255 255 / 76%) !important;
+}
+
+.windows-theme [class~="bg-purple-500"],
+.windows-theme [class~="bg-violet-500"],
+.windows-theme [class~="bg-indigo-500"],
+.windows-theme [class~="bg-sky-500"],
+.windows-theme [class~="bg-blue-500"],
+.windows-theme [class~="bg-fuchsia-500"],
+.windows-theme [class~="bg-orange-500"] {
+  background-color: #0078d4 !important;
+}
+
+.windows-theme [class~="bg-red-500"],
+.windows-theme [class~="bg-rose-500"] { background-color: #c42b1c !important; }
+.windows-theme [class~="bg-green-500"],
+.windows-theme [class~="bg-emerald-500"] { background-color: #107c10 !important; }
+.windows-theme [class~="bg-yellow-500"],
+.windows-theme [class~="bg-amber-500"] { background-color: #ffb900 !important; }
+
+.windows-theme [class~="bg-purple-500/10"],
+.windows-theme [class~="bg-purple-500/20"],
+.windows-theme [class~="bg-purple-500/30"],
+.windows-theme [class~="bg-purple-500/40"],
+.windows-theme [class~="bg-violet-400/15"],
+.windows-theme [class~="bg-violet-500/10"],
+.windows-theme [class~="bg-violet-500/15"],
+.windows-theme [class~="bg-violet-500/20"],
+.windows-theme [class~="bg-violet-400/10"],
+.windows-theme [class~="bg-indigo-400/15"],
+.windows-theme [class~="bg-indigo-500/20"],
+.windows-theme [class~="bg-indigo-500/30"],
+.windows-theme [class~="bg-blue-500/10"],
+.windows-theme [class~="bg-blue-500/20"],
+.windows-theme [class~="bg-blue-500/30"],
+.windows-theme [class~="bg-blue-500/40"],
+.windows-theme [class~="bg-blue-500/50"],
+.windows-theme [class~="bg-orange-500/20"],
+.windows-theme [class~="bg-orange-500/30"],
+.windows-theme [class~="bg-sky-300/5"],
+.windows-theme [class~="bg-sky-300/15"],
+.windows-theme [class~="bg-sky-400/10"],
+.windows-theme [class~="bg-sky-400/20"],
+.windows-theme [class~="bg-sky-500/20"],
+.windows-theme [class~="bg-fuchsia-500/30"],
+.windows-theme [class~="bg-pink-500/20"] {
+  background-color: rgb(0 120 212 / 12%) !important;
+}
+
+.windows-theme [class~="hover:bg-white/10"]:hover,
+.windows-theme [class~="hover:bg-white/20"]:hover,
+.windows-theme [class~="hover:bg-slate-950/20"]:hover {
+  background-color: rgb(0 120 212 / 10%) !important;
+}
+
+.windows-theme [class~="hover:bg-purple-400"]:hover,
+.windows-theme [class~="hover:bg-violet-400"]:hover,
+.windows-theme [class~="hover:bg-indigo-400"]:hover,
+.windows-theme [class~="hover:bg-sky-400"]:hover,
+.windows-theme [class~="hover:bg-blue-400"]:hover,
+.windows-theme [class~="hover:bg-fuchsia-400"]:hover,
+.windows-theme [class~="hover:bg-orange-400"]:hover {
+  background-color: #0067c0 !important;
+}
+
+.windows-theme [class~="text-white"] { color: #1f1f1f !important; }
+.windows-theme [class~="text-white/85"] { color: #263238 !important; }
+.windows-theme [class~="text-white/40"],
+.windows-theme [class~="text-white/60"],
+.windows-theme [class~="text-white/70"],
+.windows-theme [class~="text-white/80"] { color: #5c626b !important; }
+.windows-theme [class~="text-purple-100"],
+.windows-theme [class~="text-purple-200"],
+.windows-theme [class~="text-purple-300"],
+.windows-theme [class~="text-purple-200/65"],
+.windows-theme [class~="text-purple-200/70"],
+.windows-theme [class~="text-violet-100"],
+.windows-theme [class~="text-violet-200"],
+.windows-theme [class~="text-violet-300"],
+.windows-theme [class~="text-fuchsia-100"],
+.windows-theme [class~="text-fuchsia-200"],
+.windows-theme [class~="text-sky-100"],
+.windows-theme [class~="text-sky-200"],
+.windows-theme [class~="text-indigo-100"],
+.windows-theme [class~="text-indigo-200"],
+.windows-theme [class~="text-blue-100"],
+.windows-theme [class~="text-blue-200"],
+.windows-theme [class~="text-blue-300"],
+.windows-theme [class~="text-orange-200"] { color: #005a9e !important; }
+.windows-theme [class~="text-yellow-100"],
+.windows-theme [class~="text-yellow-200"],
+.windows-theme [class~="text-amber-100"],
+.windows-theme [class~="text-amber-200"],
+.windows-theme [class~="text-orange-100"],
+.windows-theme [class~="text-orange-200"] { color: #795600 !important; }
+.windows-theme [class~="text-green-100"],
+.windows-theme [class~="text-green-200"],
+.windows-theme [class~="text-emerald-100"],
+.windows-theme [class~="text-emerald-200"],
+.windows-theme [class~="text-emerald-300"] { color: #107c10 !important; }
+.windows-theme [class~="text-red-100"],
+.windows-theme [class~="text-red-200"],
+.windows-theme [class~="text-rose-100"],
+.windows-theme [class~="text-rose-200"] { color: #a4262c !important; }
+
+.windows-theme [class~="bg-gradient-to-r"][class~="text-white"],
+.windows-theme [class~="bg-blue-500"][class~="text-white"],
+.windows-theme [class~="bg-purple-500"][class~="text-white"],
+.windows-theme [class~="bg-violet-500"][class~="text-white"],
+.windows-theme [class~="bg-indigo-500"][class~="text-white"],
+.windows-theme [class~="bg-sky-500"][class~="text-white"],
+.windows-theme [class~="bg-fuchsia-500"][class~="text-white"],
+.windows-theme [class~="bg-green-500"][class~="text-white"],
+.windows-theme [class~="bg-emerald-500"][class~="text-white"],
+.windows-theme [class~="bg-red-500"][class~="text-white"],
+.windows-theme [class~="bg-rose-500"][class~="text-white"],
+.windows-theme [class~="bg-amber-500"][class~="text-white"] { color: #fff !important; }
+
+.windows-theme [class~="border-white/5"],
+.windows-theme [class~="border-white/10"],
+.windows-theme [class~="border-white/15"],
+.windows-theme [class~="border-white/20"] { border-color: rgb(0 0 0 / 12%) !important; }
+.windows-theme [class~="border-purple-400"],
+.windows-theme [class~="border-purple-400/30"],
+.windows-theme [class~="border-violet-300/20"],
+.windows-theme [class~="border-blue-400/30"],
+.windows-theme [class~="border-sky-200/10"],
+.windows-theme [class~="border-indigo-400/30"] { border-color: rgb(0 120 212 / 30%) !important; }
+
+.windows-theme [class~="placeholder-purple-200"]::placeholder { color: #667085 !important; opacity: 1; }
+.windows-theme input[type="range"] { background: #c7cdd4; }
+.windows-theme input[type="range"]::-webkit-slider-thumb,
+.windows-theme input[type="range"]::-moz-range-thumb { background: #0078d4; }
+.windows-theme [class~="focus:ring-purple-400"]:focus,
+.windows-theme [class~="focus:ring-violet-400"]:focus,
+.windows-theme [class~="focus:ring-fuchsia-400"]:focus { --tw-ring-color: #0078d4 !important; }
+.windows-theme ::selection { background: rgb(0 120 212 / 25%); color: #1f1f1f; }
+
+@media (prefers-reduced-transparency: reduce) {
+  .windows-theme aside,
+  .windows-theme header { backdrop-filter: none; }
+}

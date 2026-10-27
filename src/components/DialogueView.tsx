@@ -3,10 +3,10 @@ import { Dialogue, DialogueLine } from '../data/dialogues';
 
 interface DialogueViewProps {
   dialogue: Dialogue;
-  speechRate: number;
 }
 
-function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
+function DialogueView({ dialogue }: DialogueViewProps) {
+  const [playbackLevel, setPlaybackLevel] = useState<'A1' | 'A2' | 'B1' | 'B2' | 'C1'>((['A1', 'A2', 'B1', 'B2', 'C1'].includes(dialogue.level) ? dialogue.level : 'B1') as 'A1' | 'A2' | 'B1' | 'B2' | 'C1');
   const [activeLine, setActiveLine] = useState<DialogueLine | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
@@ -23,6 +23,21 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
   const isPlayingRef = useRef<boolean>(false);
   const timeoutRef = useRef<any>(null);
   const currentIndexRef = useRef<number>(0);
+  const levelRates = { A1: 0.62, A2: 0.74, B1: 0.86, B2: 0.98, C1: 1.08 };
+  const playbackRate = levelRates[playbackLevel];
+
+  const speakerVoice = (speaker: string, voices: SpeechSynthesisVoice[]) => {
+    const female = speaker === 'customer' || speaker === 'student';
+    const americanVoices = voices.filter(voice => voice.lang.toLowerCase() === 'en-us');
+    const femaleVoicePattern = /\b(female|zira|samantha|jenny|aria|ava|michelle|susan|karen)\b/i;
+    const maleVoicePattern = /\b(male|david|mark|guy|james|daniel|george|christopher|ryan|andrew|thomas|alex)\b/i;
+    const preferredVoice = americanVoices.find(voice =>
+      (voice.name + ' ' + voice.voiceURI).match(female ? femaleVoicePattern : maleVoicePattern)
+    );
+    return preferredVoice || americanVoices[0] || voices.find(voice => voice.lang.toLowerCase().startsWith('en-'));
+  };
+
+  const speakerPitch = (speaker: string) => speaker === 'customer' || speaker === 'student' ? 1.05 : 0.66;
 
   // Initialize Speech Recognition
   useEffect(() => {
@@ -48,20 +63,17 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
   }, []);
 
   // Text-to-Speech
-  const speak = useCallback((text: string, lineId: number) => {
+  const speak = useCallback((text: string, lineId: number, speaker = '') => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'en-US';
-      utterance.rate = speechRate;
-      utterance.pitch = 1;
+      utterance.rate = playbackRate;
+      utterance.pitch = speakerPitch(speaker);
 
       const voices = window.speechSynthesis.getVoices();
       // Priorizar voces americanas (en-US)
-      const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Female'))
-        || voices.find(v => v.lang === 'en-US')
-        || voices.find(v => v.lang.startsWith('en-US'))
-        || voices.find(v => v.lang.startsWith('en'));
+      const englishVoice = speakerVoice(speaker, voices);
       if (englishVoice) utterance.voice = englishVoice;
 
       utterance.onstart = () => {
@@ -79,7 +91,7 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
 
       window.speechSynthesis.speak(utterance);
     }
-  }, [speechRate]);
+  }, [playbackRate]);
 
   // Play entire dialogue from a specific index
   const playDialogueFromIndex = useCallback((startIndex: number = 0) => {
@@ -118,14 +130,12 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
         const line = lines[currentIndexRef.current];
         const utterance = new SpeechSynthesisUtterance(line.text);
         utterance.lang = 'en-US';
-        utterance.rate = speechRate;
+        utterance.rate = playbackRate;
+        utterance.pitch = speakerPitch(line.speaker);
 
         const voices = window.speechSynthesis.getVoices();
         // Priorizar voces americanas (en-US)
-        const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Female'))
-          || voices.find(v => v.lang === 'en-US')
-          || voices.find(v => v.lang.startsWith('en-US'))
-          || voices.find(v => v.lang.startsWith('en'));
+        const englishVoice = speakerVoice(line.speaker, voices);
         if (englishVoice) utterance.voice = englishVoice;
 
         utterance.onstart = () => {
@@ -154,7 +164,7 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
 
       speakNext();
     }
-  }, [dialogue, speechRate]);
+  }, [dialogue, playbackRate]);
 
   // Play from beginning
   const playDialogue = useCallback(() => {
@@ -284,6 +294,9 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
       } else if (event.error === 'not-allowed') {
         setFeedback('error');
         setFeedbackMessage('Permiso de micrófono denegado.');
+      } else if (event.error === 'network') {
+        setFeedback('error');
+        setFeedbackMessage('Chrome no pudo conectar con su servicio de reconocimiento de voz. Revisa tu conexión; puedes seguir escuchando el modelo y repetir la línea.');
       } else {
         setFeedback('error');
         setFeedbackMessage(`Error: ${event.error}`);
@@ -346,6 +359,11 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
         </div>
 
         <p className="text-purple-200 text-sm mb-4">{dialogue.descriptionEs}</p>
+
+        <div className="mb-4 rounded-xl border border-white/10 bg-black/10 p-3">
+          <div className="mb-2 flex items-center justify-between gap-2"><p className="text-xs font-semibold text-purple-100">Ritmo de reproducción por nivel</p><span className="text-xs text-purple-200">{playbackLevel} · {playbackRate.toFixed(2)}×</span></div>
+          <div className="flex flex-wrap gap-2">{(['A1', 'A2', 'B1', 'B2', 'C1'] as const).map(level => <button key={level} onClick={() => setPlaybackLevel(level)} className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${playbackLevel === level ? 'bg-violet-500 text-white' : 'bg-white/10 text-purple-100 hover:bg-white/20'}`}>{level}</button>)}</div>
+        </div>
 
         {/* Controls */}
         <div className="flex flex-wrap gap-2">
@@ -429,7 +447,7 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
 
           <div className="flex flex-col items-center gap-3">
             <button
-              onClick={() => speak(activeLine.text, activeLine.id)}
+              onClick={() => speak(activeLine.text, activeLine.id, activeLine.speaker)}
               className="px-4 py-2 bg-blue-500/30 text-blue-200 rounded-lg hover:bg-blue-500/50 transition-all text-sm"
             >
               🔊 Escuchar modelo
@@ -491,7 +509,7 @@ function DialogueView({ dialogue, speechRate }: DialogueViewProps) {
               </div>
               <div className="flex flex-col gap-1 flex-shrink-0">
                 <button
-                  onClick={(e) => { e.stopPropagation(); speak(line.text, line.id); }}
+                  onClick={(e) => { e.stopPropagation(); speak(line.text, line.id, line.speaker); }}
                   className="p-2 bg-blue-500/20 text-blue-300 rounded-lg hover:bg-blue-500/40 transition-all text-xs"
                   title="Escuchar"
                 >

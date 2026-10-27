@@ -1,0 +1,4002 @@
+[
+  {
+    "id": 1,
+    "phrasal": "do away with",
+    "meaning": "get rid of something we don't need",
+    "examples": [
+      "The school will do away with old books.",
+      "The town does away with trash cans."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 2,
+    "phrasal": "do up",
+    "meaning": "to fasten or close something",
+    "examples": [
+      "Do up your shoelaces tightly now.",
+      "She helped him do up his coat."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 3,
+    "phrasal": "do over",
+    "meaning": "cover something with something",
+    "examples": [
+      "I do over my paper.",
+      "She does over her book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 4,
+    "phrasal": "do off",
+    "meaning": "take something off",
+    "examples": [
+      "Mom does off gloves",
+      "I do off jacket"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 5,
+    "phrasal": "get up",
+    "meaning": "move upwards, stand up",
+    "examples": [
+      "The kids get up on their tiptoes.",
+      "The plane starts to get up in the air."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 6,
+    "phrasal": "get off",
+    "meaning": "to move down from something",
+    "examples": [
+      "Cat gets off couch slowly.",
+      "I get off bus now."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 7,
+    "phrasal": "get out",
+    "meaning": "leave or escape a place",
+    "examples": [
+      "We get out fast.",
+      "They get out now."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 8,
+    "phrasal": "get down",
+    "meaning": "move or bring something down",
+    "examples": [
+      "The kids get down from the playground quickly.",
+      "The package will get down to your house today."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 9,
+    "phrasal": "get in",
+    "meaning": "to enter or go inside something",
+    "examples": [
+      "The kids get in trouble sometimes.",
+      "Get in the pool and swim."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 10,
+    "phrasal": "get on",
+    "meaning": "to board or mount something, like a bus or bike",
+    "examples": [
+      "We get on school bus.",
+      "Mom gets on bicycle."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 11,
+    "phrasal": "get on with",
+    "meaning": "to continue doing something",
+    "examples": [
+      "We get on with project now",
+      "I get on with my game"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 12,
+    "phrasal": "get together",
+    "meaning": "meet with friends or family",
+    "examples": [
+      "My friends get together often.",
+      "We get together at school."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 13,
+    "phrasal": "see through",
+    "meaning": "to see something through something transparent",
+    "examples": [
+      "The teacher sees through the transparent folder.",
+      "We see the park through the fence."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 14,
+    "phrasal": "see off",
+    "meaning": "walk with someone to where they leave",
+    "examples": [
+      "My mom sees off me.",
+      "Friends see off teacher."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 15,
+    "phrasal": "see in",
+    "meaning": "to show someone inside a place",
+    "examples": [
+      "The teacher sees students in.",
+      "She sees her friends in."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 16,
+    "phrasal": "see out",
+    "meaning": "walk with a guest to the door when they leave",
+    "examples": [
+      "I see out my friends.",
+      "They see out their mom."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 17,
+    "phrasal": "see about",
+    "meaning": "to take care of something",
+    "examples": [
+      "The principal will see about the school play.",
+      "My friend will see about her pet."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 18,
+    "phrasal": "know about",
+    "meaning": "be informed about something",
+    "examples": [
+      "My mom knows about flowers",
+      "We know about our school"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 19,
+    "phrasal": "think about",
+    "meaning": "to ponder or consider something",
+    "examples": [
+      "I think about my friends",
+      "She thinks about school"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 20,
+    "phrasal": "make up",
+    "meaning": "to form or create something",
+    "examples": [
+      "Boys make up team.",
+      "Girls make up choir."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 21,
+    "phrasal": "make out",
+    "meaning": "to write or draw something, like a document or a list",
+    "examples": [
+      "The teacher asked us to make out a short story.",
+      "Can you make out a list of your favorite foods?"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 22,
+    "phrasal": "make away with",
+    "meaning": "take something that is not yours",
+    "examples": [
+      "The thief makes away with money.",
+      "She makes away with her sister's doll."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 23,
+    "phrasal": "make over",
+    "meaning": "to fix and change a place",
+    "examples": [
+      "The company makes over offices.",
+      "They will make over the house."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 24,
+    "phrasal": "make off with",
+    "meaning": "take something and run away",
+    "examples": [
+      "The thief makes off with money.",
+      "She makes off with my book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 25,
+    "phrasal": "make off",
+    "meaning": "to quickly leave a place",
+    "examples": [
+      "The students make off to their classroom.",
+      "The kids make off to the playground quickly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 26,
+    "phrasal": "make away",
+    "meaning": "to leave a place quickly",
+    "examples": [
+      "We make away quickly home",
+      "Mom makes away soon"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 27,
+    "phrasal": "make it up to",
+    "meaning": "pay back someone for something",
+    "examples": [
+      "I make it up to my friend",
+      "He makes it up to his sister"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 28,
+    "phrasal": "want in",
+    "meaning": "want to go inside",
+    "examples": [
+      "My friend wants in.",
+      "The dog wants in."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 29,
+    "phrasal": "go off",
+    "meaning": "to suddenly explode or make a loud noise",
+    "examples": [
+      "The firework went off in the evening air.",
+      "The alarm went off and scared me."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 30,
+    "phrasal": "go down",
+    "meaning": "to move from high to low",
+    "examples": [
+      "The ball goes down slowly.",
+      "Kids go down slide."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 31,
+    "phrasal": "go away",
+    "meaning": "leave a place",
+    "examples": [
+      "My mom goes away today.",
+      "The bus goes away fast."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 32,
+    "phrasal": "go over",
+    "meaning": "look at something carefully",
+    "examples": [
+      "Dad goes over my work.",
+      "She goes over her test."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 33,
+    "phrasal": "go out",
+    "meaning": "to leave a place, like a house",
+    "examples": [
+      "The kids go out to play outside.",
+      "Let's go out and get some fresh air."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 34,
+    "phrasal": "go about",
+    "meaning": "to busy oneself with something",
+    "examples": [
+      "I go about my task",
+      "She goes about her job"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 35,
+    "phrasal": "go on",
+    "meaning": "use information to decide or understand",
+    "examples": [
+      "They go on data now",
+      "I go on facts only"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 36,
+    "phrasal": "go ahead",
+    "meaning": "to start or continue doing something",
+    "examples": [
+      "Please go ahead and start your project.",
+      "You can go ahead and play with your friends."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 37,
+    "phrasal": "take off",
+    "meaning": "to remove something",
+    "examples": [
+      "I take off my glasses to sleep.",
+      "Take off your dirty gloves now."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 38,
+    "phrasal": "take up",
+    "meaning": "lift something to hold it",
+    "examples": [
+      "She takes up her pencil.",
+      "He takes up his bag."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 39,
+    "phrasal": "take in",
+    "meaning": "get something from someone",
+    "examples": [
+      "The store takes in money",
+      "People take in goods"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 40,
+    "phrasal": "take on",
+    "meaning": "to get or introduce something new",
+    "examples": [
+      "The store takes on workers.",
+      "She takes on helper."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 41,
+    "phrasal": "take away",
+    "meaning": "move something to another place",
+    "examples": [
+      "The police officer takes away the lost dog.",
+      "The chef takes away the dirty dishes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 42,
+    "phrasal": "take back",
+    "meaning": "say something is not true after saying it",
+    "examples": [
+      "I take back what I said.",
+      "She takes back her mistake."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 43,
+    "phrasal": "take over",
+    "meaning": "be in charge of something",
+    "examples": [
+      "The manager takes over today.",
+      "They takes over the team."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 44,
+    "phrasal": "take out",
+    "meaning": "remove something from a place",
+    "examples": [
+      "Mom takes out trash.",
+      "We take out papers."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 45,
+    "phrasal": "look up",
+    "meaning": "to start to feel better or have a brighter future",
+    "examples": [
+      "The rain stops, I look up today.",
+      "My friend helps me, I look up."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 46,
+    "phrasal": "look on",
+    "meaning": "watch something happen",
+    "examples": [
+      "People look on games",
+      "Kids look on movies"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 47,
+    "phrasal": "look out",
+    "meaning": "Watch out for something bad happening",
+    "examples": [
+      "Look out for the slippery floor now.",
+      "Please look out for the flying ball."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 48,
+    "phrasal": "look back",
+    "meaning": "remember what happened before",
+    "examples": [
+      "I look back at fun times.",
+      "She looks back on summer."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 49,
+    "phrasal": "look over",
+    "meaning": "to quickly check or glance at something",
+    "examples": [
+      "Can you look over my drawing?",
+      "Let's look over the map."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 50,
+    "phrasal": "look off",
+    "meaning": "when someone's face shows they don't like something",
+    "examples": [
+      "The boy looks off at ice cream.",
+      "She looks off at broccoli."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 51,
+    "phrasal": "look down",
+    "meaning": "lower your eyes",
+    "examples": [
+      "The girl looks down slowly.",
+      "The boy looks down quickly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 52,
+    "phrasal": "look down on",
+    "meaning": "think someone is not as good",
+    "examples": [
+      "The boy looks down on his sister",
+      "She looks down on her brother"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 53,
+    "phrasal": "come about",
+    "meaning": "to happen or occur",
+    "examples": [
+      "The school play will come about soon.",
+      "The big event comes about every summer."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 54,
+    "phrasal": "come out",
+    "meaning": "be found or discovered",
+    "examples": [
+      "The truth comes out today.",
+      "Her secret comes out soon."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 55,
+    "phrasal": "come down to",
+    "meaning": "move down to a lower place",
+    "examples": [
+      "The ball comes down to ground",
+      "The kite comes down to me"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 56,
+    "phrasal": "come across",
+    "meaning": "change to the other team",
+    "examples": [
+      "My friend comes across now.",
+      "The player comes across."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 57,
+    "phrasal": "come through",
+    "meaning": "to enter a room or space through a door",
+    "examples": [
+      "My friend will come through the doorway.",
+      "Please come through and join us."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 58,
+    "phrasal": "come down with",
+    "meaning": "get sick with something",
+    "examples": [
+      "My brother comes down with sickness.",
+      "She comes down with bad cold."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 59,
+    "phrasal": "come around",
+    "meaning": "change your mind to like something",
+    "examples": [
+      "My mom comes around slowly.",
+      "Dad comes around later."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 60,
+    "phrasal": "come round",
+    "meaning": "turn and go another way",
+    "examples": [
+      "The bike comes round bend.",
+      "She comes round slowly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 61,
+    "phrasal": "find out",
+    "meaning": "to learn or discover something new",
+    "examples": [
+      "The detective tries to find out clues.",
+      "We find out what to do."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 62,
+    "phrasal": "find in",
+    "meaning": "to give someone what they need",
+    "examples": [
+      "The school finds in pencils.",
+      "Friends find in games."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 63,
+    "phrasal": "give up",
+    "meaning": "stop trying to do something",
+    "examples": [
+      "I give up now.",
+      "He gives up easily."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 64,
+    "phrasal": "give in",
+    "meaning": "to fall down or collapse",
+    "examples": [
+      "The old chair gives in easily.",
+      "The table gives in sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 65,
+    "phrasal": "give away",
+    "meaning": "to give something to someone for free",
+    "examples": [
+      "The store gives away free toys today.",
+      "He gives away his old bike."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 66,
+    "phrasal": "give about",
+    "meaning": "share things with others",
+    "examples": [
+      "The teacher gives papers about.",
+      "She gives stickers about class."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 67,
+    "phrasal": "give forth",
+    "meaning": "send out something like a smell or sound",
+    "examples": [
+      "The factory gives forth bad smoke.",
+      "The music gives forth happy feelings."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 68,
+    "phrasal": "give out",
+    "meaning": "say or share information to the public",
+    "examples": [
+      "The teacher gives out rules.",
+      "Students give out ideas."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 69,
+    "phrasal": "give over",
+    "meaning": "to stop doing something or hand it over",
+    "examples": [
+      "The kid gives over his ball to sister.",
+      "They give over their game to start class."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 70,
+    "phrasal": "give off",
+    "meaning": "send out a smell or light",
+    "examples": [
+      "The fire gives off heat.",
+      "Perfume gives off nice smell."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 71,
+    "phrasal": "show up",
+    "meaning": "arrive or appear somewhere",
+    "examples": [
+      "My friend shows up late.",
+      "The dog shows up too."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 72,
+    "phrasal": "show off",
+    "meaning": "to display something's best features",
+    "examples": [
+      "The park shows off flowers.",
+      "She shows off her art."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 73,
+    "phrasal": "show out",
+    "meaning": "help someone leave a place",
+    "examples": [
+      "The host will show you out now.",
+      "The teacher shows students out slowly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 74,
+    "phrasal": "show down",
+    "meaning": "put a card face up",
+    "examples": [
+      "I show down my card.",
+      "You show down your ace."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 75,
+    "phrasal": "feel around",
+    "meaning": "touch to find something in the dark",
+    "examples": [
+      "She feels around the box.",
+      "He feels around his bag."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 76,
+    "phrasal": "put up",
+    "meaning": "to place something high up",
+    "examples": [
+      "Mom put up shelf.",
+      "Dad put up clock."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 77,
+    "phrasal": "put up with",
+    "meaning": "to tolerate or endure something annoying",
+    "examples": [
+      "The kids put up with a boring ride.",
+      "She put up with her brother's teasing."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 78,
+    "phrasal": "put down",
+    "meaning": "say something mean to hurt feelings",
+    "examples": [
+      "The boy put down his sister.",
+      "She put down her brother."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 79,
+    "phrasal": "put in",
+    "meaning": "to place something inside something else",
+    "examples": [
+      "She put in her book",
+      "He put in his pencil"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 80,
+    "phrasal": "put out",
+    "meaning": "to make someone unable to see",
+    "examples": [
+      "The big explosion put out eyes.",
+      "The strong glare put out eyes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 81,
+    "phrasal": "put off",
+    "meaning": "to delay doing something",
+    "examples": [
+      "I always put off my chores till Sunday.",
+      "She put off her project till next week."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 82,
+    "phrasal": "put on",
+    "meaning": "to wear clothes",
+    "examples": [
+      "Mom put on dress",
+      "I put on warm coat"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 83,
+    "phrasal": "put by",
+    "meaning": "save something for later",
+    "examples": [
+      "Mom put by food",
+      "They put by money"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 84,
+    "phrasal": "keep up",
+    "meaning": "to maintain or stay at the same level",
+    "examples": [
+      "My mom keeps up.",
+      "The dog keeps up."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 85,
+    "phrasal": "keep up with",
+    "meaning": "stay close to someone or something that is moving",
+    "examples": [
+      "It's hard to keep up with my fast friend.",
+      "The kids must keep up with their teacher outside."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 86,
+    "phrasal": "keep on",
+    "meaning": "to continue doing something",
+    "examples": [
+      "My mom keeps on cooking",
+      "The dog keeps on barking"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 87,
+    "phrasal": "keep out",
+    "meaning": "don't go inside",
+    "examples": [
+      "Signs say keep out",
+      "Keep out of pool"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 88,
+    "phrasal": "keep away",
+    "meaning": "not come near something",
+    "examples": [
+      "We keep away birds.",
+      "They keep away bees."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 89,
+    "phrasal": "keep down",
+    "meaning": "to control your feelings or reactions",
+    "examples": [
+      "The girl keeps down her tears when sad.",
+      "The boy keeps down his loud laughter."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 90,
+    "phrasal": "keep out of",
+    "meaning": "stay away from something",
+    "examples": [
+      "Keep out of trouble.",
+      "Keep out of fights."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 91,
+    "phrasal": "keep it up",
+    "meaning": "continue doing something good",
+    "examples": [
+      "My team keeps it up",
+      "You keep it up today"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 92,
+    "phrasal": "play in",
+    "meaning": "get used to batting",
+    "examples": [
+      "The boy plays in slowly.",
+      "The girl plays in well."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 93,
+    "phrasal": "play on",
+    "meaning": "to use someone's feelings to get what you want",
+    "examples": [
+      "The bully likes to play on my worries.",
+      "He will play on my fears every day."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 94,
+    "phrasal": "play up",
+    "meaning": "to misbehave or act naughty",
+    "examples": [
+      "My brother plays up sometimes.",
+      "The kids play up outside."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 95,
+    "phrasal": "play along",
+    "meaning": "pretend something is true to help a joke",
+    "examples": [
+      "My friend plays along well.",
+      "We play along every day."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 96,
+    "phrasal": "play around",
+    "meaning": "behave in a silly way",
+    "examples": [
+      "The boys play around too much.",
+      "Girls play around sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 97,
+    "phrasal": "play off",
+    "meaning": "to show or make something seem a certain way",
+    "examples": [
+      "The actress can play off as a kind queen.",
+      "The kids play off like they're on a treasure hunt."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 98,
+    "phrasal": "play out",
+    "meaning": "to play something, like a game, until it ends",
+    "examples": [
+      "The team will play out soccer.",
+      "Let's play out a board game."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 99,
+    "phrasal": "play about",
+    "meaning": "have fun and not be serious",
+    "examples": [
+      "Children play about in park",
+      "They play about with toys"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 100,
+    "phrasal": "let on",
+    "meaning": "accidentally tell a secret",
+    "examples": [
+      "My brother lets on a secret",
+      "She didn't let on anything"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 101,
+    "phrasal": "let in",
+    "meaning": "Let someone or something come inside",
+    "examples": [
+      "The host let the guests in.",
+      "The coach let the team in."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 102,
+    "phrasal": "let down",
+    "meaning": "allow something or someone to come down",
+    "examples": [
+      "They let down the flag.",
+      "Let down your hair."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 103,
+    "phrasal": "let off",
+    "meaning": "make something go off or release",
+    "examples": [
+      "The firework let off colorful sparks outside.",
+      "The machine let off steam into the air."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 104,
+    "phrasal": "let out",
+    "meaning": "set free or release something",
+    "examples": [
+      "The zoo lets out animals.",
+      "They lets out big dogs."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 105,
+    "phrasal": "set up",
+    "meaning": "make something ready to use",
+    "examples": [
+      "The company sets up a new office.",
+      "My friend sets up a tent."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 106,
+    "phrasal": "set apart",
+    "meaning": "choose for a special job",
+    "examples": [
+      "The teacher sets apart helpers.",
+      "She sets apart her friends."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 107,
+    "phrasal": "set back",
+    "meaning": "make something happen later",
+    "examples": [
+      "The storm sets back our plans",
+      "Rain sets back the party"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 108,
+    "phrasal": "set aside",
+    "meaning": "save something for later use",
+    "examples": [
+      "I set aside my favorite toy.",
+      "She sets aside her book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 109,
+    "phrasal": "set about",
+    "meaning": "start doing something",
+    "examples": [
+      "The dog sets about chasing a ball.",
+      "We set about cleaning our room."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 110,
+    "phrasal": "set forth",
+    "meaning": "say or write something clearly",
+    "examples": [
+      "The teacher set forth rules.",
+      "We set forth our plan."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 111,
+    "phrasal": "set out",
+    "meaning": "explain something in writing",
+    "examples": [
+      "The teacher set out instructions.",
+      "We set out our ideas."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 112,
+    "phrasal": "set off",
+    "meaning": "to leave a place",
+    "examples": [
+      "My mom set off early.",
+      "We set off to school."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 113,
+    "phrasal": "live down",
+    "meaning": "to continue living in a way that shows people they were wrong about you",
+    "examples": [
+      "The student wants to live down her past mistakes.",
+      "He tries hard to live down his brother's teasing."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 114,
+    "phrasal": "read out",
+    "meaning": "say words from a book or paper to others",
+    "examples": [
+      "The teacher reads out stories.",
+      "We read out messages."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 115,
+    "phrasal": "live on",
+    "meaning": "keep going through hard times",
+    "examples": [
+      "The family lives on love.",
+      "They live on hope."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 116,
+    "phrasal": "change up",
+    "meaning": "throw a slow pitch",
+    "examples": [
+      "The pitcher will change up now.",
+      "He tries to change up fast."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 117,
+    "phrasal": "live off",
+    "meaning": "to depend on someone or something for money",
+    "examples": [
+      "The student lives off her parents' money.",
+      "The city lives off tourist money."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 118,
+    "phrasal": "read up",
+    "meaning": "learn by reading books",
+    "examples": [
+      "I read up on dogs.",
+      "She reads up every day."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 119,
+    "phrasal": "read off",
+    "meaning": "say items from a list",
+    "examples": [
+      "The teacher reads off scores.",
+      "She reads off the names."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 120,
+    "phrasal": "read in",
+    "meaning": "put information into a computer",
+    "examples": [
+      "The computer reads in information.",
+      "She reads in her password."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 121,
+    "phrasal": "live in",
+    "meaning": "to live where you work",
+    "examples": [
+      "The nanny lives in here.",
+      "The cook will live in tomorrow."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 122,
+    "phrasal": "live out",
+    "meaning": "not living where you work",
+    "examples": [
+      "The maid lives out.",
+      "She lives out daily."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 123,
+    "phrasal": "read through",
+    "meaning": "read carefully to check",
+    "examples": [
+      "Mom reads through paper.",
+      "She reads through mail."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 124,
+    "phrasal": "read over",
+    "meaning": "to read something again",
+    "examples": [
+      "I read over my paper.",
+      "She read over her story."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 125,
+    "phrasal": "live together",
+    "meaning": "Live together as a couple without being married",
+    "examples": [
+      "Some people live together before marriage.",
+      "My aunt and uncle live together."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 126,
+    "phrasal": "tell off",
+    "meaning": "scold someone strongly",
+    "examples": [
+      "The teacher tells off students.",
+      "Mom tells off my sister."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 127,
+    "phrasal": "tell on",
+    "meaning": "to inform someone about another's bad behavior",
+    "examples": [
+      "My sister tells on me always.",
+      "I tell on my brother sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 128,
+    "phrasal": "stop up",
+    "meaning": "fill a hole or block with something",
+    "examples": [
+      "I stop up the hole quickly.",
+      "She stops up the small hole."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 129,
+    "phrasal": "stop off",
+    "meaning": "make a short visit on the way",
+    "examples": [
+      "My mom stop off at the post office today.",
+      "We stop off at the library on Fridays."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 130,
+    "phrasal": "stop by",
+    "meaning": "visit someone for a short time",
+    "examples": [
+      "I stop by my friend's house.",
+      "Mom stops by the store today."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 131,
+    "phrasal": "stop out",
+    "meaning": "covering areas not to be etched",
+    "examples": [
+      "The artist stops out areas carefully.",
+      "We stops out the design."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 132,
+    "phrasal": "call back",
+    "meaning": "ask someone to come back",
+    "examples": [
+      "The principal calls back the kids.",
+      "Kids call back their friends home."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 133,
+    "phrasal": "call on",
+    "meaning": "to go visit someone",
+    "examples": [
+      "The family calls on their relatives for holidays.",
+      "She calls on her friend to study together."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 134,
+    "phrasal": "call out",
+    "meaning": "to say or write exactly what something is",
+    "examples": [
+      "The instructor calls out directions.",
+      "He calls out the ingredients."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 135,
+    "phrasal": "call in",
+    "meaning": "use phone to talk to base",
+    "examples": [
+      "The pilot calls in now.",
+      "Mom calls in help."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 136,
+    "phrasal": "call off",
+    "meaning": "to stop something that was planned",
+    "examples": [
+      "The teacher calls off class.",
+      "They call off the game."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 137,
+    "phrasal": "call up",
+    "meaning": "to remember or find something in your memory",
+    "examples": [
+      "She calls up her password from memory.",
+      "He calls up the map on his tablet."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 138,
+    "phrasal": "call forth",
+    "meaning": "to ask someone to come and speak",
+    "examples": [
+      "The principal calls forth students.",
+      "She calls forth her friend."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 139,
+    "phrasal": "call down",
+    "meaning": "pray for something to happen",
+    "examples": [
+      "They call down good weather.",
+      "People call down blessings."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 140,
+    "phrasal": "try on",
+    "meaning": "wear clothes to see if they fit",
+    "examples": [
+      "The girl tries on a pretty skirt.",
+      "He tries on his brother's jacket."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 141,
+    "phrasal": "try out",
+    "meaning": "test something to see if it works",
+    "examples": [
+      "The kids try out the new swings.",
+      "I try out my new roller skates today."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 142,
+    "phrasal": "try it on",
+    "meaning": "see how much someone will let you get away with",
+    "examples": [
+      "The student tries it on with the new teacher.",
+      "She tries it on to see how far she can go."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 143,
+    "phrasal": "run down",
+    "meaning": "hit someone with a vehicle",
+    "examples": [
+      "The car runs down lady.",
+      "Big truck runs down man."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 144,
+    "phrasal": "run off",
+    "meaning": "to leave quickly by running",
+    "examples": [
+      "The kids run off quickly outside.",
+      "The dog runs off to play."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 145,
+    "phrasal": "run out",
+    "meaning": "to use up everything",
+    "examples": [
+      "The kids run out of money quickly.",
+      "The store will run out of books."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 146,
+    "phrasal": "run up",
+    "meaning": "to run quickly to a place",
+    "examples": [
+      "The dog runs up quickly.",
+      "The cat runs up the hill."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 147,
+    "phrasal": "run over",
+    "meaning": "go past the time limit",
+    "examples": [
+      "The meeting runs over time.",
+      "My favorite show runs over."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 148,
+    "phrasal": "run away",
+    "meaning": "to quickly run from a place",
+    "examples": [
+      "The dog runs away quickly.",
+      "The kids run away outside."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 149,
+    "phrasal": "run in",
+    "meaning": "to catch and take someone to jail",
+    "examples": [
+      "The police have to run in the robber.",
+      "They will run in anyone who breaks laws."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 150,
+    "phrasal": "run on",
+    "meaning": "keep going without stopping",
+    "examples": [
+      "The machine runs on energy",
+      "The music runs on"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 151,
+    "phrasal": "talk up",
+    "meaning": "say good things about something",
+    "examples": [
+      "Friends talk up games.",
+      "Teachers talk up books."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 152,
+    "phrasal": "talk over",
+    "meaning": "discuss something with others",
+    "examples": [
+      "The team talks over plans.",
+      "They talk over their project."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 153,
+    "phrasal": "talk back",
+    "meaning": "to answer someone in a rude way",
+    "examples": [
+      "The student talks back to the principal.",
+      "My friend talks back to her mom."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 154,
+    "phrasal": "talk down",
+    "meaning": "ask for a lower price",
+    "examples": [
+      "Mom talks down price",
+      "She talks down nicely"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 155,
+    "phrasal": "talk about",
+    "meaning": "say things about someone or something",
+    "examples": [
+      "They talk about school",
+      "I talk about friends"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 156,
+    "phrasal": "talk out",
+    "meaning": "solve a problem by discussing",
+    "examples": [
+      "We talk out our issues",
+      "Friends talk out problems"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 157,
+    "phrasal": "talk through",
+    "meaning": "explain something step by step",
+    "examples": [
+      "The teacher will talk through the math problem.",
+      "My mom will talk through how to ride a bike."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 158,
+    "phrasal": "pay off",
+    "meaning": "to give money to someone so they do what you want",
+    "examples": [
+      "The man pays off police.",
+      "Police pays off not."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 159,
+    "phrasal": "pay back",
+    "meaning": "give back all the money you owe",
+    "examples": [
+      "I pay back my friend",
+      "He pays back the money"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 160,
+    "phrasal": "pay out",
+    "meaning": "give money to people",
+    "examples": [
+      "The bank pays out money.",
+      "They pay out cash today."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 161,
+    "phrasal": "fuck around",
+    "meaning": "to waste time doing nothing important",
+    "examples": [
+      "My brother fucks around all day outside.",
+      "Don't fuck around, finish your puzzle."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 162,
+    "phrasal": "fuck off",
+    "meaning": "go away and leave me alone",
+    "examples": [
+      "The kids fuck off quickly",
+      "They fuck off to bed"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 163,
+    "phrasal": "fuck up",
+    "meaning": "to make a mistake or do something wrong",
+    "examples": [
+      "The kid fucks up his homework again.",
+      "I sometimes fuck up my reading."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 164,
+    "phrasal": "fuck about",
+    "meaning": "mess around and waste time",
+    "examples": [
+      "My brother fucks about on his phone.",
+      "We shouldn't fuck about during tests."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 165,
+    "phrasal": "win back",
+    "meaning": "get something back that you lost",
+    "examples": [
+      "I try to win back friend",
+      "She wins back favorite book"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 166,
+    "phrasal": "fuck it up",
+    "meaning": "do something very badly",
+    "examples": [
+      "He always fucks it up somehow.",
+      "She fucks it up every time."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 167,
+    "phrasal": "close out",
+    "meaning": "to stop or end something",
+    "examples": [
+      "The store closes out sales.",
+      "I close out my book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 168,
+    "phrasal": "close in on",
+    "meaning": "to move closer and surround something",
+    "examples": [
+      "The police close in on the suspect.",
+      "The crowd closes in on the performer."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 169,
+    "phrasal": "close down",
+    "meaning": "stop a business from working",
+    "examples": [
+      "My dad's store will close down.",
+      "The old shop close down."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 170,
+    "phrasal": "close up",
+    "meaning": "to shut something completely",
+    "examples": [
+      "The store will close up early.",
+      "She helps close up shop."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 171,
+    "phrasal": "close in",
+    "meaning": "to surround and trap something inside",
+    "examples": [
+      "The big gate closes in animals.",
+      "The door closes in kids."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 172,
+    "phrasal": "wait on",
+    "meaning": "to serve or help someone",
+    "examples": [
+      "The restaurant staff will wait on us tonight.",
+      "The doctor's assistant will wait on the doctor."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 173,
+    "phrasal": "wait up",
+    "meaning": "stay awake for someone coming back",
+    "examples": [
+      "My mom waits up for me.",
+      "I wait up for dad."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 174,
+    "phrasal": "move on",
+    "meaning": "continue to the next thing",
+    "examples": [
+      "I move on to play",
+      "She moves on quickly"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 175,
+    "phrasal": "move out",
+    "meaning": "leave the place you are in",
+    "examples": [
+      "My family moves out today.",
+      "They move out soon."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 176,
+    "phrasal": "move down",
+    "meaning": "to give someone a lower position",
+    "examples": [
+      "The manager moved down my friend to a helper.",
+      "The teacher moved down the student to a lower class."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 177,
+    "phrasal": "move up",
+    "meaning": "put something higher",
+    "examples": [
+      "We move up the picture.",
+      "She moves up her chair."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 178,
+    "phrasal": "move in",
+    "meaning": "start living in a new place",
+    "examples": [
+      "My family moves in today",
+      "They move in upstairs"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 179,
+    "phrasal": "move in on",
+    "meaning": "get closer to catch something",
+    "examples": [
+      "The dog moves in on squirrel",
+      "Cat moves in on little bird"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 180,
+    "phrasal": "move along",
+    "meaning": "Keep going and don't get distracted",
+    "examples": [
+      "The teacher told us to move along with our work.",
+      "Move along, don't stop to talk right now."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 181,
+    "phrasal": "move away",
+    "meaning": "to leave a place and go live somewhere else",
+    "examples": [
+      "My family will move away soon.",
+      "They move away to city."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 182,
+    "phrasal": "leave out",
+    "meaning": "not include something",
+    "examples": [
+      "I leave out my favorite game",
+      "She leaves out important details"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 183,
+    "phrasal": "leave over",
+    "meaning": "let some food stay uneaten",
+    "examples": [
+      "We leave over food tonight.",
+      "Mom leaves over cookies."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 184,
+    "phrasal": "ask round",
+    "meaning": "Ask many people for information or help",
+    "examples": [
+      "The teacher will ask round for answers.",
+      "Ask round who wants to play outside."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 185,
+    "phrasal": "leave off",
+    "meaning": "stop including something",
+    "examples": [
+      "We leave off big words.",
+      "I leave off hard questions."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 186,
+    "phrasal": "saw off",
+    "meaning": "cut something off with a saw",
+    "examples": [
+      "The carpenter saws off old wood.",
+      "He saw off the broken chair leg."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 187,
+    "phrasal": "leave it out",
+    "meaning": "stop doing something",
+    "examples": [
+      "Please leave it out, it's not helpful.",
+      "Leave it out, we are in class now."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 188,
+    "phrasal": "ask back",
+    "meaning": "invite someone for another interview",
+    "examples": [
+      "The company asks back workers.",
+      "Teachers ask back students."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 189,
+    "phrasal": "stay up",
+    "meaning": "stay awake late",
+    "examples": [
+      "I stay up late tonight.",
+      "My mom stays up."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 190,
+    "phrasal": "stay in",
+    "meaning": "remain at home",
+    "examples": [
+      "My mom stays in today.",
+      "I stay in with friends."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 191,
+    "phrasal": "stay on",
+    "meaning": "keep going or staying in a place",
+    "examples": [
+      "The teacher asked me to stay on.",
+      "My friend will leave, but I stay on."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 192,
+    "phrasal": "stay out",
+    "meaning": "spend time outside home",
+    "examples": [
+      "I stay out with friends.",
+      "They stay out very late."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 193,
+    "phrasal": "stay back",
+    "meaning": "remain at a place",
+    "examples": [
+      "My mom stays back late.",
+      "The teacher stays back."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 194,
+    "phrasal": "buy out",
+    "meaning": "buy all of something",
+    "examples": [
+      "The store buys out toys fast",
+      "She buys out all candy"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 195,
+    "phrasal": "buy off",
+    "meaning": "to pay or give something to make someone stop doing something or be quiet",
+    "examples": [
+      "The manager bought off the protesters with food.",
+      "The company bought off the critics with gifts."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 196,
+    "phrasal": "buy back",
+    "meaning": "to purchase something again",
+    "examples": [
+      "I buy back my toy.",
+      "She buys back her book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 197,
+    "phrasal": "buy up",
+    "meaning": "to buy the whole amount of something",
+    "examples": [
+      "The company buys up all shares",
+      "People buy up fresh food"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 198,
+    "phrasal": "buy in",
+    "meaning": "accept an idea as true",
+    "examples": [
+      "My mom buys in easily.",
+      "Dad buys in sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 199,
+    "phrasal": "report back",
+    "meaning": "Tell someone about what you found out or did",
+    "examples": [
+      "The student will report back to the class.",
+      "He has to report back to his teacher today."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 200,
+    "phrasal": "buy out from under",
+    "meaning": "to buy something that someone else was planning to buy",
+    "examples": [
+      "The store buys out from under other buyers.",
+      "She buys out from under her sister."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 201,
+    "phrasal": "bring about",
+    "meaning": "make something happen",
+    "examples": [
+      "The new playground will bring about excitement.",
+      "The school play will bring about laughter."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 202,
+    "phrasal": "bring up",
+    "meaning": "to talk about something",
+    "examples": [
+      "Mom brings up park.",
+      "Dad brings up bike."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 203,
+    "phrasal": "bring forth",
+    "meaning": "to make something grow or appear",
+    "examples": [
+      "The farmer's garden brings forth fresh vegetables.",
+      "The tree takes time to bring forth fruit."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 204,
+    "phrasal": "bring down",
+    "meaning": "make someone lose their power or importance",
+    "examples": [
+      "The team brings down captain.",
+      "Captain brings down teammate"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 205,
+    "phrasal": "bring round",
+    "meaning": "to carry something with you when you come",
+    "examples": [
+      "My mom brings round food",
+      "Dad brings round tools"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 206,
+    "phrasal": "bring in",
+    "meaning": "to move something into a place",
+    "examples": [
+      "We bring in our books.",
+      "Mom brings in groceries."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 207,
+    "phrasal": "bring out",
+    "meaning": "to make something appear or become clear",
+    "examples": [
+      "The speaker brings out important ideas slowly.",
+      "The artist brings out the beauty in nature."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 208,
+    "phrasal": "bring back",
+    "meaning": "to fetch something",
+    "examples": [
+      "Mom brings back milk",
+      "Dad brings back paper"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 209,
+    "phrasal": "meet up",
+    "meaning": "come together with friends",
+    "examples": [
+      "My friends meet up today",
+      "We meet up at park"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 210,
+    "phrasal": "cut in",
+    "meaning": "say something when someone else is talking",
+    "examples": [
+      "My friend cut in quickly.",
+      "She cut in again."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 211,
+    "phrasal": "cut down",
+    "meaning": "to cut something down, usually a tree",
+    "examples": [
+      "The kids will cut down a small sapling.",
+      "The gardener will cut down the dead tree."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 212,
+    "phrasal": "cut off",
+    "meaning": "remove by cutting something",
+    "examples": [
+      "The gardener cut off branches.",
+      "She cut off old flowers."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 213,
+    "phrasal": "cut out",
+    "meaning": "stop doing something",
+    "examples": [
+      "I cut out playing video",
+      "She cuts out watching TV"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 214,
+    "phrasal": "cut up",
+    "meaning": "to cut from bottom to top",
+    "examples": [
+      "The man cut up the big tree.",
+      "We cut up the old wood."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 215,
+    "phrasal": "cut back",
+    "meaning": "to reduce or make something smaller",
+    "examples": [
+      "The store will cut back on toys.",
+      "We need to cut back on sweets."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 216,
+    "phrasal": "cut through",
+    "meaning": "to quickly deal with something or someone",
+    "examples": [
+      "The teacher cuts through noise.",
+      "We cut through red tape."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 217,
+    "phrasal": "cut across",
+    "meaning": "take a shortcut over or through something",
+    "examples": [
+      "I cut across the field fast",
+      "She cut across the park quickly"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 218,
+    "phrasal": "fight back",
+    "meaning": "defend oneself by fighting",
+    "examples": [
+      "The kid fights back loudly.",
+      "We fight back every day."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 219,
+    "phrasal": "fight off",
+    "meaning": "to successfully defend against something or someone",
+    "examples": [
+      "The city will fight off the strong storm tonight.",
+      "The team must fight off their opponents to win."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 220,
+    "phrasal": "fight up",
+    "meaning": "fight very strongly",
+    "examples": [
+      "Big kids fight up loudly.",
+      "They fight up every day."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 221,
+    "phrasal": "hold up",
+    "meaning": "to wait or make something late",
+    "examples": [
+      "She will hold up class.",
+      "Hold up your book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 222,
+    "phrasal": "hold on",
+    "meaning": "to grasp something tightly",
+    "examples": [
+      "He holds on to rope.",
+      "Hold on to handle."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 223,
+    "phrasal": "hold out",
+    "meaning": "to wait and not give up",
+    "examples": [
+      "The team will hold out for a better score.",
+      "She had to hold out for a longer turn."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 224,
+    "phrasal": "hold off",
+    "meaning": "wait for a little while",
+    "examples": [
+      "I will hold off today.",
+      "She holds off her friends."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 225,
+    "phrasal": "hold back",
+    "meaning": "not show all your feelings",
+    "examples": [
+      "My friend holds back laughter.",
+      "She holds back happy feelings."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 226,
+    "phrasal": "hold over",
+    "meaning": "help someone for a little while",
+    "examples": [
+      "My mom holds over me.",
+      "Food holds over my brother."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 227,
+    "phrasal": "hold forth",
+    "meaning": "to offer or give an idea or opinion",
+    "examples": [
+      "The friend hold forth an idea.",
+      "The kid hold forth a story."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 228,
+    "phrasal": "hold down",
+    "meaning": "to keep someone or something from moving",
+    "examples": [
+      "My mom holds down baby brother.",
+      "The teacher holds down angry boy."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 229,
+    "phrasal": "happen by",
+    "meaning": "find something by accident",
+    "examples": [
+      "We happen by park",
+      "They happen by store"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 230,
+    "phrasal": "break down",
+    "meaning": "when something stops working",
+    "examples": [
+      "The old bike breaks down.",
+      "My friend's toy breaks down."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 231,
+    "phrasal": "break in",
+    "meaning": "to enter a place by force or secretly",
+    "examples": [
+      "The burglar tried to break in at night.",
+      "We must lock doors so they can't break in."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 232,
+    "phrasal": "break out",
+    "meaning": "to escape or get free",
+    "examples": [
+      "The kid breaks out fast.",
+      "Dog breaks out quickly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 233,
+    "phrasal": "break up",
+    "meaning": "separate into little pieces",
+    "examples": [
+      "The toy robot breaks up.",
+      "My cookie breaks up easily."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 234,
+    "phrasal": "break away",
+    "meaning": "to leave or move away quickly",
+    "examples": [
+      "The student will break away from class.",
+      "The puppy will break away from its leash."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 235,
+    "phrasal": "break off",
+    "meaning": "to snap a part from something",
+    "examples": [
+      "The kid breaks off a branch.",
+      "She breaks off a piece."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 236,
+    "phrasal": "break through",
+    "meaning": "become very popular",
+    "examples": [
+      "The singer breaks through online.",
+      "Her song breaks through quickly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 237,
+    "phrasal": "break apart",
+    "meaning": "to take something apart into small pieces",
+    "examples": [
+      "The kids broke apart the big toy box.",
+      "The machine broke apart into small parts."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 238,
+    "phrasal": "follow on",
+    "meaning": "happens next in order",
+    "examples": [
+      "The next song follows on.",
+      "My turn follows on yours."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 239,
+    "phrasal": "follow through",
+    "meaning": "do what you promised",
+    "examples": [
+      "My mom follows through promises.",
+      "Dad follows through plans."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 240,
+    "phrasal": "fall through",
+    "meaning": "when a plan doesn't work",
+    "examples": [
+      "The show falls through",
+      "My idea falls through"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 241,
+    "phrasal": "drive out",
+    "meaning": "to make someone or something leave a place",
+    "examples": [
+      "The strong wind will drive out the rain.",
+      "The noise will drive out the kids outside."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 242,
+    "phrasal": "eat out",
+    "meaning": "dine at a restaurant",
+    "examples": [
+      "We eat out tonight.",
+      "They eat out daily."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 243,
+    "phrasal": "fall in",
+    "meaning": "something collapses inside",
+    "examples": [
+      "The empty bucket fell in easily.",
+      "The tunnel fell in slowly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 244,
+    "phrasal": "fall out",
+    "meaning": "to come out of something by falling",
+    "examples": [
+      "The apple will fall out of tree.",
+      "The toy fell out of box."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 245,
+    "phrasal": "drive off",
+    "meaning": "make someone leave a place",
+    "examples": [
+      "The big dog drives off cats",
+      "Kids drive off stray cats"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 246,
+    "phrasal": "eat up",
+    "meaning": "finish all the food",
+    "examples": [
+      "I eat up my lunch",
+      "She eats up dinner"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 247,
+    "phrasal": "drive away",
+    "meaning": "force someone or something to leave",
+    "examples": [
+      "This car's a real bargain, and you could drive it away this afternoon!",
+      "I managed to drive the vultures away by shouting and waving my arms about."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 248,
+    "phrasal": "fall apart",
+    "meaning": "to break into small pieces",
+    "examples": [
+      "The broken toy will fall apart soon.",
+      "The old chair started to fall apart slowly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 249,
+    "phrasal": "fall off",
+    "meaning": "something drops from something else",
+    "examples": [
+      "Book falls off shelf now",
+      "Wheel falls off bike"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 250,
+    "phrasal": "fall over",
+    "meaning": "to fall down from standing up",
+    "examples": [
+      "The girl falls over outside.",
+      "My friend falls over sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 251,
+    "phrasal": "fall away",
+    "meaning": "stop helping someone",
+    "examples": [
+      "My best friends fall away.",
+      "The team falls away."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 252,
+    "phrasal": "fall back",
+    "meaning": "move back or retreat",
+    "examples": [
+      "The army has to fall back now.",
+      "The team will fall back to their base."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 253,
+    "phrasal": "eat away",
+    "meaning": "when something slowly damages another thing",
+    "examples": [
+      "The acid eats away metal fast.",
+      "Water eats away the big rock."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 254,
+    "phrasal": "eat in",
+    "meaning": "have a meal at home",
+    "examples": [
+      "I like to eat in.",
+      "My family eats in together."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 255,
+    "phrasal": "drive in",
+    "meaning": "hit ball to score run",
+    "examples": [
+      "He drives ball in.",
+      "Team member drives in."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 256,
+    "phrasal": "drive down",
+    "meaning": "to make something cost less money",
+    "examples": [
+      "The competition will drive down the prices low.",
+      "The sale helped drive down the cost."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 257,
+    "phrasal": "eat away at",
+    "meaning": "to slowly destroy something",
+    "examples": [
+      "The ocean eats away at cliffs.",
+      "Rain eats away at soil."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 258,
+    "phrasal": "drive up",
+    "meaning": "make something cost more",
+    "examples": [
+      "High demand drives up cost",
+      "Prices drive up quickly"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 259,
+    "phrasal": "send off",
+    "meaning": "to send someone or something to a place",
+    "examples": [
+      "The teacher helps send off the homework.",
+      "We send off a message to our team."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 260,
+    "phrasal": "send down",
+    "meaning": "move something from up high to down low",
+    "examples": [
+      "The librarian sends down a heavy book.",
+      "The mom sends down a basket of toys."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 261,
+    "phrasal": "send out",
+    "meaning": "to give or transmit something to others",
+    "examples": [
+      "The company sends out emails.",
+      "She sends out invitations."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 262,
+    "phrasal": "send up",
+    "meaning": "make fun of someone by copying them",
+    "examples": [
+      "The comedian sends up famous people.",
+      "He sends up his brother."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 263,
+    "phrasal": "send away",
+    "meaning": "tell someone to leave",
+    "examples": [
+      "The teacher sends away students.",
+      "Mom sends away little brother."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 264,
+    "phrasal": "send back",
+    "meaning": "to return something to where it came from",
+    "examples": [
+      "The store will send back my toy.",
+      "I want to send back this book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 265,
+    "phrasal": "send in",
+    "meaning": "give something when visiting someone",
+    "examples": [
+      "I send in flowers today.",
+      "She sends in cookies too."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 266,
+    "phrasal": "send around",
+    "meaning": "share with others",
+    "examples": [
+      "My mom sends around emails",
+      "Dad sends around pictures"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 267,
+    "phrasal": "walk out",
+    "meaning": "to stop work or leave a place as a group to protest",
+    "examples": [
+      "The kids walk out of class to protest.",
+      "The team walk out of the game together."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 268,
+    "phrasal": "walk away from",
+    "meaning": "stop being part of something",
+    "examples": [
+      "I walk away from games",
+      "She walks away from friends"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 269,
+    "phrasal": "lose out",
+    "meaning": "be at a disadvantage",
+    "examples": [
+      "They lose out sometimes.",
+      "We lose out too."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 270,
+    "phrasal": "walk away",
+    "meaning": "leave a bad situation alone",
+    "examples": [
+      "We walk away slowly.",
+      "They walk away from trouble."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 271,
+    "phrasal": "walk back",
+    "meaning": "to take back what you said",
+    "examples": [
+      "The boy walk back his angry statement now.",
+      "She didn't mean it, so she walk back."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 272,
+    "phrasal": "walk over",
+    "meaning": "win very easily",
+    "examples": [
+      "Our team walks over theirs.",
+      "They walk over their friends."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 273,
+    "phrasal": "walk off",
+    "meaning": "get better by walking",
+    "examples": [
+      "I walk off slowly.",
+      "She walks off outside."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 274,
+    "phrasal": "walk through",
+    "meaning": "explain step by step",
+    "examples": [
+      "The teacher walks us through math.",
+      "She walks me through my homework."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 275,
+    "phrasal": "walk off with",
+    "meaning": "to secretly take something that doesn't belong to you",
+    "examples": [
+      "The naughty boy will walk off with my pen.",
+      "She likes to walk off with her friend's toys."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 276,
+    "phrasal": "die out",
+    "meaning": "when a type of animal disappears forever",
+    "examples": [
+      "Many plants die out slowly.",
+      "Small birds die out too."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 277,
+    "phrasal": "die off",
+    "meaning": "when many living things stop living",
+    "examples": [
+      "The old fish die off.",
+      "Sick plants die off."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 278,
+    "phrasal": "die away",
+    "meaning": "get weaker and disappear slowly",
+    "examples": [
+      "The loud music dies away.",
+      "Her voice dies away."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 279,
+    "phrasal": "listen in",
+    "meaning": "to listen to a conversation without joining in",
+    "examples": [
+      "I like to listen in on grown-ups talking.",
+      "My friend listens in on our teacher's phone call."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 280,
+    "phrasal": "forget about",
+    "meaning": "not think about something",
+    "examples": [
+      "My mom forgets about lunch",
+      "I forget about my friend"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 281,
+    "phrasal": "pass away",
+    "meaning": "die or stop living",
+    "examples": [
+      "The old dog passed away.",
+      "She passed away yesterday."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 282,
+    "phrasal": "sleep together",
+    "meaning": "grown-ups love each other",
+    "examples": [
+      "Mom and dad sleep together tonight.",
+      "Grown-ups sleep together sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 283,
+    "phrasal": "pass on",
+    "meaning": "to move forward or go ahead",
+    "examples": [
+      "The hikers will pass on to the next trail.",
+      "The students pass on to their next class."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 284,
+    "phrasal": "pass out",
+    "meaning": "fall asleep or faint",
+    "examples": [
+      "My sister passed out quickly.",
+      "The boy passed out today."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 285,
+    "phrasal": "pass over",
+    "meaning": "choose something else instead",
+    "examples": [
+      "I pass over old book",
+      "She passes over small bike"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 286,
+    "phrasal": "sleep in",
+    "meaning": "sleep late in the morning",
+    "examples": [
+      "I sleep in on Sundays.",
+      "My mom sleeps in late."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 287,
+    "phrasal": "pass through",
+    "meaning": "to travel through a place",
+    "examples": [
+      "The tourists pass through our city on vacation.",
+      "The highway passes through the mountains."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 288,
+    "phrasal": "pass off",
+    "meaning": "something that happens",
+    "examples": [
+      "The day passes off slowly.",
+      "Summer passes off quickly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 289,
+    "phrasal": "sleep on",
+    "meaning": "wait until morning to decide",
+    "examples": [
+      "I will sleep on it tonight.",
+      "She sleeps on her idea"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 290,
+    "phrasal": "pass by",
+    "meaning": "go past something without stopping",
+    "examples": [
+      "The bus passes by school.",
+      "My mom passes by store."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 291,
+    "phrasal": "pass down",
+    "meaning": "to give something to someone younger or of a lower level",
+    "examples": [
+      "The company will pass down the award.",
+      "He will pass down his old bike."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 292,
+    "phrasal": "sleep out",
+    "meaning": "sleep outside at night",
+    "examples": [
+      "My friends sleep out often",
+      "We sleep out in tents"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 293,
+    "phrasal": "build up",
+    "meaning": "to make something like a building",
+    "examples": [
+      "They build up big house",
+      "We build up small castle"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 294,
+    "phrasal": "build in",
+    "meaning": "add parts to something without changing its purpose",
+    "examples": [
+      "They build in new parts daily.",
+      "We build in small toys."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 295,
+    "phrasal": "write down",
+    "meaning": "to put words on paper",
+    "examples": [
+      "The student writes down her homework.",
+      "The teacher writes down a message."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 296,
+    "phrasal": "write out",
+    "meaning": "write something in full",
+    "examples": [
+      "The teacher writes out notes",
+      "Students write out stories"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 297,
+    "phrasal": "speak up",
+    "meaning": "talk louder or clearer",
+    "examples": [
+      "The boy speaks up loud.",
+      "We speak up clearly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 298,
+    "phrasal": "write off",
+    "meaning": "to stop counting something as valuable",
+    "examples": [
+      "The company writes off old computers.",
+      "We write off things that break."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 299,
+    "phrasal": "write up",
+    "meaning": "to create something by writing",
+    "examples": [
+      "The teacher asked me to write up a report.",
+      "She will write up a list of her favorite books."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 300,
+    "phrasal": "write in",
+    "meaning": "send a letter to someone",
+    "examples": [
+      "We write in journals.",
+      "They write in letters."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 301,
+    "phrasal": "join up",
+    "meaning": "come together as one",
+    "examples": [
+      "The kids join up groups",
+      "Teams join up together"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 302,
+    "phrasal": "join out",
+    "meaning": "join a group or team",
+    "examples": [
+      "My friend joins out today.",
+      "The boy joins out now."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 303,
+    "phrasal": "sell out",
+    "meaning": "to sell all of something",
+    "examples": [
+      "The new game will sell out quickly today.",
+      "The store will sell out of candy soon."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 304,
+    "phrasal": "sell down",
+    "meaning": "when things are sold and there are fewer left",
+    "examples": [
+      "The store sells down old toys.",
+      "Toys sell down very fast."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 305,
+    "phrasal": "sell on",
+    "meaning": "to sell something you bought to someone else",
+    "examples": [
+      "The store buys shoes and sells them on.",
+      "She sells her used dress on to her sister."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 306,
+    "phrasal": "sell up",
+    "meaning": "to sell a big thing you own",
+    "examples": [
+      "The old man sells up house.",
+      "The company will sell up."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 307,
+    "phrasal": "sell away",
+    "meaning": "to sell everything of something",
+    "examples": [
+      "The shop will sell away all the candies.",
+      "They sell away their used pencils."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 308,
+    "phrasal": "reach out",
+    "meaning": "put your hand forward to touch",
+    "examples": [
+      "The baby reaches out slowly.",
+      "Mom reaches out quickly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 309,
+    "phrasal": "reach down",
+    "meaning": "get something from a high place",
+    "examples": [
+      "My mom reaches down plates.",
+      "I reaches down my bag."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 310,
+    "phrasal": "wear off",
+    "meaning": "to become less strong or effective",
+    "examples": [
+      "The new bike's excitement will wear off.",
+      "The medicine's pain relief will wear off."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 311,
+    "phrasal": "wear out",
+    "meaning": "make something broken from using too much",
+    "examples": [
+      "The dog wears out toys quickly.",
+      "She wears out her favorite dress."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 312,
+    "phrasal": "wear down",
+    "meaning": "make someone very tired",
+    "examples": [
+      "The run wears me down.",
+      "The game wears him down."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 313,
+    "phrasal": "wear on",
+    "meaning": "to annoy or bother someone",
+    "examples": [
+      "My brother wears on me",
+      "Sister wears on brother"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 314,
+    "phrasal": "choose up",
+    "meaning": "Pick teams for a game",
+    "examples": [
+      "The kids choose up for a game quickly.",
+      "We choose up for teams every morning."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 315,
+    "phrasal": "sit up",
+    "meaning": "get up from lying down to sit",
+    "examples": [
+      "The baby sits up alone.",
+      "My brother sits up straight."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 316,
+    "phrasal": "sit down",
+    "meaning": "to go from standing to sitting",
+    "examples": [
+      "The boy sits down.",
+      "The girl sits down."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 317,
+    "phrasal": "sit out",
+    "meaning": "choose not to join in",
+    "examples": [
+      "My friend sits out games.",
+      "We sit out sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 318,
+    "phrasal": "grow up",
+    "meaning": "to become a grown-up",
+    "examples": [
+      "Children grow up and go to school.",
+      "People grow up and get jobs."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 319,
+    "phrasal": "sit on it",
+    "meaning": "leave something alone",
+    "examples": [
+      "My mom said sit on it.",
+      "Please sit on it okay."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 320,
+    "phrasal": "sit on",
+    "meaning": "to stop something from happening",
+    "examples": [
+      "They sit on ideas.",
+      "We sit on feelings."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 321,
+    "phrasal": "sit back",
+    "meaning": "lean back in your chair",
+    "examples": [
+      "I sit back now.",
+      "My mom sits back."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 322,
+    "phrasal": "grow on",
+    "meaning": "to become more likable to someone",
+    "examples": [
+      "The new student will grow on her.",
+      "The funny cartoon will grow on him."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 323,
+    "phrasal": "grow out of",
+    "meaning": "to come out or emerge from something",
+    "examples": [
+      "The seed grows out of the ground slowly.",
+      "The flower grows out of the pot quickly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 324,
+    "phrasal": "sit in",
+    "meaning": "be in a class or meeting",
+    "examples": [
+      "I sit in math class.",
+      "She sits in music."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 325,
+    "phrasal": "drink in",
+    "meaning": "take in and enjoy something",
+    "examples": [
+      "The kids drink in stories.",
+      "We drink in happy news."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 326,
+    "phrasal": "sit up with",
+    "meaning": "stay awake late to care for or keep someone company",
+    "examples": [
+      "My mom sits up with me when I feel sick.",
+      "I sit up with my friend who feels lonely."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 327,
+    "phrasal": "drink out",
+    "meaning": "finish a drink",
+    "examples": [
+      "I drink out my juice box.",
+      "She drinks out her favorite soda."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 328,
+    "phrasal": "carry off",
+    "meaning": "take something or someone away",
+    "examples": [
+      "The bus carries off kids home",
+      "Dad carries off big boxes"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 329,
+    "phrasal": "carry out",
+    "meaning": "hold something and move it outside",
+    "examples": [
+      "Mom carries out trash.",
+      "Dad carries out chair."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 330,
+    "phrasal": "carry on",
+    "meaning": "take bags on a plane with you",
+    "examples": [
+      "We carry on small bags.",
+      "They carry on their lunch."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 331,
+    "phrasal": "carry away",
+    "meaning": "take something that is not yours",
+    "examples": [
+      "The thief carries away money",
+      "Someone carries away my bike"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 332,
+    "phrasal": "carry over",
+    "meaning": "move something to a later time",
+    "examples": [
+      "The teacher will carry over the test to Friday.",
+      "We carry over our project to next week."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 333,
+    "phrasal": "carry through",
+    "meaning": "finish what you started",
+    "examples": [
+      "They carry through projects",
+      "I carry through homework"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 334,
+    "phrasal": "carry up",
+    "meaning": "to take or move something up",
+    "examples": [
+      "The elevator carries up people.",
+      "She carries up her brother."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 335,
+    "phrasal": "ride out",
+    "meaning": "stay safe in a big storm",
+    "examples": [
+      "The boat will ride out the storm.",
+      "People ride out big storms."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 336,
+    "phrasal": "ride down",
+    "meaning": "to make someone fall off while riding",
+    "examples": [
+      "The cowboy ride down the little girl quickly.",
+      "The horse ride down the boy on purpose."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 337,
+    "phrasal": "serve out",
+    "meaning": "win a game by serving",
+    "examples": [
+      "The tennis player serves out quickly.",
+      "He always serves out the game."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 338,
+    "phrasal": "ride up",
+    "meaning": "come near on a bike or horse",
+    "examples": [
+      "The boy rides up quickly.",
+      "She rides up to school."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 339,
+    "phrasal": "ride along",
+    "meaning": "go for a ride with another or others",
+    "examples": [
+      "Would you like to ride along to the store with us?",
+      "I rode along with my sister on her trip."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 340,
+    "phrasal": "serve up",
+    "meaning": "to give food to people to eat",
+    "examples": [
+      "The restaurant will serve up pizza tonight.",
+      "The cafeteria will serve up healthy meals."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 341,
+    "phrasal": "ride off",
+    "meaning": "ride a bike to avoid someone",
+    "examples": [
+      "The boy rides off fast",
+      "Girls ride off friends"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 342,
+    "phrasal": "ride up on",
+    "meaning": "surprise attack from a vehicle",
+    "examples": [
+      "The gang rides up on enemies",
+      "Enemies ride up on the gang"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 343,
+    "phrasal": "ride by",
+    "meaning": "to drive past someone or something quickly",
+    "examples": [
+      "The police car ride by our house quickly.",
+      "The ambulance ride by the hospital fast."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 344,
+    "phrasal": "lie down",
+    "meaning": "rest on a surface, like a bed",
+    "examples": [
+      "The baby lies down for a nap.",
+      "She likes to lie down outside."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 345,
+    "phrasal": "lie in",
+    "meaning": "a mom has a baby in bed",
+    "examples": [
+      "The mom lies in hospital bed.",
+      "She lies in to have baby."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 346,
+    "phrasal": "lie by",
+    "meaning": "be intimate with someone",
+    "examples": [
+      "Grownups lie by each other.",
+      "They love and lie by."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 347,
+    "phrasal": "lie around",
+    "meaning": "do nothing in particular",
+    "examples": [
+      "I lie around all day.",
+      "My mom lies around."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 348,
+    "phrasal": "lie back",
+    "meaning": "to lie down from sitting",
+    "examples": [
+      "I lie back in my chair slowly.",
+      "She lies back on the couch often."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 349,
+    "phrasal": "lie over",
+    "meaning": "put off until later",
+    "examples": [
+      "The party lies over weekend.",
+      "The test lies over Friday."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 350,
+    "phrasal": "count down",
+    "meaning": "say numbers to wait for something",
+    "examples": [
+      "Friends count down together.",
+      "We count down to birthday."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 351,
+    "phrasal": "count out",
+    "meaning": "to not include someone",
+    "examples": [
+      "The team counts out new players.",
+      "We count out slow runners."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 352,
+    "phrasal": "count in",
+    "meaning": "to include someone in a game or activity",
+    "examples": [
+      "Can I count in on the fun?",
+      "The teacher said I count in too."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 353,
+    "phrasal": "pull off",
+    "meaning": "take something off by pulling",
+    "examples": [
+      "The kid pulls off glove.",
+      "She pulls off dirty sock."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 354,
+    "phrasal": "pull down",
+    "meaning": "make something lower",
+    "examples": [
+      "They pull down shades.",
+      "We pull down curtain."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 355,
+    "phrasal": "pull out",
+    "meaning": "to take something out",
+    "examples": [
+      "The girl will pull out her pencil now.",
+      "He pull out his money to buy candy."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 356,
+    "phrasal": "pull over",
+    "meaning": "stop the car by the side of the road",
+    "examples": [
+      "The driver pulls over slowly.",
+      "She pulls over to park."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 357,
+    "phrasal": "pull away",
+    "meaning": "move ahead of others",
+    "examples": [
+      "My friend pulls away fast.",
+      "The winner pulls away first."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 358,
+    "phrasal": "pull up",
+    "meaning": "get something on the computer screen",
+    "examples": [
+      "She pulls up her email.",
+      "He pulls up a map."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 359,
+    "phrasal": "push off",
+    "meaning": "to go away or leave someone alone",
+    "examples": [
+      "The kids won't push off my sister.",
+      "Can you push off and let me play?"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 360,
+    "phrasal": "pull apart",
+    "meaning": "break into pieces when pulled",
+    "examples": [
+      "The rope pulls apart easily.",
+      "My toy car pulls apart sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 361,
+    "phrasal": "pull together",
+    "meaning": "work as a team for a goal",
+    "examples": [
+      "Classmates pull together easily.",
+      "The team pulls together well."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 362,
+    "phrasal": "push around",
+    "meaning": "treat someone mean and unfairly",
+    "examples": [
+      "The big kids push around little ones.",
+      "They push around their friends sometimes."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 363,
+    "phrasal": "push in",
+    "meaning": "to move in front of people in line",
+    "examples": [
+      "The kids push in at school lunch.",
+      "We shouldn't push in, it's not fair."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 364,
+    "phrasal": "push back",
+    "meaning": "argue against something",
+    "examples": [
+      "My mom pushes back strongly.",
+      "The kid pushes back loudly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 365,
+    "phrasal": "push on",
+    "meaning": "keep trying hard",
+    "examples": [
+      "We push on every day",
+      "I push on with friends"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 366,
+    "phrasal": "push through",
+    "meaning": "to make something move through something else",
+    "examples": [
+      "The teacher helps students push through the crowd.",
+      "The hikers push through the dense forest."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 367,
+    "phrasal": "push out",
+    "meaning": "force someone to leave a group",
+    "examples": [
+      "The club pushes out members who don't pay",
+      "They push out students who are very rude"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 368,
+    "phrasal": "push up",
+    "meaning": "make something higher",
+    "examples": [
+      "The man pushes up umbrella",
+      "Kids push up kite"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 369,
+    "phrasal": "click off",
+    "meaning": "to mark something on a list as done",
+    "examples": [
+      "I click off my toys list.",
+      "She clicks off her book list."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 370,
+    "phrasal": "draw back",
+    "meaning": "move back or away from something",
+    "examples": [
+      "The army had to draw back from the enemy.",
+      "The kids draw back from the loud noise."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 371,
+    "phrasal": "ring off",
+    "meaning": "hang up the phone",
+    "examples": [
+      "My mom rings off quickly.",
+      "Dad rings off the phone."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 372,
+    "phrasal": "ring up",
+    "meaning": "to call someone on the phone",
+    "examples": [
+      "My dad rings up his office.",
+      "I ring up my big sister."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 373,
+    "phrasal": "draw out",
+    "meaning": "make something last longer than needed",
+    "examples": [
+      "The teacher draws out lessons",
+      "Students draw out breaks"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 374,
+    "phrasal": "ring out",
+    "meaning": "to throw someone out of a competition area and win",
+    "examples": [
+      "The boy rings out his opponent quickly.",
+      "She rings out the other player."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 375,
+    "phrasal": "ring in",
+    "meaning": "to surround something in a circle",
+    "examples": [
+      "Kids ring in the tree.",
+      "The flowers ring in garden."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 376,
+    "phrasal": "ring back",
+    "meaning": "Call someone back on the phone",
+    "examples": [
+      "I asked her to ring back.",
+      "They will ring back soon."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 377,
+    "phrasal": "draw on",
+    "meaning": "use a pencil or crayon to make a picture",
+    "examples": [
+      "The kid draws on big paper.",
+      "She draws on her picture."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 378,
+    "phrasal": "draw up",
+    "meaning": "write a plan or document carefully",
+    "examples": [
+      "The teacher draws up tests.",
+      "We draw up plans."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 379,
+    "phrasal": "draw away",
+    "meaning": "move away from something",
+    "examples": [
+      "The car draws away quickly",
+      "My dog draws away sometimes"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 380,
+    "phrasal": "draw in",
+    "meaning": "to attract or pull someone in",
+    "examples": [
+      "The new park will draw in many people.",
+      "The exciting story will draw in readers."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 381,
+    "phrasal": "draw off",
+    "meaning": "take out liquid with a special tube",
+    "examples": [
+      "The boy draws off gas.",
+      "She draws off oil slowly."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 382,
+    "phrasal": "draw down",
+    "meaning": "to lower something down",
+    "examples": [
+      "We draw down the curtains.",
+      "Draw down the big curtain."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 383,
+    "phrasal": "gain on",
+    "meaning": "take space from something or someone",
+    "examples": [
+      "The city gains on forest.",
+      "People gain on beach."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 384,
+    "phrasal": "cast off",
+    "meaning": "to throw away something you don't need",
+    "examples": [
+      "The family cast off their old bike.",
+      "The dog cast off its dirty collar."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 385,
+    "phrasal": "cast away",
+    "meaning": "throw something away that you don't need",
+    "examples": [
+      "The boy casts away his old book.",
+      "She casts away the empty bottle."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 386,
+    "phrasal": "cast up",
+    "meaning": "wash something onto the shore",
+    "examples": [
+      "Big waves cast up old boats.",
+      "The ocean cast up pretty stones."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 387,
+    "phrasal": "cast about",
+    "meaning": "try to find something",
+    "examples": [
+      "The dog casts about sticks",
+      "We cast about pencils"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 388,
+    "phrasal": "cast down",
+    "meaning": "to make someone feel sad or less confident",
+    "examples": [
+      "The mean words cast down my feelings.",
+      "The failure cast down his confidence."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 389,
+    "phrasal": "cast over",
+    "meaning": "think deeply about something",
+    "examples": [
+      "I cast over my toy choice.",
+      "She casts over her book."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 390,
+    "phrasal": "shut up",
+    "meaning": "close a door or window",
+    "examples": [
+      "They shut up the store.",
+      "Please shut up door."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 391,
+    "phrasal": "shut down",
+    "meaning": "to close or stop something",
+    "examples": [
+      "They shut down park.",
+      "The city shuts down park."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 392,
+    "phrasal": "shut out",
+    "meaning": "to keep someone or something out",
+    "examples": [
+      "The fence shut out the neighborhood dogs.",
+      "The curtains shut out the bright sunlight."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 393,
+    "phrasal": "shut off",
+    "meaning": "stop something by closing a valve",
+    "examples": [
+      "The worker shuts off valve.",
+      "They shut off the pipe."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 394,
+    "phrasal": "shut in",
+    "meaning": "keep inside a place",
+    "examples": [
+      "The baby is shut in room.",
+      "Dog is shut in house."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 395,
+    "phrasal": "shut away",
+    "meaning": "keep someone or something alone in a closed space",
+    "examples": [
+      "They shut the dog away outside.",
+      "I shut my cat away safely."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 396,
+    "phrasal": "prove out",
+    "meaning": "to show that something is true or works well",
+    "examples": [
+      "The new game will prove out to be fun.",
+      "Her idea will prove out to be great."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 397,
+    "phrasal": "stick up",
+    "meaning": "to rob someone using a gun",
+    "examples": [
+      "The bad guys stick up stores daily.",
+      "They stick up the bank again."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 398,
+    "phrasal": "dress up",
+    "meaning": "put on special clothes",
+    "examples": [
+      "We dress up for parties.",
+      "Mom dresses up nicely."
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 399,
+    "phrasal": "stick out",
+    "meaning": "something sticks out when it comes out from something else",
+    "examples": [
+      "The branch sticks out far",
+      "Her hand sticks out sideways"
+    ],
+    "level": "A1"
+  },
+  {
+    "id": 400,
+    "phrasal": "dress down",
+    "meaning": "to scold or tell someone off",
+    "examples": [
+      "The teacher will dress you down for cheating.",
+      "My mom will dress me down for lying."
+    ],
+    "level": "A1"
+  }
+]
