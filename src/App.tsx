@@ -737,7 +737,7 @@ function App() {
           {appSection === 'phrasal' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando verbos frasales…</div>}><PhrasalVerbsView /></Suspense>}
           {appSection === 'listening' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando historias…</div>}><ListeningView /></Suspense>}
           {appSection === 'teacher' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando profesor virtual…</div>}><VirtualTeacherView /></Suspense>}
-          {appSection === 'grammar' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando práctica de gramática…</div>}><GrammarView />}</Suspense>}
+          {appSection === 'grammar' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando práctica de gramática…</div>}><GrammarView /></Suspense>}
 
           {/* General Info */}
           {appSection === 'verbs' && (
