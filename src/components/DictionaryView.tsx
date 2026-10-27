@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { dictionaryWords } from '../data/dictionary';
+import { configureEnglishUtterance } from '../lib/speechAccent';
 
 function DictionaryView() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,18 +38,9 @@ function DictionaryView() {
       window.speechSynthesis.cancel();
       
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
+      configureEnglishUtterance(utterance);
       utterance.rate = 0.8;
       utterance.pitch = 1;
-
-      // Buscar voz americana
-      const voices = window.speechSynthesis.getVoices();
-      const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Female'))
-        || voices.find(v => v.lang === 'en-US')
-        || voices.find(v => v.lang.startsWith('en-US'))
-        || voices.find(v => v.lang.startsWith('en'));
-      
-      if (englishVoice) utterance.voice = englishVoice;
 
       utterance.onstart = () => setIsSpeaking(wordId);
       utterance.onend = () => setIsSpeaking(null);

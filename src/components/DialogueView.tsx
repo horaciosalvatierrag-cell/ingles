@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Dialogue, DialogueLine } from '../data/dialogues';
+import { configureEnglishUtterance } from '../lib/speechAccent';
 
 interface DialogueViewProps {
   dialogue: Dialogue;
@@ -25,17 +26,6 @@ function DialogueView({ dialogue }: DialogueViewProps) {
   const currentIndexRef = useRef<number>(0);
   const levelRates = { A1: 0.62, A2: 0.74, B1: 0.86, B2: 0.98, C1: 1.08 };
   const playbackRate = levelRates[playbackLevel];
-
-  const speakerVoice = (speaker: string, voices: SpeechSynthesisVoice[]) => {
-    const female = speaker === 'customer' || speaker === 'student';
-    const americanVoices = voices.filter(voice => voice.lang.toLowerCase() === 'en-us');
-    const femaleVoicePattern = /\b(female|zira|samantha|jenny|aria|ava|michelle|susan|karen)\b/i;
-    const maleVoicePattern = /\b(male|david|mark|guy|james|daniel|george|christopher|ryan|andrew|thomas|alex)\b/i;
-    const preferredVoice = americanVoices.find(voice =>
-      (voice.name + ' ' + voice.voiceURI).match(female ? femaleVoicePattern : maleVoicePattern)
-    );
-    return preferredVoice || americanVoices[0] || voices.find(voice => voice.lang.toLowerCase().startsWith('en-'));
-  };
 
   const speakerPitch = (speaker: string) => speaker === 'customer' || speaker === 'student' ? 1.05 : 0.66;
 
@@ -67,14 +57,9 @@ function DialogueView({ dialogue }: DialogueViewProps) {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
+      configureEnglishUtterance(utterance, speaker === 'customer' || speaker === 'student' ? 'female' : 'male');
       utterance.rate = playbackRate;
       utterance.pitch = speakerPitch(speaker);
-
-      const voices = window.speechSynthesis.getVoices();
-      // Priorizar voces americanas (en-US)
-      const englishVoice = speakerVoice(speaker, voices);
-      if (englishVoice) utterance.voice = englishVoice;
 
       utterance.onstart = () => {
         setCurrentPlayingId(lineId);
@@ -129,14 +114,9 @@ function DialogueView({ dialogue }: DialogueViewProps) {
 
         const line = lines[currentIndexRef.current];
         const utterance = new SpeechSynthesisUtterance(line.text);
-        utterance.lang = 'en-US';
+        configureEnglishUtterance(utterance, line.speaker === 'customer' || line.speaker === 'student' ? 'female' : 'male');
         utterance.rate = playbackRate;
         utterance.pitch = speakerPitch(line.speaker);
-
-        const voices = window.speechSynthesis.getVoices();
-        // Priorizar voces americanas (en-US)
-        const englishVoice = speakerVoice(line.speaker, voices);
-        if (englishVoice) utterance.voice = englishVoice;
 
         utterance.onstart = () => {
           setHighlightedLine(line.id);

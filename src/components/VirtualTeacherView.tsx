@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Camera, CameraOff, Mic, MicOff, Send, Volume2 } from 'lucide-react';
+import { configureEnglishUtterance } from '../lib/speechAccent';
 
 const topics = [
   { id: 'introductions', label: 'Presentaciones', icon: '👋', prompt: 'Tell me a little about yourself. Where are you from?' },
@@ -104,10 +105,8 @@ export default function VirtualTeacherView() {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(response);
-      utterance.lang = 'en-US';
+      configureEnglishUtterance(utterance);
       utterance.rate = 0.88;
-      const voice = window.speechSynthesis.getVoices().find(item => item.lang.toLowerCase() === 'en-us');
-      if (voice) utterance.voice = voice;
       window.speechSynthesis.speak(utterance);
     }
   };
@@ -144,7 +143,7 @@ export default function VirtualTeacherView() {
         <div className="flex flex-wrap items-center justify-between gap-3"><div><h3 className="font-bold text-white">Conversación: {topic.label}</h3><p className="text-xs text-purple-200">Contesta con una frase completa para practicar.</p></div><div className="flex gap-2"><button onClick={listen} aria-label={listening ? 'Detener micrófono' : 'Responder con micrófono'} className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-white ${listening ? 'bg-rose-500 animate-pulse' : 'bg-fuchsia-500 hover:bg-fuchsia-400'}`}>{listening ? <MicOff size={16} /> : <Mic size={16} />}{listening ? 'Detener' : 'Hablar'}</button><button onClick={toggleCamera} aria-label={cameraOn ? 'Apagar cámara' : 'Activar cámara'} className="flex items-center gap-2 rounded-xl bg-indigo-500 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-400">{cameraOn ? <CameraOff size={16} /> : <Camera size={16} />}{cameraOn ? 'Apagar video' : 'Video opcional'}</button></div></div>
         <div className="mt-3 flex flex-wrap gap-2 text-[11px]"><span className="rounded-full bg-white/5 px-2.5 py-1 text-purple-100">🎙 {micStatus}</span><span className="rounded-full bg-white/5 px-2.5 py-1 text-purple-100">📹 {cameraStatus}</span></div>
         {cameraOn && <div className="mt-4 overflow-hidden rounded-xl border border-white/10 bg-black"><video ref={videoRef} autoPlay muted playsInline className="aspect-video max-h-64 w-full object-cover" /></div>}
-        <div className="mt-4 max-h-[420px] min-h-60 space-y-3 overflow-y-auto rounded-xl bg-black/15 p-3" aria-live="polite">{turns.map((turn, index) => <div key={`${index}-${turn.speaker}`} className={`flex ${turn.speaker === 'student' ? 'justify-end' : 'justify-start'}`}><div className={`max-w-[90%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${turn.speaker === 'student' ? 'bg-indigo-500/40 text-white' : 'border border-white/10 bg-white/10 text-purple-50'}`}><p className="mb-1 text-[10px] font-bold uppercase tracking-wide opacity-70">{turn.speaker === 'student' ? 'Tú' : 'Profesor'}</p>{turn.text}{turn.speaker === 'teacher' && <button onClick={() => { const utterance = new SpeechSynthesisUtterance(turn.text); utterance.lang = 'en-US'; window.speechSynthesis.speak(utterance); }} aria-label="Volver a escuchar" className="ml-2 inline-flex text-indigo-200"><Volume2 size={15} /></button>}</div></div>)}</div>
+        <div className="mt-4 max-h-[420px] min-h-60 space-y-3 overflow-y-auto rounded-xl bg-black/15 p-3" aria-live="polite">{turns.map((turn, index) => <div key={`${index}-${turn.speaker}`} className={`flex ${turn.speaker === 'student' ? 'justify-end' : 'justify-start'}`}><div className={`max-w-[90%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${turn.speaker === 'student' ? 'bg-indigo-500/40 text-white' : 'border border-white/10 bg-white/10 text-purple-50'}`}><p className="mb-1 text-[10px] font-bold uppercase tracking-wide opacity-70">{turn.speaker === 'student' ? 'Tú' : 'Profesor'}</p>{turn.text}{turn.speaker === 'teacher' && <button onClick={() => { const utterance = new SpeechSynthesisUtterance(turn.text); configureEnglishUtterance(utterance); window.speechSynthesis.speak(utterance); }} aria-label="Volver a escuchar" className="ml-2 inline-flex text-indigo-200"><Volume2 size={15} /></button>}</div></div>)}</div>
         <form onSubmit={submit} className="mt-3 flex gap-2"><input value={draft} onChange={event => setDraft(event.target.value)} placeholder="Escribe tu respuesta en inglés…" className="min-w-0 flex-1 rounded-xl border border-white/15 bg-slate-900/70 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-fuchsia-400" /><button type="submit" disabled={!draft.trim()} className="flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white disabled:opacity-40"><Send size={16} />Enviar</button></form>
         {error && <p role="alert" className="mt-3 rounded-xl border border-rose-300/20 bg-rose-500/10 p-3 text-xs leading-relaxed text-rose-100">{error}</p>}
         <p className="mt-3 text-[11px] leading-relaxed text-purple-200/65">El micrófono convierte tu voz en texto con el reconocimiento de voz del navegador. El video solo se muestra en este dispositivo; no se graba ni se envía. Las respuestas del profesor usan guiones locales de práctica, no un servicio de IA conectado.</p>

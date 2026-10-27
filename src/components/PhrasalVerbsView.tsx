@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import { phrasalVerbs } from '../data/phrasalVerbs';
+import { configureEnglishUtterance } from '../lib/speechAccent';
 
 type VoicePractice = { id: number; target: string; label: string };
 
@@ -7,10 +8,8 @@ const speakText = (text: string, repetitions = 1) => {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(Array.from({ length: repetitions }, () => text).join('. '));
-  utterance.lang = 'en-US';
+  configureEnglishUtterance(utterance);
   utterance.rate = 0.82;
-  const voice = window.speechSynthesis.getVoices().find(item => item.lang.toLowerCase() === 'en-us');
-  if (voice) utterance.voice = voice;
   window.speechSynthesis.speak(utterance);
 };
 

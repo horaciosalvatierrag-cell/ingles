@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { listeningStories } from '../data/listeningStories';
+import { configureEnglishUtterance } from '../lib/speechAccent';
 
 const levels = ['A1', 'A2', 'B1', 'B2', 'C1'] as const;
 const practiceSteps = [
@@ -30,10 +31,8 @@ export default function ListeningView() {
     if (!story || !('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
+    configureEnglishUtterance(utterance);
     utterance.rate = rate;
-    const voice = window.speechSynthesis.getVoices().find(item => item.lang.toLowerCase() === 'en-us');
-    if (voice) utterance.voice = voice;
     utterance.onstart = () => { setPlaying(true); setHighlightedWord(0); };
     utterance.onboundary = event => {
       if (event.name === 'word') {

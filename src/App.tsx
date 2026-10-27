@@ -3,6 +3,7 @@ import { regularVerbs } from './data/regularVerbs';
 import { irregularVerbs } from './data/irregularVerbs';
 import { dialogues } from './data/dialogues';
 import { pastParticiple } from './data/verbForms';
+import { configureEnglishUtterance, getSpeechAccent, setSpeechAccent, speechAccents, type SpeechAccent } from './lib/speechAccent';
 
 const DialogueView = lazy(() => import('./components/DialogueView'));
 const DictionaryView = lazy(() => import('./components/DictionaryView'));
@@ -58,6 +59,7 @@ function App() {
   const [localPackMessage, setLocalPackMessage] = useState('');
   const [currentWord, setCurrentWord] = useState<'infinitive' | 'past' | 'participle'>('infinitive');
   const [speechRate, setSpeechRate] = useState(0.8);
+  const [selectedSpeechAccent, setSelectedSpeechAccent] = useState<SpeechAccent>(() => getSpeechAccent());
   const [showTranslations, setShowTranslations] = useState(true);
   const [quizMode, setQuizMode] = useState(false);
   const [quizVerb, setQuizVerb] = useState<Verb | null>(null);
@@ -98,16 +100,9 @@ function App() {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
+      configureEnglishUtterance(utterance);
       utterance.rate = speechRate;
       utterance.pitch = 1;
-      const voices = window.speechSynthesis.getVoices();
-      // Priorizar voces americanas (en-US)
-      const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Female'))
-        || voices.find(v => v.lang === 'en-US')
-        || voices.find(v => v.lang.startsWith('en-US'))
-        || voices.find(v => v.lang.startsWith('en'));
-      if (englishVoice) utterance.voice = englishVoice;
       window.speechSynthesis.speak(utterance);
     }
   }, [speechRate]);
@@ -409,6 +404,16 @@ function App() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
+                <label className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/10 px-2.5 py-1.5 text-xs text-white" title="Acento usado en las voces de la aplicación">
+                  <span aria-hidden="true">🗣️</span><span className="hidden sm:inline">Acento</span>
+                  <select aria-label="Acento de pronunciación" value={selectedSpeechAccent} onChange={event => {
+                    const accent = event.target.value as SpeechAccent;
+                    setSpeechAccent(accent);
+                    setSelectedSpeechAccent(accent);
+                  }} className="max-w-28 cursor-pointer bg-transparent font-semibold text-current outline-none">
+                    {speechAccents.map(accent => <option key={accent.value} value={accent.value} className="bg-white text-slate-900">{accent.label}</option>)}
+                  </select>
+                </label>
                 {appSection === 'verbs' && (
                   <button
                     onClick={() => { if (!quizMode) getRandomQuizVerb(); setQuizMode(!quizMode); }}
