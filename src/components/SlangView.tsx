@@ -5,7 +5,7 @@ import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
 import { searchWiktionary, type WiktionaryResult } from '../lib/wiktionarySearch';
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
-type Expression = { phrase: string; meaning: string; example: string; translation: string; use: string; register: string };
+type Expression = { phrase: string; meaning: string; example: string; translation: string; use: string; register: string; exampleNote?: string; useLabel?: string };
 
 const expressions: Record<Level, Expression[]> = {
   A1: [
@@ -81,13 +81,42 @@ const levelGuides: Record<Level, string> = {
 export default function SlangView() {
   const [level, setLevel] = useState<Level>('A1');
   const [search, setSearch] = useState('');
+  const [catalog, setCatalog] = useState<Record<Level, Expression[]>>(expressions);
+  const [catalogLoaded, setCatalogLoaded] = useState(false);
+  const [catalogError, setCatalogError] = useState(false);
   const [internetResults, setInternetResults] = useState<WiktionaryResult[]>([]);
   const [searchMessage, setSearchMessage] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const searchControllerRef = useRef<AbortController | null>(null);
-  const filtered = useMemo(() => expressions[level].filter(item =>
+  useEffect(() => {
+    let mounted = true;
+    void import('../data/slangIdioms').then(({ slangIdioms }) => {
+      if (!mounted) return;
+      const expanded = Object.fromEntries(Object.entries(expressions).map(([itemLevel, items]) => [itemLevel, [...items]])) as Record<Level, Expression[]>;
+      slangIdioms.forEach(({ phrase, meaning }, index) => {
+        const itemLevel = (['A1', 'A2', 'B1', 'B2', 'C1'] as const)[Math.floor(index / 190)];
+        expanded[itemLevel].push({
+          phrase,
+          meaning,
+          example: `A teacher explained the expression “${phrase}” to the class.`,
+          translation: `Una profesora explicó la expresión “${phrase}” a la clase.`,
+          use: `Significado de referencia: ${meaning}`,
+          register: 'Modismo · registro y región según el contexto',
+          exampleNote: 'Ejemplo explicativo creado para practicar la frase; consulta Wiktionary para ver citas de uso.',
+          useLabel: 'Significado y contexto',
+        });
+      });
+      setCatalog(expanded);
+      setCatalogLoaded(true);
+    }).catch(() => {
+      if (mounted) setCatalogError(true);
+    });
+    return () => { mounted = false; };
+  }, []);
+
+  const filtered = useMemo(() => catalog[level].filter(item =>
     `${item.phrase} ${item.meaning} ${item.example} ${item.use}`.toLowerCase().includes(search.toLowerCase().trim())
-  ), [level, search]);
+  ), [catalog, level, search]);
 
   useEffect(() => () => {
     searchControllerRef.current?.abort();
@@ -146,7 +175,7 @@ export default function SlangView() {
 
   return <section className="mx-auto max-w-6xl space-y-5">
     <div className="rounded-2xl border border-white/10 bg-white/10 p-5 shadow-sm backdrop-blur-sm md:p-7">
-      <p className="text-sm font-semibold text-blue-200">💬 MODISMOS Y EXPRESIONES · 50 FRASES</p>
+      <p className="text-sm font-semibold text-blue-200">💬 MODISMOS Y EXPRESIONES · {catalogLoaded ? '1,000 FRASES' : 'CARGANDO CATÁLOGO…'}</p>
       <div className="mt-1 flex flex-wrap items-start justify-between gap-3">
         <div><h2 className="text-2xl font-bold text-white">SLANG inglés</h2><p className="mt-2 max-w-3xl text-sm leading-6 text-purple-200">Aprende expresiones informales y modismos con su sentido real, ejemplos traducidos y situaciones donde suenan naturales. Avanza de frases cotidianas a expresiones con matices culturales.</p></div>
         <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-200">Nivel {level}</span>
@@ -157,7 +186,7 @@ export default function SlangView() {
           <span className="block">{item}</span><span className="hidden text-[10px] font-normal sm:block">{['Inicial', 'Básico', 'Intermedio', 'Avanzado', 'Dominio'][index]}</span>
         </button>)}
       </div>
-      <p className="mt-3 text-xs leading-5 text-purple-200">{levelGuides[level]}</p>
+      <p className="mt-3 text-xs leading-5 text-purple-200">{levelGuides[level]} {catalogLoaded && <span className="font-semibold">· 200 expresiones en este nivel.</span>}</p>
       <form onSubmit={explainExpression} className="mt-4">
         <label className="block text-sm font-medium text-white" htmlFor="slang-search">Buscar o explicar un modismo</label>
         <div className="mt-1.5 flex flex-col gap-2 sm:flex-row">
@@ -176,13 +205,16 @@ export default function SlangView() {
         </div>
         <p className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3 text-sm leading-6 text-white">“{item.example}”</p>
         <p className="mt-1 text-xs leading-5 text-purple-200">{item.translation}</p>
-        <div className="mt-3 rounded-xl bg-blue-500/10 p-3"><p className="text-[11px] font-bold uppercase tracking-wide text-blue-200">Cuándo usarla</p><p className="mt-1 text-sm leading-5 text-purple-100">{item.use}</p></div>
+        <div className="mt-3 rounded-xl bg-blue-500/10 p-3"><p className="text-[11px] font-bold uppercase tracking-wide text-blue-200">{item.useLabel ?? 'Cuándo usarla'}</p><p className="mt-1 text-sm leading-5 text-purple-100">{item.use}</p></div>
+        {item.exampleNote && <p className="mt-2 text-xs leading-5 text-slate-300">{item.exampleNote}</p>}
         <span className="mt-3 inline-flex rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-purple-200">{item.register}</span>
       </article>)}
     </div>
     {searchMessage && <p className="rounded-xl border border-blue-300/20 bg-blue-400/10 p-4 text-sm leading-6 text-blue-100" role="status" aria-live="polite">{searchMessage}</p>}
     {internetResults.length > 0 && <section className="space-y-3" aria-label="Resultados de Internet"><h3 className="text-lg font-bold text-white">Resultados de Internet · Wiktionary</h3>{internetResults.map(result => <article key={`${result.title}-${result.url}`} className="rounded-xl border border-white/10 bg-white/10 p-4"><h4 className="font-semibold text-white">{result.title}</h4><p className="mt-1 text-sm leading-6 text-purple-100">{result.snippet || 'Abre la entrada para leer su definición completa.'}</p><a href={result.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex text-sm font-semibold text-sky-200 underline underline-offset-2">Ver entrada y contexto ↗</a></article>)}</section>}
+    {catalogError && <p className="rounded-xl border border-amber-300/20 bg-amber-400/10 p-3 text-sm text-amber-100" role="status">No pude cargar el catálogo ampliado. Actualiza la página para volver a intentarlo.</p>}
     {filtered.length === 0 && search.trim() && <div className="rounded-xl border border-white/10 bg-white/10 p-6 text-center text-purple-100"><p>No encontré expresiones con esa búsqueda en el nivel {level}. Revisa también los resultados de Internet o cambia de nivel.</p></div>}
     <p className="rounded-xl border border-amber-300/20 bg-amber-400/10 p-4 text-xs leading-5 text-amber-100">El slang depende de la región, la edad y la confianza entre las personas. Estas expresiones son principalmente informales: en entrevistas, documentos o correos formales, elige una alternativa neutral cuando tengas dudas.</p>
+    <p className="text-xs leading-5 text-slate-400">Las 950 expresiones añadidas proceden de <a href="https://github.com/tema4p/english-vocabulary" target="_blank" rel="noopener noreferrer" className="underline">English Idioms in Action</a>, contenido CC BY-NC 4.0. Se adaptaron los niveles por complejidad aproximada y se generaron ejemplos explicativos. <a href="https://github.com/tema4p/english-vocabulary/blob/main/LICENSE-CONTENT.md" target="_blank" rel="noopener noreferrer" className="underline">Licencia y atribución</a>.</p>
   </section>;
 }
