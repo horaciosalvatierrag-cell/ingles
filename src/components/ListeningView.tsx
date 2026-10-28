@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { listeningStories } from '../data/listeningStories';
 import { additionalListeningActivities } from '../data/additionalListeningActivities';
 import { configureEnglishUtterance } from '../lib/speechAccent';
@@ -24,11 +24,30 @@ export default function ListeningView() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [result, setResult] = useState<number | null>(null);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const story = listeningStories.find(item => item.id === storyId);
+  const fallbackTimerRef = useRef<number | null>(null);
+  const receivedWordBoundaryRef = useRef(false);
+  const story = allListeningActivities.find(item => item.id === storyId);
   const text = useMemo(() => story?.paragraphs.join(' ') ?? '', [story]);
+  const wordRanges = useMemo(() => Array.from(text.matchAll(/\S+/g), match => ({
+    start: match.index ?? 0,
+    end: (match.index ?? 0) + match[0].length,
+  })), [text]);
+  const paragraphWordOffsets = useMemo(() => {
+    let offset = 0;
+    return story?.paragraphs.map(paragraph => {
+      const paragraphOffset = offset;
+      offset += paragraph.match(/\S+/g)?.length ?? 0;
+      return paragraphOffset;
+    }) ?? [];
+  }, [story]);
 
-  useEffect(() => () => { window.speechSynthesis?.cancel(); }, []);
-  useEffect(() => { window.speechSynthesis?.cancel(); setPlaying(false); setHighlightedWord(-1); setAnswers({}); setResult(null); setCompletedSteps([]); }, [storyId]);
+  const clearFallbackTimer = () => {
+    if (fallbackTimerRef.current !== null) window.clearInterval(fallbackTimerRef.current);
+    fallbackTimerRef.current = null;
+  };
+
+  useEffect(() => () => { clearFallbackTimer(); cancelSpeech(); }, []);
+  useEffect(() => { cancelSpeech(); clearFallbackTimer(); setPlaying(false); setHighlightedWord(-1); setAnswers({}); setResult(null); setCompletedSteps([]); }, [storyId]);
 
   const play = (rate: number) => {
     if (!story || !('speechSynthesis' in window)) return;
@@ -36,15 +55,47 @@ export default function ListeningView() {
     const utterance = new SpeechSynthesisUtterance(text);
     configureEnglishUtterance(utterance);
     utterance.rate = rate;
-    utterance.onstart = () => { setPlaying(true); setHighlightedWord(0); };
-    utterance.onboundary = event => {
-      if (event.name === 'word') {
-        const wordsBefore = text.slice(0, event.charIndex).trim();
-        setHighlightedWord(wordsBefore ? wordsBefore.split(/\s+/).length : 0);
-      }
+    receivedWordBoundaryRef.current = false;
+    utterance.onstart = () => {
+      setPlaying(true);
+      setHighlightedWord(0);
+      clearFallbackTimer();
+      const startedAt = performance.now();
+      fallbackTimerRef.current = window.setInterval(() => {
+        if (receivedWordBoundaryRef.current || wordRanges.length < 2) return;
+        const estimatedWordsPerSecond = 2.5 * Math.max(0.5, rate);
+        const elapsedSeconds = (performance.now() - startedAt) / 1000;
+        setHighlightedWord(Math.min(wordRanges.length - 1, Math.floor(elapsedSeconds * estimatedWordsPerSecond)));
+      }, 100);
     };
-    utterance.onend = () => { setPlaying(false); setHighlightedWord(-1); };
-    utterance.onerror = () => { setPlaying(false); setHighlightedWord(-1); };
+    utterance.onboundary = event => {
+      if (typeof event.charIndex !== 'number' || !wordRanges.length) return;
+      const isWordBoundary = !event.name || event.name === 'word';
+      let low = 0;
+      let high = wordRanges.length - 1;
+      while (low <= high) {
+        const middle = (low + high) >> 1;
+        const range = wordRanges[middle];
+        if (event.charIndex < range.start) high = middle - 1;
+        else if (event.charIndex >= range.end) low = middle + 1;
+        else {
+          if (isWordBoundary) {
+            receivedWordBoundaryRef.current = true;
+            clearFallbackTimer();
+          }
+          setHighlightedWord(middle);
+          return;
+        }
+      }
+      const nearestWord = Math.min(low, wordRanges.length - 1);
+      if (isWordBoundary) {
+        receivedWordBoundaryRef.current = true;
+        clearFallbackTimer();
+      }
+      setHighlightedWord(nearestWord);
+    };
+    utterance.onend = () => { clearFallbackTimer(); setPlaying(false); setHighlightedWord(-1); };
+    utterance.onerror = () => { clearFallbackTimer(); setPlaying(false); setHighlightedWord(-1); };
     speakUtterance(utterance);
   };
 
@@ -52,7 +103,7 @@ export default function ListeningView() {
     <button onClick={() => { cancelSpeech(); setStoryId(null); }} className="rounded-xl bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">← Todas las historias</button>
     <section className="rounded-2xl border border-white/10 bg-white/10 p-3 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3"><div><span className="rounded-full bg-sky-300/15 px-2.5 py-1 text-xs font-semibold text-sky-100">Nivel {story.level}</span><h2 className="mt-3 text-2xl font-bold text-white">{story.title}</h2><p className="mt-1 text-sm text-purple-200">{story.summary}</p></div><div className="flex flex-wrap gap-2"><button onClick={() => setShowText(value => !value)} className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white">{showText ? '🙈 Ocultar texto' : '📖 Mostrar texto'}</button><button disabled={playing} onClick={() => play(0.78)} className="rounded-lg bg-sky-500 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">🐢 Lento</button><button disabled={playing} onClick={() => play(1)} className="rounded-lg bg-indigo-500 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">▶ Escuchar</button>{playing && <button onClick={() => { cancelSpeech(); setPlaying(false); setHighlightedWord(-1); }} className="rounded-lg bg-rose-500 px-3 py-2 text-sm font-semibold text-white">⏹ Detener</button>}</div></div>
-      {showText && <div className="listening-transcript mt-5 space-y-4 rounded-xl p-4 sm:p-6">{story.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph.split(/\s+/).map((word, wordIndex) => { const absoluteIndex = story.paragraphs.slice(0, paragraphIndex).join(' ').split(/\s+/).filter(Boolean).length + wordIndex; return <span key={wordIndex} className={highlightedWord === absoluteIndex ? 'listening-word-active rounded px-1 font-bold ring-2' : ''}>{word}{' '}</span>; })}</p>)}</div>}
+      {showText && <div className="listening-transcript mt-5 space-y-4 rounded-xl p-4 sm:p-6">{story.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph.split(/\s+/).filter(Boolean).map((word, wordIndex) => { const absoluteIndex = (paragraphWordOffsets[paragraphIndex] ?? 0) + wordIndex; return <span key={wordIndex} className={highlightedWord === absoluteIndex ? 'listening-word-active rounded px-1 font-bold ring-2' : ''}>{word}{' '}</span>; })}</p>)}</div>}
     </section>
     <section className="rounded-2xl border border-sky-200/10 bg-sky-300/5 p-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
