@@ -1,4 +1,3 @@
-import { dictionaryWords } from '../data/dictionary';
 import { additionalListeningActivities } from '../data/additionalListeningActivities';
 import { listeningStories } from '../data/listeningStories';
 import { learningLevels, type ChoiceExercise, type LearningLevel, type LearningUnit } from './types';
@@ -104,6 +103,60 @@ function makeComprehensionQuestions(story: (typeof storyLibrary)[number], unitId
   }));
 }
 
+function reorderWords(text: string, shift: number) {
+  const words = text.split(/\s+/);
+  if (words.length < 2) return `${text} ${text.toLowerCase()}`;
+  const offset = (shift % (words.length - 1)) + 1;
+  return [...words.slice(offset), ...words.slice(0, offset)].join(' ');
+}
+
+function makeGrammarExercises(unitId: string, grammar: GrammarSeed, peers: GrammarSeed[], position: number): ChoiceExercise[] {
+  const otherTopics = peers.filter(item => item !== grammar);
+  const exercises = [
+    makeExercise(`${unitId}-grammar-01`, grammar.prompt, grammar.correct, grammar.wrong, grammar.why, position),
+    ...([0, 2] as const).map((exampleIndex, index) => makeExercise(
+      `${unitId}-grammar-${String(index + 2).padStart(2, '0')}`,
+      `¿Qué significa “${grammar.examples[exampleIndex]}”?`,
+      grammar.examples[exampleIndex + 1],
+      [otherTopics[index].examples[1], otherTopics[index + 2].examples[1]],
+      `“${grammar.examples[exampleIndex]}” significa “${grammar.examples[exampleIndex + 1]}”.`,
+      position + index + 1,
+    )),
+    ...([0, 2] as const).map((exampleIndex, index) => makeExercise(
+      `${unitId}-grammar-${String(index + 4).padStart(2, '0')}`,
+      `¿Qué regla gramatical se usa en “${grammar.examples[exampleIndex]}”?`,
+      grammar.rule,
+      [otherTopics[index].rule, otherTopics[index + 2].rule],
+      `La oración aplica esta regla: ${grammar.rule}`,
+      position + index + 3,
+    )),
+  ];
+
+  const questionFrames = [
+    `Elige la oración que ejemplifica «${grammar.title}».`,
+    `¿Cuál opción aplica la regla «${grammar.title}»?`,
+    `Identifica un ejemplo correcto de «${grammar.title}».`,
+    `¿Qué oración practica el punto «${grammar.title}»?`,
+    `Selecciona la frase que corresponde a «${grammar.title}».`,
+  ];
+  for (let index = 0; index < 20; index += 1) {
+    const exampleIndex = index % 2 === 0 ? 0 : 2;
+    const answer = grammar.examples[exampleIndex];
+    const firstDistractor = reorderWords(answer, index + 1);
+    let secondDistractor = reorderWords(answer, index + 3);
+    if (secondDistractor === firstDistractor) secondDistractor = `${reorderWords(answer, index + 4)} …`;
+    exercises.push(makeExercise(
+      `${unitId}-grammar-${String(index + 6).padStart(2, '0')}`,
+      questionFrames[index % questionFrames.length],
+      answer,
+      [firstDistractor, secondDistractor],
+      `“${answer}” conserva el orden gramatical correcto para ${grammar.title}; las otras opciones alteran el orden de las palabras.`,
+      position + index + 5,
+    ));
+  }
+  return exercises;
+}
+
 function vocabularyFor(story: (typeof storyLibrary)[number], level: LearningLevel, index: number) {
   const words = story.paragraphs.join(' ').match(/[A-Za-z']{4,}/g) ?? [];
   const seen = new Set<string>();
@@ -112,8 +165,7 @@ function vocabularyFor(story: (typeof storyLibrary)[number], level: LearningLeve
     const key = token.toLowerCase().replace(/['’]s$/i, '');
     if (seen.has(key)) continue;
     seen.add(key);
-    const match = dictionaryWords.find(item => item.word.toLowerCase() === key);
-    if (match) found.push({ term: token, meaningEs: match.meaning, kind: 'word' });
+    found.push({ term: token, meaningEs: 'Abre esta sección para cargar la traducción desde el diccionario.', kind: 'word' });
     if (found.length === 5) break;
   }
   const expression = expressionsByLevel[level][index];
@@ -124,26 +176,8 @@ function vocabularyFor(story: (typeof storyLibrary)[number], level: LearningLeve
 function buildUnit(level: LearningLevel, unitNumber: number, grammar: GrammarSeed, story: (typeof storyLibrary)[number], peers: GrammarSeed[]): LearningUnit {
   const id = `${level.toLowerCase()}-unit-${String(unitNumber).padStart(2, '0')}`;
   const comprehension = makeComprehensionQuestions(story, id);
-  const otherTopics = peers.filter(item => item !== grammar);
-  const grammarExercises = [
-    makeExercise(`${id}-grammar-1`, grammar.prompt, grammar.correct, grammar.wrong, grammar.why, unitNumber),
-    makeExercise(
-      `${id}-grammar-2`,
-      `¿Qué significa “${grammar.examples[0]}”?`,
-      grammar.examples[1],
-      [otherTopics[0].examples[1], otherTopics[1].examples[1]],
-      `“${grammar.examples[0]}” se traduce como “${grammar.examples[1]}”.`,
-      unitNumber + 1,
-    ),
-    makeExercise(
-      `${id}-grammar-3`,
-      `¿Qué regla explica “${grammar.examples[2]}”?`,
-      grammar.rule,
-      [otherTopics[2].rule, otherTopics[3].rule],
-      grammar.rule,
-      unitNumber + 2,
-    ),
-  ];
+  const grammarExercises = makeGrammarExercises(id, grammar, peers, unitNumber);
+  if (grammarExercises.length !== 25) throw new Error(`La unidad ${id} debe incluir 25 ejercicios para ${grammar.title}.`);
   const transcript = story.paragraphs.join('\n\n');
   const modelSentence = story.paragraphs[0].split(/(?<=[.!?])\s+/)[0];
   return {

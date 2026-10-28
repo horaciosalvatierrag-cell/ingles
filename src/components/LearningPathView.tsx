@@ -25,14 +25,18 @@ function Quiz({
   const questions = skill === 'grammar' ? unit.activities.grammar.exercises : skill === 'reading' ? unit.activities.reading.questions : unit.activities.listening.questions;
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [questionPage, setQuestionPage] = useState(0);
   const saved = progress.units[unit.id]?.activities[skill];
   const score = questions.reduce((sum, question) => sum + (answers[question.id] === question.answerIndex ? 1 : 0), 0);
+  const pageSize = skill === 'grammar' ? 5 : questions.length;
+  const pageCount = Math.ceil(questions.length / pageSize);
+  const visibleQuestions = questions.slice(questionPage * pageSize, (questionPage + 1) * pageSize);
 
-  useEffect(() => { setAnswers({}); setSubmitted(false); }, [unit.id, skill]);
+  useEffect(() => { setAnswers({}); setSubmitted(false); setQuestionPage(0); }, [unit.id, skill]);
 
   return <div className="space-y-5">
     {skill === 'grammar' && <>
-      <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4 sm:p-5"><h3 className="font-bold text-slate-900">Explicación</h3><p className="mt-2 leading-7 text-slate-700">{unit.activities.grammar.explanationEs}</p><div className="mt-4 grid gap-3 sm:grid-cols-2">{unit.activities.grammar.examples.map((example, index) => <div key={index} className="rounded-xl border border-blue-100 bg-white p-3"><p className="font-semibold text-slate-900">{example.english}</p><p className="mt-1 text-sm text-slate-600">{example.spanish}</p></div>)}</div></div>
+      <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4 sm:p-5"><h3 className="font-bold text-slate-900">Explicación · {unit.activities.grammar.exercises.length} ejercicios</h3><p className="mt-2 leading-7 text-slate-700">{unit.activities.grammar.explanationEs}</p><div className="mt-4 grid gap-3 sm:grid-cols-2">{unit.activities.grammar.examples.map((example, index) => <div key={index} className="rounded-xl border border-blue-100 bg-white p-3"><p className="font-semibold text-slate-900">{example.english}</p><p className="mt-1 text-sm text-slate-600">{example.spanish}</p></div>)}</div></div>
       <Vocabulary unit={unit} />
     </>}
     {skill === 'reading' && <><div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6"><p className="mb-3 text-sm font-semibold text-blue-700">Texto de lectura · {unit.level}</p><TextBlock text={unit.activities.reading.text} /></div><Vocabulary unit={unit} /></>}
@@ -45,7 +49,8 @@ function Quiz({
       </div>
       <details className="rounded-xl border border-slate-200 bg-white p-4"><summary className="cursor-pointer font-semibold text-slate-800">Mostrar transcripción</summary><div className="mt-4"><TextBlock text={unit.activities.listening.audio.transcript} /></div></details>
     </>}
-    <div className="space-y-4">{questions.map((question, index) => <fieldset key={question.id} className="rounded-2xl border border-slate-200 bg-white p-4"><legend className="px-1 font-semibold leading-6 text-slate-900">{index + 1}. {question.prompt}</legend><div className="mt-3 grid gap-2">{question.options.map((option, optionIndex) => {
+    {skill === 'grammar' && <p className="text-sm font-semibold text-slate-700" aria-live="polite">Bloque {questionPage + 1} de {pageCount} · preguntas {questionPage * pageSize + 1}–{Math.min((questionPage + 1) * pageSize, questions.length)} de {questions.length}</p>}
+    <div className="space-y-4">{visibleQuestions.map((question, index) => <fieldset key={question.id} className="rounded-2xl border border-slate-200 bg-white p-4"><legend className="px-1 font-semibold leading-6 text-slate-900">{questionPage * pageSize + index + 1}. {question.prompt}</legend><div className="mt-3 grid gap-2">{question.options.map((option, optionIndex) => {
       const selected = answers[question.id] === optionIndex;
       const isCorrect = submitted && optionIndex === question.answerIndex;
       const isWrongSelection = submitted && selected && !isCorrect;
@@ -54,7 +59,10 @@ function Quiz({
       </button>;
     })}</div>{submitted && <p className="mt-3 rounded-lg bg-slate-50 p-3 text-sm leading-6 text-slate-700"><strong>Explicación:</strong> {question.explanationEs}</p>}</fieldset>)}</div>
     <div className="flex flex-wrap items-center gap-3">
-      {!submitted ? <button type="button" disabled={Object.keys(answers).length !== questions.length} onClick={() => { setSubmitted(true); onComplete(score, questions.length); }} className="rounded-xl bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50">Revisar respuestas</button> : <button type="button" onClick={() => { setAnswers({}); setSubmitted(false); }} className="rounded-xl border border-blue-300 bg-white px-5 py-3 font-semibold text-blue-800 hover:bg-blue-50">Repetir actividad</button>}
+      {questionPage > 0 && <button type="button" onClick={() => setQuestionPage(page => page - 1)} className="rounded-xl border border-slate-300 bg-white px-4 py-3 font-semibold text-slate-800 hover:bg-slate-50">← Anterior</button>}
+      {questionPage < pageCount - 1 && <button type="button" onClick={() => setQuestionPage(page => page + 1)} className="rounded-xl border border-blue-300 bg-white px-4 py-3 font-semibold text-blue-800 hover:bg-blue-50">Siguiente bloque →</button>}
+      {questionPage === pageCount - 1 && !submitted && <button type="button" disabled={Object.keys(answers).length !== questions.length} onClick={() => { setSubmitted(true); onComplete(score, questions.length); }} className="rounded-xl bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50">Revisar respuestas ({questions.length})</button>}
+      {submitted && <button type="button" onClick={() => { setAnswers({}); setSubmitted(false); setQuestionPage(0); }} className="rounded-xl border border-blue-300 bg-white px-5 py-3 font-semibold text-blue-800 hover:bg-blue-50">Repetir actividad</button>}
       {submitted && <p role="status" aria-live="polite" className="font-semibold text-slate-800">Resultado: {score} de {questions.length}{score >= Math.round(questions.length * 0.75) ? ' · Actividad superada' : ' · Revisa las explicaciones y vuelve a intentarlo'}</p>}
       {!submitted && saved?.completed && <p className="text-sm text-slate-600">Último resultado guardado: {saved.score}/{saved.maxScore}</p>}
     </div>
@@ -62,69 +70,132 @@ function Quiz({
 }
 
 function Vocabulary({ unit }: { unit: LearningUnit }) {
-  return <details className="rounded-xl border border-slate-200 bg-white p-4"><summary className="cursor-pointer font-semibold text-slate-800">Vocabulario y expresiones</summary>{unit.vocabulary.length ? <ul className="mt-3 grid gap-2 sm:grid-cols-2">{unit.vocabulary.map(item => <li key={`${item.term}-${item.meaningEs}`} className="rounded-lg bg-slate-50 px-3 py-2 text-sm"><span className="mr-2 rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-blue-800">{item.kind === 'expression' ? 'Expresión' : 'Palabra'}</span><strong className="text-slate-900">{item.term}</strong><span className="text-slate-600"> — {item.meaningEs}</span></li>)}</ul> : <p className="mt-3 text-sm text-slate-600">El glosario de esta actividad se está preparando.</p>}</details>;
+  const [meanings, setMeanings] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const loadMeanings = async (event: React.SyntheticEvent<HTMLDetailsElement>) => {
+    if (!event.currentTarget.open || loaded || loading) return;
+    setLoading(true);
+    try {
+      const { dictionaryWords } = await import('../data/dictionary');
+      const next: Record<string, string> = {};
+      for (const item of unit.vocabulary) {
+        const match = dictionaryWords.find(word => word.word.toLowerCase() === item.term.toLowerCase());
+        if (match) next[item.term] = match.meaning;
+      }
+      setMeanings(next);
+      setLoaded(true);
+    } catch {
+      setMeanings({});
+    } finally {
+      setLoading(false);
+    }
+  };
+  return <details onToggle={loadMeanings} className="rounded-xl border border-slate-200 bg-white p-4"><summary className="cursor-pointer font-semibold text-slate-800">Vocabulario y expresiones</summary>{unit.vocabulary.length ? <><p className="mt-2 text-xs text-slate-500">{loading ? 'Cargando traducciones…' : ''}</p><ul className="mt-3 grid gap-2 sm:grid-cols-2">{unit.vocabulary.map(item => <li key={`${item.term}-${item.meaningEs}`} className="rounded-lg bg-slate-50 px-3 py-2 text-sm"><span className="mr-2 rounded bg-blue-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-blue-800">{item.kind === 'expression' ? 'Expresión' : 'Palabra'}</span><strong className="text-slate-900">{item.term}</strong><span className="text-slate-600"> — {item.kind === 'expression' ? item.meaningEs : meanings[item.term] ?? (loaded ? 'Consulta el Diccionario para ver su significado.' : 'Abre esta sección para cargar la traducción.')}</span></li>)}</ul></> : <p className="mt-3 text-sm text-slate-600">El glosario de esta actividad se está preparando.</p>}</details>;
 }
 
 function SpeechControls({ transcript }: { transcript: string }) {
   const [state, setState] = useState<'idle' | 'playing' | 'paused' | 'unavailable'>('idle');
   const [highlightedWord, setHighlightedWord] = useState(-1);
+  const [currentWord, setCurrentWord] = useState(0);
   const fallbackTimerRef = useRef<number | null>(null);
   const receivedBoundaryRef = useRef(false);
   const elapsedRef = useRef(0);
   const pausedRef = useRef(false);
+  const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const currentWordRef = useRef(0);
+  const resumeAfterSeekRef = useRef(false);
   const words = useMemo(() => getSpeechWordRanges(transcript), [transcript]);
   const clearTimer = () => { if (fallbackTimerRef.current !== null) window.clearInterval(fallbackTimerRef.current); fallbackTimerRef.current = null; };
-  useEffect(() => () => { clearTimer(); cancelSpeech(); }, []);
-  const play = () => {
+  useEffect(() => () => { activeUtteranceRef.current = null; clearTimer(); cancelSpeech(); }, []);
+  const play = (requestedWord = currentWordRef.current) => {
     if (!('speechSynthesis' in window)) { setState('unavailable'); return; }
+    const startWord = Math.max(0, Math.min(words.length - 1, requestedWord));
+    const charOffset = words[startWord]?.start ?? 0;
+    const localWords = words.slice(startWord).map(word => ({ ...word, start: word.start - charOffset, end: word.end - charOffset }));
     cancelSpeech();
     clearTimer();
     receivedBoundaryRef.current = false;
     elapsedRef.current = 0;
     pausedRef.current = false;
-    const utterance = new SpeechSynthesisUtterance(transcript);
+    const utterance = new SpeechSynthesisUtterance(transcript.slice(charOffset));
     configureEnglishUtterance(utterance);
     utterance.rate = 0.88;
+    activeUtteranceRef.current = utterance;
+    currentWordRef.current = startWord;
+    setCurrentWord(startWord);
+    setHighlightedWord(startWord);
     utterance.onstart = () => {
+      if (activeUtteranceRef.current !== utterance) return;
       setState('playing');
-      setHighlightedWord(0);
+      setHighlightedWord(startWord);
       fallbackTimerRef.current = window.setInterval(() => {
-        if (receivedBoundaryRef.current) return;
+        if (activeUtteranceRef.current !== utterance || receivedBoundaryRef.current) return;
         if (!pausedRef.current) elapsedRef.current += 0.08;
-        setHighlightedWord(getEstimatedWordIndex(words, elapsedRef.current, utterance.rate));
+        const index = startWord + getEstimatedWordIndex(localWords, elapsedRef.current, utterance.rate);
+        currentWordRef.current = index;
+        setCurrentWord(index);
+        setHighlightedWord(index);
       }, 80);
     };
     utterance.onboundary = event => {
-      if (!Number.isFinite(event.charIndex)) return;
+      if (activeUtteranceRef.current !== utterance || !Number.isFinite(event.charIndex)) return;
       const isWordBoundary = !event.name || event.name === 'word';
+      const charIndex = event.charIndex + charOffset;
       let low = 0;
       let high = words.length - 1;
       while (low <= high) {
         const middle = (low + high) >> 1;
-        if (event.charIndex < words[middle].start) high = middle - 1;
-        else if (event.charIndex >= words[middle].end) low = middle + 1;
+        if (charIndex < words[middle].start) high = middle - 1;
+        else if (charIndex >= words[middle].end) low = middle + 1;
         else {
           if (isWordBoundary) { receivedBoundaryRef.current = true; clearTimer(); }
+          currentWordRef.current = middle;
+          setCurrentWord(middle);
           setHighlightedWord(middle);
           return;
         }
       }
       if (isWordBoundary) { receivedBoundaryRef.current = true; clearTimer(); }
-      setHighlightedWord(Math.min(low, words.length - 1));
+      const index = Math.max(startWord, Math.min(low, words.length - 1));
+      currentWordRef.current = index;
+      setCurrentWord(index);
+      setHighlightedWord(index);
     };
-    utterance.onend = () => { clearTimer(); setState('idle'); setHighlightedWord(-1); };
-    utterance.onerror = () => { clearTimer(); setState('unavailable'); setHighlightedWord(-1); };
+    utterance.onend = () => { if (activeUtteranceRef.current !== utterance) return; clearTimer(); setState('idle'); };
+    utterance.onerror = () => { if (activeUtteranceRef.current !== utterance) return; clearTimer(); setState('unavailable'); };
     speakUtterance(utterance);
   };
   const togglePause = () => {
     if (state === 'paused') { pausedRef.current = false; resumeSpeech(); setState('playing'); }
     else { pausedRef.current = true; pauseSpeech(); setState('paused'); }
   };
-  const stop = () => { cancelSpeech(); clearTimer(); setState('idle'); setHighlightedWord(-1); };
+  const stop = () => { activeUtteranceRef.current = null; cancelSpeech(); clearTimer(); setState('idle'); };
+  const seekToWord = (index: number) => {
+    const bounded = Math.max(0, Math.min(words.length - 1, index));
+    if ((state === 'playing' || state === 'paused') && !resumeAfterSeekRef.current) {
+      resumeAfterSeekRef.current = state === 'playing';
+      activeUtteranceRef.current = null;
+      cancelSpeech();
+      clearTimer();
+      pausedRef.current = false;
+      setState('idle');
+    }
+    currentWordRef.current = bounded;
+    setCurrentWord(bounded);
+    setHighlightedWord(bounded);
+  };
+  const finishSeek = () => {
+    if (!resumeAfterSeekRef.current) return;
+    resumeAfterSeekRef.current = false;
+    play(currentWordRef.current);
+  };
   return <div className="mt-3 flex flex-wrap gap-2" aria-label="Controles de narración">
-    <button type="button" onClick={play} className="inline-flex items-center gap-2 rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white hover:bg-blue-800"><Volume2 size={18} aria-hidden="true" />Escuchar</button>
+    <button type="button" onClick={() => play()} className="inline-flex items-center gap-2 rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white hover:bg-blue-800"><Volume2 size={18} aria-hidden="true" />Escuchar desde aquí</button>
+    {state === 'idle' && <button type="button" onClick={() => { currentWordRef.current = 0; setCurrentWord(0); setHighlightedWord(-1); play(0); }} className="rounded-xl border border-blue-300 bg-white px-4 py-3 font-semibold text-blue-800">↺ Desde el inicio</button>}
     {(state === 'playing' || state === 'paused') && <><button type="button" onClick={togglePause} className="rounded-xl border border-blue-300 bg-white px-4 py-3 font-semibold text-blue-800">{state === 'paused' ? 'Reanudar' : 'Pausar'}</button><button type="button" onClick={stop} className="rounded-xl border border-slate-300 bg-white px-4 py-3 font-semibold text-slate-700">Detener</button></>}
     <span className="sr-only" role="status" aria-live="polite">{state === 'playing' ? 'Reproduciendo narración' : state === 'paused' ? 'Narración en pausa' : state === 'unavailable' ? 'La síntesis de voz no está disponible en este navegador' : ''}</span>
+    <label className="basis-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800" htmlFor="course-listening-seek">Posición · palabra {currentWord + 1} de {words.length}<input id="course-listening-seek" type="range" min={0} max={Math.max(0, words.length - 1)} step={1} value={currentWord} aria-valuetext={`Palabra ${currentWord + 1} de ${words.length}: ${transcript.slice(words[currentWord]?.start ?? 0, words[currentWord]?.end ?? 0)}`} onChange={event => seekToWord(Number(event.target.value))} onPointerUp={finishSeek} onKeyUp={finishSeek} className="mt-2 block h-3 w-full cursor-pointer accent-blue-700" /><span className="mt-1 flex justify-between text-xs text-slate-500"><span>Inicio</span><span>Arrastra para volver o adelantar</span><span>Final</span></span></label>
     <p className="basis-full rounded-xl bg-white p-3 text-base leading-8 text-slate-800" aria-label="Texto sincronizado con la narración">{words.map((word, index) => <span key={`${word.start}-${word.end}`} className={highlightedWord === index ? 'rounded bg-yellow-200 px-0.5 font-bold text-slate-950 ring-2 ring-yellow-500' : ''}>{transcript.slice(word.start, word.end)}{' '}</span>)}</p>
     {state === 'unavailable' && <p className="basis-full text-sm text-amber-800">La síntesis de voz no está disponible; puedes usar la transcripción y continuar con las preguntas.</p>}
   </div>;
