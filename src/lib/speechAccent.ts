@@ -58,18 +58,11 @@ export function getAccentVoiceStatus(accent: SpeechAccent = getSpeechAccent()) {
     return 'Voz neural india disponible · Azure Speech';
   }
   const voice = findAccentVoice(accent);
-  if (voice) return `Voz disponible: ${voice.name} (${voice.lang})`;
-  const alternatives = typeof window !== 'undefined' && 'speechSynthesis' in window
-    ? window.speechSynthesis.getVoices()
-    : [];
-  const fallback = alternatives.find(item => item.lang.toLowerCase().startsWith('en-'))
-    ?? alternatives.find(item => item.default)
-    ?? alternatives[0];
-  const accentName = speechAccents.find(item => item.value === accent)?.label ?? accent;
-  if (fallback) return `Voz alternativa: ${fallback.name} (${fallback.lang}); falta una voz ${accentName}.`;
-  return accent === 'en-IN'
-    ? 'No hay voces instaladas disponibles; Indian English requiere el servicio de voz neural.'
-    : `No hay una voz ${accentName} instalada; depende de las voces del navegador.`;
+  return voice
+    ? `Voz disponible: ${voice.name} (${voice.lang})`
+    : accent === 'en-IN'
+      ? 'Falta configurar el servicio de voz neural; se necesita un endpoint de Azure Speech.'
+      : `No hay una voz ${speechAccents.find(item => item.value === accent)?.label ?? accent} instalada; depende de las voces del navegador.`;
 }
 
 export function configureEnglishUtterance(utterance: SpeechSynthesisUtterance, gender?: VoiceGender) {
@@ -77,17 +70,6 @@ export function configureEnglishUtterance(utterance: SpeechSynthesisUtterance, g
   utterance.lang = accent;
   (utterance as SpeechSynthesisUtterance & { indianVoiceGender?: VoiceGender }).indianVoiceGender = gender;
   if (!('speechSynthesis' in window)) return;
-  const synthesis = window.speechSynthesis;
   const voice = findAccentVoice(accent, gender);
-  const availableVoices = synthesis.getVoices();
-  const fallbackVoice = availableVoices.find(item => item.lang.toLowerCase().startsWith('en-'))
-    ?? availableVoices.find(item => item.default)
-    ?? availableVoices[0];
-  const selectedVoice = voice ?? fallbackVoice;
-  if (selectedVoice) {
-    utterance.voice = selectedVoice;
-    // Match the fallback voice's locale so browsers do not reject an utterance
-    // whose requested accent is unavailable on this device.
-    if (!voice) utterance.lang = selectedVoice.lang;
-  }
+  if (voice) utterance.voice = voice;
 }

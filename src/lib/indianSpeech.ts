@@ -31,11 +31,7 @@ export function cancelSpeech() {
   if (activeObjectUrl) URL.revokeObjectURL(activeObjectUrl);
   activeObjectUrl = null;
   activeUtterance = null;
-  if ('speechSynthesis' in window) {
-    const synthesis = window.speechSynthesis;
-    // Do not reset an empty queue immediately before a user starts audio.
-    if (activeUtterance || synthesis.speaking || synthesis.pending || synthesis.paused) synthesis.cancel();
-  }
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 }
 
 export function pauseSpeech() {
