@@ -96,7 +96,6 @@ function Vocabulary({ unit }: { unit: LearningUnit }) {
 
 function SpeechControls({ transcript }: { transcript: string }) {
   const [state, setState] = useState<'idle' | 'playing' | 'paused' | 'unavailable'>('idle');
-  const [highlightedWord, setHighlightedWord] = useState(-1);
   const [currentWord, setCurrentWord] = useState(0);
   const fallbackTimerRef = useRef<number | null>(null);
   const receivedBoundaryRef = useRef(false);
@@ -124,18 +123,15 @@ function SpeechControls({ transcript }: { transcript: string }) {
     activeUtteranceRef.current = utterance;
     currentWordRef.current = startWord;
     setCurrentWord(startWord);
-    setHighlightedWord(startWord);
     utterance.onstart = () => {
       if (activeUtteranceRef.current !== utterance) return;
       setState('playing');
-      setHighlightedWord(startWord);
       fallbackTimerRef.current = window.setInterval(() => {
         if (activeUtteranceRef.current !== utterance || receivedBoundaryRef.current) return;
         if (!pausedRef.current) elapsedRef.current += 0.08;
         const index = startWord + getEstimatedWordIndex(localWords, elapsedRef.current, utterance.rate);
         currentWordRef.current = index;
         setCurrentWord(index);
-        setHighlightedWord(index);
       }, 80);
     };
     utterance.onboundary = event => {
@@ -152,7 +148,6 @@ function SpeechControls({ transcript }: { transcript: string }) {
           if (isWordBoundary) { receivedBoundaryRef.current = true; clearTimer(); }
           currentWordRef.current = middle;
           setCurrentWord(middle);
-          setHighlightedWord(middle);
           return;
         }
       }
@@ -160,7 +155,6 @@ function SpeechControls({ transcript }: { transcript: string }) {
       const index = Math.max(startWord, Math.min(low, words.length - 1));
       currentWordRef.current = index;
       setCurrentWord(index);
-      setHighlightedWord(index);
     };
     utterance.onend = () => { if (activeUtteranceRef.current !== utterance) return; clearTimer(); setState('idle'); };
     utterance.onerror = () => { if (activeUtteranceRef.current !== utterance) return; clearTimer(); setState('unavailable'); };
@@ -183,7 +177,6 @@ function SpeechControls({ transcript }: { transcript: string }) {
     }
     currentWordRef.current = bounded;
     setCurrentWord(bounded);
-    setHighlightedWord(bounded);
   };
   const finishSeek = () => {
     if (!resumeAfterSeekRef.current) return;
@@ -192,11 +185,11 @@ function SpeechControls({ transcript }: { transcript: string }) {
   };
   return <div className="mt-3 flex flex-wrap gap-2" aria-label="Controles de narración">
     <button type="button" onClick={() => play()} className="inline-flex items-center gap-2 rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white hover:bg-blue-800"><Volume2 size={18} aria-hidden="true" />Escuchar desde aquí</button>
-    {state === 'idle' && <button type="button" onClick={() => { currentWordRef.current = 0; setCurrentWord(0); setHighlightedWord(-1); play(0); }} className="rounded-xl border border-blue-300 bg-white px-4 py-3 font-semibold text-blue-800">↺ Desde el inicio</button>}
+    {state === 'idle' && <button type="button" onClick={() => { currentWordRef.current = 0; setCurrentWord(0); play(0); }} className="rounded-xl border border-blue-300 bg-white px-4 py-3 font-semibold text-blue-800">↺ Desde el inicio</button>}
     {(state === 'playing' || state === 'paused') && <><button type="button" onClick={togglePause} className="rounded-xl border border-blue-300 bg-white px-4 py-3 font-semibold text-blue-800">{state === 'paused' ? 'Reanudar' : 'Pausar'}</button><button type="button" onClick={stop} className="rounded-xl border border-slate-300 bg-white px-4 py-3 font-semibold text-slate-700">Detener</button></>}
     <span className="sr-only" role="status" aria-live="polite">{state === 'playing' ? 'Reproduciendo narración' : state === 'paused' ? 'Narración en pausa' : state === 'unavailable' ? 'La síntesis de voz no está disponible en este navegador' : ''}</span>
     <label className="basis-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800" htmlFor="course-listening-seek">Posición · palabra {currentWord + 1} de {words.length}<input id="course-listening-seek" type="range" min={0} max={Math.max(0, words.length - 1)} step={1} value={currentWord} aria-valuetext={`Palabra ${currentWord + 1} de ${words.length}: ${transcript.slice(words[currentWord]?.start ?? 0, words[currentWord]?.end ?? 0)}`} onChange={event => seekToWord(Number(event.target.value))} onPointerUp={finishSeek} onKeyUp={finishSeek} className="mt-2 block h-3 w-full cursor-pointer accent-blue-700" /><span className="mt-1 flex justify-between text-xs text-slate-500"><span>Inicio</span><span>Arrastra para volver o adelantar</span><span>Final</span></span></label>
-    <p className="basis-full rounded-xl bg-white p-3 text-base leading-8 text-slate-800" aria-label="Texto sincronizado con la narración">{words.map((word, index) => <span key={`${word.start}-${word.end}`} className={highlightedWord === index ? 'rounded bg-yellow-200 px-0.5 font-bold text-slate-950 ring-2 ring-yellow-500' : ''}>{transcript.slice(word.start, word.end)}{' '}</span>)}</p>
+    <p className="basis-full rounded-xl bg-white p-3 text-base leading-8 text-slate-800" aria-label="Transcripción de la narración">{transcript}</p>
     {state === 'unavailable' && <p className="basis-full text-sm text-amber-800">La síntesis de voz no está disponible; puedes usar la transcripción y continuar con las preguntas.</p>}
   </div>;
 }
