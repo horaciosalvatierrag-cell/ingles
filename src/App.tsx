@@ -15,12 +15,13 @@ const VirtualTeacherView = lazy(() => import('./components/VirtualTeacherView'))
 const GrammarView = lazy(() => import('./components/GrammarView'));
 const SlangView = lazy(() => import('./components/SlangView'));
 const DailyExpressionsView = lazy(() => import('./components/DailyExpressionsView'));
+const LearningPathView = lazy(() => import('./components/LearningPathView'));
 
 type VerbType = 'regular' | 'irregular';
 type FeedbackType = 'success' | 'error' | 'neutral' | null;
 type Verb = RegularVerb | IrregularVerb;
-type AppSection = 'verbs' | 'levelContent' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
-type Level = 'verbs' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
+type AppSection = 'verbs' | 'course' | 'levelContent' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
+type Level = 'verbs' | 'course' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
 
 interface LevelInfo {
   id: Level;
@@ -32,6 +33,7 @@ interface LevelInfo {
 
 const levels: LevelInfo[] = [
   { id: 'verbs', name: 'Verbos', description: '300 regulares · 160 irregulares', icon: '📘', color: 'from-blue-500 to-sky-600' },
+  { id: 'course', name: 'Ruta A1–C1', description: '50 unidades · 4 destrezas', icon: '🧭', color: 'from-blue-500 to-indigo-600' },
   { id: 'A1', name: 'Nivel A1', description: 'Principiante', icon: '🌱', color: 'from-green-400 to-green-600' },
   { id: 'A2', name: 'Nivel A2', description: 'Elemental', icon: '🌿', color: 'from-teal-400 to-teal-600' },
   { id: 'B1', name: 'Nivel B1', description: 'Intermedio', icon: '🌳', color: 'from-blue-400 to-blue-600' },
@@ -39,7 +41,7 @@ const levels: LevelInfo[] = [
   { id: 'C1', name: 'Nivel C1', description: 'Avanzado', icon: '🏆', color: 'from-yellow-400 to-orange-600' },
   { id: 'phrasal', name: 'Verbos frasales', description: '400 expresiones', icon: '🔗', color: 'from-violet-400 to-fuchsia-600' },
   { id: 'dialogues', name: 'Diálogos', description: 'Conversaciones', icon: '💬', color: 'from-pink-400 to-rose-600' },
-  { id: 'listening', name: 'Listening', description: '5 historias A1–C1', icon: '🎧', color: 'from-sky-400 to-blue-600' },
+  { id: 'listening', name: 'Listening', description: '50 actividades A1–C1', icon: '🎧', color: 'from-sky-400 to-blue-600' },
   { id: 'teacher', name: 'Profesor virtual', description: '10 temas · voz y video', icon: '🎙️', color: 'from-fuchsia-400 to-purple-600' },
   { id: 'grammar', name: 'Gramática inglés', description: 'Escritura · A1–C1', icon: '✍️', color: 'from-blue-400 to-indigo-600' },
   { id: 'slang', name: 'SLANG inglés', description: 'Modismos · A1–C1', icon: '💬', color: 'from-cyan-400 to-blue-600' },
@@ -358,6 +360,8 @@ function App() {
       setAppSection('slang');
     } else if (level === 'dailyExpressions') {
       setAppSection('dailyExpressions');
+    } else if (level === 'course') {
+      setAppSection('course');
     } else if (level === 'verbs') {
       setAppSection('verbs');
     } else {
@@ -431,7 +435,7 @@ function App() {
             <p className="text-white text-sm font-bold">460 verbos</p>
             <p className="text-purple-300 text-xs">400 verbos frasales</p>
             <p className="text-purple-300 text-xs">2 diálogos</p>
-            <p className="text-purple-300 text-xs">5 historias · 10 temas</p>
+            <p className="text-purple-300 text-xs">50 unidades · 10 temas</p>
             <p className="text-purple-300 text-xs">1390+ palabras</p>
           </div>
           <InstallAppButton />
@@ -507,6 +511,8 @@ function App() {
               </div>
             </section>
           )}
+
+          {appSection === 'course' && <Suspense fallback={<div role="status" className="rounded-xl bg-white/10 p-6 text-center text-slate-700">Cargando la ruta de aprendizaje…</div>}><LearningPathView /></Suspense>}
 
           {/* VERBS SECTION */}
           {appSection === 'verbs' && (
