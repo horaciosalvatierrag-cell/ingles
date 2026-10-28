@@ -291,6 +291,7 @@ body.sidebar-open {
 .windows-theme [class~="text-white/60"],
 .windows-theme [class~="text-white/70"],
 .windows-theme [class~="text-white/80"] { color: #5c626b !important; }
+.windows-theme [class~="text-purple-50"] { color: #242424 !important; }
 .windows-theme [class~="text-purple-100"],
 .windows-theme [class~="text-purple-200"],
 .windows-theme [class~="text-purple-300"],
