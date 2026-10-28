@@ -358,6 +358,25 @@ body.sidebar-open {
 .windows-theme [class~="focus:ring-fuchsia-400"]:focus { --tw-ring-color: #0078d4 !important; }
 .windows-theme ::selection { background: rgb(0 120 212 / 25%); color: #1f1f1f; }
 
+.windows-theme .listening-transcript {
+  background: #fff !important;
+  border: 1px solid #d1d5db;
+  color: #242424 !important;
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
+  line-height: 1.9;
+}
+
+.windows-theme .listening-transcript p { color: #242424 !important; }
+
+.windows-theme .listening-word-active {
+  background: #0078d4 !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #005a9e;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
 @media (prefers-reduced-transparency: reduce) {
   .windows-theme aside,
   .windows-theme header { backdrop-filter: none; }
