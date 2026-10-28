@@ -76,6 +76,7 @@ function App() {
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedDialogue, setSelectedDialogue] = useState<number | null>(null);
+  const [dialogueLevelFilter, setDialogueLevelFilter] = useState<'all' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1'>('all');
   const [verbData, setVerbData] = useState<{ regular: RegularVerb[]; irregular: IrregularVerb[] } | null>(null);
   const [dialogueData, setDialogueData] = useState<Dialogue[] | null>(null);
 
@@ -434,7 +435,7 @@ function App() {
             <p className="text-purple-200 text-xs">📊 Contenido</p>
             <p className="text-white text-sm font-bold">460 verbos</p>
             <p className="text-purple-300 text-xs">400 verbos frasales</p>
-            <p className="text-purple-300 text-xs">2 diálogos</p>
+            <p className="text-purple-300 text-xs">50 diálogos · 10 por nivel</p>
             <p className="text-purple-300 text-xs">50 unidades · 10 temas</p>
             <p className="text-purple-300 text-xs">1390+ palabras</p>
           </div>
@@ -752,10 +753,21 @@ function App() {
                 <div className="space-y-4">
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10">
                     <h2 className="text-xl font-bold text-white mb-2">💬 Diálogos para Practicar</h2>
-                    <p className="text-purple-200 text-sm">Escucha, repite y practica tu pronunciación con diálogos reales en inglés.</p>
+                    <p className="text-purple-200 text-sm">50 conversaciones graduadas: diez por nivel, de A1 a C1. Escucha, repite y practica tu pronunciación.</p>
                   </div>
 
-                  {dialogues.map((dialogue) => (
+                  <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar diálogos por nivel">
+                    {(['all', 'A1', 'A2', 'B1', 'B2', 'C1'] as const).map(level => {
+                      const selected = dialogueLevelFilter === level;
+                      const count = level === 'all' ? dialogues.length : dialogues.filter(dialogue => dialogue.level === level).length;
+                      return <button key={level} type="button" aria-pressed={selected} onClick={() => setDialogueLevelFilter(level)}
+                        className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${selected ? 'border-sky-300 bg-sky-500 text-white' : 'border-white/15 bg-white/5 text-slate-200 hover:bg-white/10'}`}>
+                        {level === 'all' ? 'Todos' : level} <span className="opacity-80">({count})</span>
+                      </button>;
+                    })}
+                  </div>
+
+                  {dialogues.filter(dialogue => dialogueLevelFilter === 'all' || dialogue.level === dialogueLevelFilter).map((dialogue) => (
                     <div key={dialogue.id}
                       className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all cursor-pointer"
                       onClick={() => setSelectedDialogue(dialogue.id)}>

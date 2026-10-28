@@ -6,7 +6,7 @@ Aplicación web para practicar inglés americano desde una interfaz adaptable co
 
 - **Verbos:** 300 regulares y 160 irregulares; infinitivo, pasado simple y pasado participio. Pronunciación, práctica oral y modo quiz.
 - **Verbos frasales:** 400 expresiones con significado, ejemplo, búsqueda, filtro de nivel, pronunciación y reto de práctica. Consulta [la atribución y licencia de estos datos](src/data/PHRASAL_VERBS_ATTRIBUTION.md).
-- **Diálogos:** soporte técnico e inteligencia artificial, reproducción y pausa/reanudación, voces diferenciadas cuando el navegador las ofrece, y ritmo de escucha A1–C1.
+- **Diálogos:** 50 conversaciones (10 por nivel A1–C1), con traducciones, reproducción, pausa/reanudación, voces diferenciadas cuando el navegador las ofrece y filtro por nivel.
 - **Diccionario:** más de 1,390 palabras, búsqueda, categorías y pronunciación.
 - **Listening:** diez actividades por nivel A1–C1 (50 en total), narración de texto con la voz inglesa disponible en el navegador, pausa/reanudación, transcripción y cuatro preguntas por actividad.
 - **Ruta A1–C1:** 50 unidades con Grammar, Reading, Listening y Speaking, explicaciones y ejemplos bilingües, evaluación automática para ejercicios escritos, rúbrica oral manual y progreso local versionado. El temario es una propuesta alineada al CEFR; consulta [el mapa curricular](docs/CEFR_CURRICULUM.md).

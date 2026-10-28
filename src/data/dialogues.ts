@@ -1,3 +1,5 @@
+import { additionalDialogues } from './additionalDialogues';
+
 export interface DialogueLine {
   id: number;
   speaker: string;
@@ -17,7 +19,7 @@ export interface Dialogue {
   lines: DialogueLine[];
 }
 
-export const dialogues: Dialogue[] = [
+const originalDialogues: Dialogue[] = [
   {
     id: 1,
     title: "Windows Technical Support - Driver Update",
@@ -292,3 +294,5 @@ export const dialogues: Dialogue[] = [
     ]
   }
 ];
+
+export const dialogues: Dialogue[] = [...originalDialogues, ...additionalDialogues];
