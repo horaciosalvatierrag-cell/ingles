@@ -11,7 +11,6 @@ Aplicación web para practicar inglés americano desde una interfaz adaptable co
 - **Listening:** diez actividades por nivel A1–C1 (50 en total), narración de texto con la voz inglesa disponible en el navegador, pausa/reanudación, transcripción y cuatro preguntas por actividad.
 - **Ruta A1–C1:** 50 unidades con Grammar, Reading, Listening y Speaking, explicaciones y ejemplos bilingües, evaluación automática para ejercicios escritos, rúbrica oral manual y progreso local versionado. El temario es una propuesta alineada al CEFR; consulta [el mapa curricular](docs/CEFR_CURRICULUM.md).
 - **Profesor virtual:** diez temas, conversación de práctica con voz o texto, reconocimiento y respuesta hablada. La cámara opcional muestra la vista previa local.
-- **Call Center:** cinco sesiones A1–C1 para soporte TIC con guiones bilingües, cronómetro con pausa y reanudación, audio del navegador, comprensión, ejercicios de gramática y resultados locales. Incluye una demostración contextual basada en reglas, claramente identificada como no IA; IA por texto/voz queda pendiente de un servicio intermediario seguro. Consulta [alcance, privacidad y requisitos](docs/CALL_CENTER.md).
 - **Gramática inglés:** redacción por niveles A1–C1 con temas, sugerencias de corrección y explicación de reglas frecuentes.
 - **SLANG inglés:** expresiones informales graduadas por nivel, significado, ejemplos y contexto cultural.
 - **Expresiones cotidianas:** buscador de frases comunes con significado, ejemplo traducido y situaciones de uso.
