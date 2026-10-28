@@ -12,12 +12,13 @@ const ListeningView = lazy(() => import('./components/ListeningView'));
 const VirtualTeacherView = lazy(() => import('./components/VirtualTeacherView'));
 const GrammarView = lazy(() => import('./components/GrammarView'));
 const SlangView = lazy(() => import('./components/SlangView'));
+const DailyExpressionsView = lazy(() => import('./components/DailyExpressionsView'));
 
 type VerbType = 'regular' | 'irregular';
 type FeedbackType = 'success' | 'error' | 'neutral' | null;
 type Verb = typeof regularVerbs[0] | typeof irregularVerbs[0];
-type AppSection = 'verbs' | 'levelContent' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang';
-type Level = 'verbs' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang';
+type AppSection = 'verbs' | 'levelContent' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
+type Level = 'verbs' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
 
 interface LevelInfo {
   id: Level;
@@ -40,6 +41,7 @@ const levels: LevelInfo[] = [
   { id: 'teacher', name: 'Profesor virtual', description: '10 temas · voz y video', icon: '🎙️', color: 'from-fuchsia-400 to-purple-600' },
   { id: 'grammar', name: 'Gramática inglés', description: 'Escritura · A1–C1', icon: '✍️', color: 'from-blue-400 to-indigo-600' },
   { id: 'slang', name: 'SLANG inglés', description: 'Modismos · A1–C1', icon: '💬', color: 'from-cyan-400 to-blue-600' },
+  { id: 'dailyExpressions', name: 'Expresiones cotidianas', description: 'Frases para la vida diaria', icon: '🗣️', color: 'from-sky-400 to-cyan-600' },
   { id: 'dictionary', name: 'Diccionario', description: '1390+ palabras', icon: '📖', color: 'from-indigo-400 to-blue-600' },
 ];
 
@@ -303,6 +305,8 @@ function App() {
       setAppSection('grammar');
     } else if (level === 'slang') {
       setAppSection('slang');
+    } else if (level === 'dailyExpressions') {
+      setAppSection('dailyExpressions');
     } else if (level === 'verbs') {
       setAppSection('verbs');
     } else {
@@ -748,6 +752,7 @@ function App() {
           {appSection === 'teacher' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando profesor virtual…</div>}><VirtualTeacherView /></Suspense>}
           {appSection === 'grammar' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando práctica de gramática…</div>}><GrammarView /></Suspense>}
           {appSection === 'slang' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando expresiones de inglés…</div>}><SlangView /></Suspense>}
+          {appSection === 'dailyExpressions' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando expresiones cotidianas…</div>}><DailyExpressionsView /></Suspense>}
 
           {/* General Info */}
           {appSection === 'verbs' && (
