@@ -33,6 +33,7 @@ interface LevelInfo {
 }
 
 const levels: LevelInfo[] = [
+  { id: 'course', name: 'Ruta A1–C1', description: '50 unidades · 4 destrezas', icon: '🧭', color: 'from-blue-500 to-indigo-600' },
   { id: 'A1', name: 'Nivel A1', description: 'Principiante', icon: '🌱', color: 'from-green-400 to-green-600' },
   { id: 'A2', name: 'Nivel A2', description: 'Elemental', icon: '🌿', color: 'from-teal-400 to-teal-600' },
   { id: 'B1', name: 'Nivel B1', description: 'Intermedio', icon: '🌳', color: 'from-blue-400 to-blue-600' },
@@ -46,7 +47,6 @@ const levels: LevelInfo[] = [
   { id: 'slang', name: 'SLANG inglés', description: 'Modismos · A1–C1', icon: '💬', color: 'from-cyan-400 to-blue-600' },
   { id: 'dailyExpressions', name: 'Expresiones cotidianas', description: 'Frases para la vida diaria', icon: '🗣️', color: 'from-sky-400 to-cyan-600' },
   { id: 'dictionary', name: 'Diccionario', description: '1390+ palabras', icon: '📖', color: 'from-indigo-400 to-blue-600' },
-  { id: 'course', name: 'Ruta A1–C1', description: '50 unidades · 4 destrezas', icon: '🧭', color: 'from-blue-500 to-indigo-600' },
   { id: 'grammar', name: 'Gramática inglés', description: 'Escritura · A1–C1', icon: '✍️', color: 'from-blue-400 to-indigo-600' },
 ];
 
