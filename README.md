@@ -37,7 +37,7 @@ Opciones recomendadas:
 
 1. **Vercel:** conecta el repositorio de GitHub y configura como rama de producción `regular-verbs-pronunciation-204c1`. Los cambios que se suban a esa rama pueden generar despliegues automáticos y enlaces de vista previa.
 2. **Netlify:** conecta el mismo repositorio y usa los valores de compilación indicados arriba.
-3. **GitHub Pages:** también puede servir el sitio estático; al publicarlo bajo una ruta `/ingles/` habrá que configurar la ruta base de Vite y el alcance del service worker.
+3. **GitHub Pages:** el repositorio ya incluye un workflow que compila la ruta `/ingles/` y publica automáticamente al subir cambios a `regular-verbs-pronunciation-204c1` una vez habilitado Pages en GitHub.
 
 Una vez disponible mediante HTTPS, abre la dirección en cada dispositivo y usa **Instalar en este dispositivo** en el menú de la aplicación. En Safari para iPhone/iPad, selecciona **Compartir → Añadir a pantalla de inicio**. El reconocimiento de voz depende del soporte del navegador; el acceso a cámara y micrófono necesita permiso.
 

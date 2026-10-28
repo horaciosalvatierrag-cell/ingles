@@ -1,5 +1,6 @@
-const CACHE_NAME = 'ingles-shell-v2';
-const APP_SHELL = ['/', '/manifest.webmanifest', '/icons/app-192.png', '/icons/app-512.png'];
+const CACHE_NAME = 'ingles-shell-v3';
+const APP_BASE = new URL(self.registration.scope).pathname;
+const APP_SHELL = [APP_BASE, `${APP_BASE}manifest.webmanifest`, `${APP_BASE}icons/app-192.png`, `${APP_BASE}icons/app-512.png`];
 
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
@@ -36,10 +37,10 @@ self.addEventListener('fetch', event => {
     event.respondWith(fetch(request)
       .then(response => {
         const copy = response.clone();
-        void caches.open(CACHE_NAME).then(cache => cache.put('/', copy));
+        void caches.open(CACHE_NAME).then(cache => cache.put(APP_BASE, copy));
         return response;
       })
-      .catch(async () => (await caches.match(request)) || (await caches.match('/'))));
+      .catch(async () => (await caches.match(request)) || (await caches.match(APP_BASE))));
     return;
   }
 
