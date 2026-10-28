@@ -99,7 +99,7 @@ export default function SlangView() {
         <div><h2 className="text-2xl font-bold text-white">SLANG inglés</h2><p className="mt-2 max-w-3xl text-sm leading-6 text-purple-200">Aprende expresiones informales y modismos con su sentido real, ejemplos traducidos y situaciones donde suenan naturales. Avanza de frases cotidianas a expresiones con matices culturales.</p></div>
         <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-200">Nivel {level}</span>
       </div>
-      <div className="mt-5 grid grid-cols-5 gap-2" role="group" aria-label="Nivel de slang">
+      <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5" role="group" aria-label="Nivel de slang">
         {(['A1', 'A2', 'B1', 'B2', 'C1'] as Level[]).map((item, index) => <button key={item} onClick={() => setLevel(item)} aria-pressed={level === item}
           className={`rounded-lg border px-2 py-2 text-sm font-semibold transition-colors ${level === item ? 'border-blue-400 bg-blue-500 text-white' : 'border-white/15 bg-white/5 text-white/70 hover:bg-white/10'}`}>
           <span className="block">{item}</span><span className="hidden text-[10px] font-normal sm:block">{['Inicial', 'Básico', 'Intermedio', 'Avanzado', 'Dominio'][index]}</span>

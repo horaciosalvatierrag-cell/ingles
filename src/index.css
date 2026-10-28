@@ -163,6 +163,33 @@ body.sidebar-open {
 .windows-theme {
   color: #1f1f1f;
   background: linear-gradient(135deg, #f5f6f8 0%, #eaf2fa 52%, #f3f3f3 100%) !important;
+  width: 100%;
+  overflow-x: clip;
+}
+
+@media (max-width: 640px) {
+  .windows-theme button:not([aria-hidden="true"]) {
+    min-height: 2.75rem;
+  }
+
+  .windows-theme input:not([type="range"]),
+  .windows-theme select,
+  .windows-theme textarea {
+    min-height: 2.75rem;
+    max-width: 100%;
+  }
+
+  .windows-theme main {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .windows-theme p,
+  .windows-theme h1,
+  .windows-theme h2,
+  .windows-theme h3,
+  .windows-theme li {
+    overflow-wrap: anywhere;
+  }
 }
 
 .windows-theme .bg-gradient-to-br {

@@ -359,7 +359,7 @@ function App() {
       )}
 
       {/* Sidebar - Vertical Menu */}
-      <aside className={`fixed lg:sticky top-0 left-0 h-screen w-72 bg-black/40 backdrop-blur-xl border-r border-white/10 z-50 transform transition-transform duration-300 ${
+      <aside className={`fixed lg:sticky top-0 left-0 h-screen w-[min(18rem,calc(100vw-2rem))] lg:w-72 bg-black/40 backdrop-blur-xl border-r border-white/10 z-50 transform transition-transform duration-300 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       } flex flex-col overflow-y-auto`}>
         {/* Sidebar Header */}
@@ -424,19 +424,19 @@ function App() {
       <div className="flex-1 flex flex-col min-h-screen min-w-0">
         {/* Top Bar */}
         <header className="bg-black/30 backdrop-blur-sm border-b border-white/10 sticky top-0 z-30">
-          <div className="px-4 py-3">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
+          <div className="px-2 py-2 sm:px-4 sm:py-3">
+            <div className="flex min-w-0 items-center justify-between gap-2 sm:gap-3">
+              <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                 <button
                   onClick={() => setSidebarOpen(true)}
-                  className="lg:hidden p-2 bg-white/10 rounded-lg text-white hover:bg-white/20"
+                  className="shrink-0 p-2 bg-white/10 rounded-lg text-white hover:bg-white/20"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 </button>
                 <div>
-                  <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                  <h2 className="max-w-[30vw] truncate text-base font-bold text-white flex items-center gap-1 sm:max-w-none sm:gap-2 sm:text-lg">
                     {levels.find(l => l.id === activeLevel)?.icon}
                     {levels.find(l => l.id === activeLevel)?.name}
                   </h2>
@@ -445,14 +445,14 @@ function App() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <label className="flex items-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/10 px-2.5 py-1.5 text-xs text-white" title={`Acento seleccionado: ${speechAccents.find(item => item.value === selectedSpeechAccent)?.label} (${selectedSpeechAccent}). ${speechAccentStatus}`}>
+              <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+                <label className="flex min-w-0 items-center gap-1 rounded-lg border border-blue-400/30 bg-blue-500/10 px-1.5 py-1.5 text-[11px] text-white sm:gap-2 sm:px-2.5 sm:text-xs" title={`Acento seleccionado: ${speechAccents.find(item => item.value === selectedSpeechAccent)?.label} (${selectedSpeechAccent}). ${speechAccentStatus}`}>
                   <span aria-hidden="true">🗣️</span><span className="hidden sm:inline">Acento</span>
-                  <select aria-label="Acento de pronunciación" value={selectedSpeechAccent} onChange={event => previewSpeechAccent(event.target.value as SpeechAccent)} className="max-w-[148px] cursor-pointer bg-transparent font-semibold text-current outline-none">
+                  <select aria-label="Acento de pronunciación" value={selectedSpeechAccent} onChange={event => previewSpeechAccent(event.target.value as SpeechAccent)} className="max-w-[98px] cursor-pointer truncate bg-transparent font-semibold text-current outline-none sm:max-w-[148px]">
                     {speechAccents.map(accent => <option key={accent.value} value={accent.value} className="bg-white text-slate-900">{accent.label} · {accent.value}</option>)}
                   </select>
                 </label>
-                <button onClick={() => previewSpeechAccent(selectedSpeechAccent)} aria-label={`Escuchar muestra con acento ${speechAccents.find(item => item.value === selectedSpeechAccent)?.label}`} title={`Probar acento ${selectedSpeechAccent} · ${speechAccentStatus}`} className="rounded-lg border border-blue-500/25 bg-blue-500/15 px-2.5 py-1.5 text-xs font-semibold text-blue-100 hover:bg-blue-500/25">🔊<span className="ml-1 hidden lg:inline">Probar</span></button>
+                <button onClick={() => previewSpeechAccent(selectedSpeechAccent)} aria-label={`Escuchar muestra con acento ${speechAccents.find(item => item.value === selectedSpeechAccent)?.label}`} title={`Probar acento ${selectedSpeechAccent} · ${speechAccentStatus}`} className="rounded-lg border border-blue-500/25 bg-blue-500/15 px-2 py-2 text-xs font-semibold text-blue-100 hover:bg-blue-500/25 sm:px-2.5">🔊<span className="ml-1 hidden lg:inline">Probar</span></button>
                 <span className="hidden 2xl:block max-w-40 truncate text-[10px] text-purple-200" title={speechAccentStatus} aria-live="polite">{speechAccentStatus}</span>
                 <span className="sr-only" aria-live="polite">Acento {selectedSpeechAccent}. {speechAccentStatus}</span>
                 {appSection === 'verbs' && (
@@ -472,7 +472,7 @@ function App() {
         {accentNotice && <div role="status" aria-live="polite" className="fixed bottom-4 right-4 z-[60] max-w-[calc(100vw-2rem)] rounded-xl border border-blue-300/40 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-xl md:max-w-md">🔊 {accentNotice}</div>}
 
         {/* Main Content Area */}
-        <main className="flex-1 px-3 md:px-6 py-4 overflow-y-auto">
+        <main className="min-w-0 flex-1 px-2 py-3 sm:px-3 sm:py-4 md:px-6 overflow-y-auto">
           {appSection === 'levelContent' && (
             <section className="mx-auto max-w-3xl rounded-2xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur-sm md:p-8">
               <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-200">{levels.find(item => item.id === activeLevel)?.description}</span>
@@ -633,6 +633,27 @@ function App() {
 
               {/* Verb List */}
               <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+                <div className="space-y-2 p-2 sm:hidden">
+                  {paginatedVerbs.map((verb, index) => (
+                    <article key={`mobile-${verbType}-${verb.id}-${index}`} className={`rounded-xl border border-white/10 bg-white/5 p-3 ${activeVerb?.id === verb.id ? 'ring-2 ring-blue-400' : ''}`}>
+                      <div className="mb-2 flex items-center justify-between gap-2">
+                        <p className="truncate font-semibold text-white">{(currentPage - 1) * itemsPerPage + index + 1}. {verb.infinitive}</p>
+                        <button onClick={() => { setActiveVerb(verb); setCurrentWord('infinitive'); setFeedback(null); }} className="shrink-0 rounded-lg bg-blue-500/20 px-3 py-2 text-xs font-semibold text-blue-100">🎤 Practicar</button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+                        <div><span className="block text-[10px] text-purple-200">Pasado</span><button onClick={() => speak(verb.pastSimple)} className="max-w-full truncate text-left font-medium text-white">{verb.pastSimple}</button></div>
+                        <div><span className="block text-[10px] text-purple-200">Participio</span><button onClick={() => speak(pastParticiple(verb))} className="max-w-full truncate text-left font-medium text-white">{pastParticiple(verb)}</button></div>
+                        {showTranslations && <p className="col-span-2 break-words text-xs text-purple-200">{verb.translation}</p>}
+                      </div>
+                      <div className="mt-2 flex flex-wrap gap-2" aria-label={`Escuchar formas de ${verb.infinitive}`}>
+                        <button onClick={() => speak(verb.infinitive)} className="rounded-lg bg-blue-500/20 px-3 py-2 text-xs text-blue-100">🔊 Infinitivo</button>
+                        <button onClick={() => speak(verb.pastSimple)} className="rounded-lg bg-blue-500/20 px-3 py-2 text-xs text-blue-100">🔊 Pasado</button>
+                        <button onClick={() => speak(pastParticiple(verb))} className="rounded-lg bg-blue-500/20 px-3 py-2 text-xs text-blue-100">🔊 Participio</button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <div className="hidden sm:block">
                 <div className={`grid grid-cols-12 gap-1 md:gap-2 p-3 border-b border-white/10 text-xs font-medium ${
                   verbType === 'regular' ? 'bg-purple-500/20 text-purple-200' : 'bg-orange-500/20 text-orange-200'
                 }`}>
@@ -675,6 +696,7 @@ function App() {
                     </div>
                   </div>
                 ))}
+                </div>
               </div>
               {searchTerm.trim() && filteredVerbs.length === 0 && <div className="mt-3 rounded-xl border border-white/10 bg-white/10 p-4 text-center text-sm text-purple-100"><p>No encontré este verbo en la lista local.</p><a href={webSearchUrl(`${searchTerm} English verb forms past participle`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-lg bg-blue-600 px-3 py-2 font-semibold text-white hover:bg-blue-700">Buscar en Internet ↗</a></div>}
 

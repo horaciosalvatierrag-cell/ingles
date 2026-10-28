@@ -180,7 +180,7 @@ export default function GrammarView() {
           <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-200">Nivel {level}</span>
         </div>
 
-        <div className="mt-6 grid grid-cols-5 gap-2" role="group" aria-label="Nivel de inglés">
+        <div className="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-5" role="group" aria-label="Nivel de inglés">
           {(['A1', 'A2', 'B1', 'B2', 'C1'] as Level[]).map((item, index) => (
             <button key={item} onClick={() => changeLevel(item)} aria-pressed={level === item}
               className={`rounded-lg border px-2 py-2 text-sm font-semibold transition-colors ${level === item ? 'border-blue-400 bg-blue-500 text-white' : 'border-white/15 bg-white/5 text-white/70 hover:bg-white/10'}`}>
