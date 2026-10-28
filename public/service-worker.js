@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ingles-shell-v3';
+const CACHE_NAME = 'ingles-shell-v4';
 const APP_BASE = new URL(self.registration.scope).pathname;
 const APP_SHELL = [APP_BASE, `${APP_BASE}manifest.webmanifest`, `${APP_BASE}icons/app-192.png`, `${APP_BASE}icons/app-512.png`];
 

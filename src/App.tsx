@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect, lazy, Suspense } from 'react';
-import { regularVerbs } from './data/regularVerbs';
-import { irregularVerbs } from './data/irregularVerbs';
-import { dialogues } from './data/dialogues';
+import type { RegularVerb } from './data/regularVerbs';
+import type { IrregularVerb } from './data/irregularVerbs';
+import type { Dialogue } from './data/dialogues';
 import { pastParticiple } from './data/verbForms';
 import { configureEnglishUtterance, getAccentVoiceStatus, getSpeechAccent, setSpeechAccent, speechAccents, type SpeechAccent } from './lib/speechAccent';
 import { webSearchUrl } from './lib/webSearch';
@@ -18,7 +18,7 @@ const DailyExpressionsView = lazy(() => import('./components/DailyExpressionsVie
 
 type VerbType = 'regular' | 'irregular';
 type FeedbackType = 'success' | 'error' | 'neutral' | null;
-type Verb = typeof regularVerbs[0] | typeof irregularVerbs[0];
+type Verb = RegularVerb | IrregularVerb;
 type AppSection = 'verbs' | 'levelContent' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
 type Level = 'verbs' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
 
@@ -74,12 +74,30 @@ function App() {
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedDialogue, setSelectedDialogue] = useState<number | null>(null);
+  const [verbData, setVerbData] = useState<{ regular: RegularVerb[]; irregular: IrregularVerb[] } | null>(null);
+  const [dialogueData, setDialogueData] = useState<Dialogue[] | null>(null);
 
   const recognitionRef = useRef<any>(null);
   const accentNoticeTimerRef = useRef<number | null>(null);
   const itemsPerPage = 20;
 
-  const currentVerbList = verbType === 'regular' ? regularVerbs : irregularVerbs;
+  useEffect(() => {
+    let cancelled = false;
+    if (appSection === 'verbs' && !verbData) {
+      void Promise.all([import('./data/regularVerbs'), import('./data/irregularVerbs')]).then(([regular, irregular]) => {
+        if (!cancelled) setVerbData({ regular: regular.regularVerbs, irregular: irregular.irregularVerbs });
+      });
+    }
+    if (appSection === 'dialogues' && !dialogueData) {
+      void import('./data/dialogues').then(module => {
+        if (!cancelled) setDialogueData(module.dialogues);
+      });
+    }
+    return () => { cancelled = true; };
+  }, [appSection, verbData, dialogueData]);
+
+  const currentVerbList = verbType === 'regular' ? verbData?.regular ?? [] : verbData?.irregular ?? [];
+  const dialogues = dialogueData ?? [];
   const activeTargetWord = activeVerb
     ? currentWord === 'infinitive' ? activeVerb.infinitive : currentWord === 'past' ? activeVerb.pastSimple : pastParticiple(activeVerb)
     : quizVerb?.pastSimple ?? '';
@@ -410,9 +428,9 @@ function App() {
         <div className="p-4 border-t border-white/10">
           <div className="bg-white/5 rounded-xl p-3">
             <p className="text-purple-200 text-xs">📊 Contenido</p>
-            <p className="text-white text-sm font-bold">{regularVerbs.length + irregularVerbs.length} verbos</p>
+            <p className="text-white text-sm font-bold">460 verbos</p>
             <p className="text-purple-300 text-xs">400 verbos frasales</p>
-            <p className="text-purple-300 text-xs">{dialogues.length} diálogos</p>
+            <p className="text-purple-300 text-xs">2 diálogos</p>
             <p className="text-purple-300 text-xs">5 historias · 10 temas</p>
             <p className="text-purple-300 text-xs">1390+ palabras</p>
           </div>
@@ -493,6 +511,7 @@ function App() {
           {/* VERBS SECTION */}
           {appSection === 'verbs' && (
             <>
+              {!verbData && <div role="status" className="mb-4 rounded-xl border border-blue-200/20 bg-white/10 p-4 text-center text-sm text-purple-100">Cargando verbos…</div>}
               {/* Verb Type Tabs */}
               <div className="flex gap-2 mb-4">
                 <button
@@ -721,6 +740,7 @@ function App() {
           {/* DIALOGUES SECTION */}
           {appSection === 'dialogues' && (
             <>
+              {!dialogueData && <div role="status" className="mb-4 rounded-xl border border-blue-200/20 bg-white/10 p-4 text-center text-sm text-purple-100">Cargando diálogos…</div>}
               {/* Dialogue List / Detail Toggle */}
               {selectedDialogue === null ? (
                 <div className="space-y-4">
