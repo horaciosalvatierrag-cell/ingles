@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { dictionaryWords } from '../data/dictionary';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { webSearchUrl } from '../lib/webSearch';
 
 function DictionaryView() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -163,6 +164,7 @@ function DictionaryView() {
           <div className="p-8 text-center">
             <p className="text-purple-200 text-lg">No se encontraron palabras</p>
             <p className="text-purple-300 text-sm mt-2">Intenta con otro término de búsqueda</p>
+            {searchTerm.trim() && <a href={webSearchUrl(`${searchTerm} English meaning`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700">Buscar en Internet ↗</a>}
           </div>
         ) : (
           paginatedWords.map((word, index) => (

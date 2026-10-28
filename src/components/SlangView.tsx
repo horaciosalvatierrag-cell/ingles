@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { webSearchUrl } from '../lib/webSearch';
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
 type Expression = { phrase: string; meaning: string; example: string; translation: string; use: string; register: string };
@@ -122,7 +123,7 @@ export default function SlangView() {
         <span className="mt-3 inline-flex rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-purple-200">{item.register}</span>
       </article>)}
     </div>
-    {filtered.length === 0 && <p className="rounded-xl border border-white/10 bg-white/10 p-6 text-center text-purple-100">No encontré expresiones con esa búsqueda en {level}. Prueba otra palabra o cambia de nivel.</p>}
+    {filtered.length === 0 && <div className="rounded-xl border border-white/10 bg-white/10 p-6 text-center text-purple-100"><p>No encontré expresiones con esa búsqueda en {level}. Prueba otra palabra o cambia de nivel.</p>{search.trim() && <a href={webSearchUrl(`${search} English slang meaning example`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700">Buscar en Internet ↗</a>}</div>}
     <p className="rounded-xl border border-amber-300/20 bg-amber-400/10 p-4 text-xs leading-5 text-amber-100">El slang depende de la región, la edad y la confianza entre las personas. Estas expresiones son principalmente informales: en entrevistas, documentos o correos formales, elige una alternativa neutral cuando tengas dudas.</p>
   </section>;
 }

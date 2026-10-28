@@ -4,6 +4,8 @@ import { irregularVerbs } from './data/irregularVerbs';
 import { dialogues } from './data/dialogues';
 import { pastParticiple } from './data/verbForms';
 import { configureEnglishUtterance, getSpeechAccent, setSpeechAccent, speechAccents, type SpeechAccent } from './lib/speechAccent';
+import { webSearchUrl } from './lib/webSearch';
+import InstallAppButton from './components/InstallAppButton';
 
 const DialogueView = lazy(() => import('./components/DialogueView'));
 const DictionaryView = lazy(() => import('./components/DictionaryView'));
@@ -383,6 +385,7 @@ function App() {
             <p className="text-purple-300 text-xs">5 historias · 10 temas</p>
             <p className="text-purple-300 text-xs">1390+ palabras</p>
           </div>
+          <InstallAppButton />
         </div>
       </aside>
 
@@ -642,6 +645,7 @@ function App() {
                   </div>
                 ))}
               </div>
+              {searchTerm.trim() && filteredVerbs.length === 0 && <div className="mt-3 rounded-xl border border-white/10 bg-white/10 p-4 text-center text-sm text-purple-100"><p>No encontré este verbo en la lista local.</p><a href={webSearchUrl(`${searchTerm} English verb forms past participle`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-lg bg-blue-600 px-3 py-2 font-semibold text-white hover:bg-blue-700">Buscar en Internet ↗</a></div>}
 
               {/* Pagination */}
               {totalPages > 1 && (

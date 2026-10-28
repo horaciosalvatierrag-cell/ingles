@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { phrasalVerbs } from '../data/phrasalVerbs';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { webSearchUrl } from '../lib/webSearch';
 
 type VoicePractice = { id: number; target: string; label: string };
 
@@ -201,7 +202,7 @@ export default function PhrasalVerbsView() {
       <div className="mt-3 flex justify-end"><button onClick={() => startPractice(item)} className="text-xs font-semibold text-violet-200 hover:text-white">Practicar significado →</button></div>
     </article>)}</div>
 
-    {entries.length === 0 && <p className="rounded-xl bg-white/5 p-8 text-center text-purple-100">No hay expresiones que coincidan. Prueba otra búsqueda o nivel.</p>}
+    {entries.length === 0 && <div className="rounded-xl bg-white/5 p-8 text-center text-purple-100"><p>No hay expresiones que coincidan. Prueba otra búsqueda o nivel.</p>{query.trim() && <a href={webSearchUrl(`${query} English phrasal verb meaning examples`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700">Buscar en Internet ↗</a>}</div>}
     {entries.length > pageSize && <div className="flex items-center justify-center gap-4 text-sm text-white"><button disabled={page === 1} onClick={() => setPage(value => value - 1)} className="rounded-lg bg-white/10 px-4 py-2 disabled:opacity-40">← Anterior</button><span>{page} / {Math.ceil(entries.length / pageSize)}</span><button disabled={page >= Math.ceil(entries.length / pageSize)} onClick={() => setPage(value => value + 1)} className="rounded-lg bg-white/10 px-4 py-2 disabled:opacity-40">Siguiente →</button></div>}
     <p className="text-center text-[11px] text-purple-200/70">Datos de verbos frasales bajo CC BY-SA 4.0; consulta la atribución del conjunto en src/data/PHRASAL_VERBS_ATTRIBUTION.md.</p>
   </div>;

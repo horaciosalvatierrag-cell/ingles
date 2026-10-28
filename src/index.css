@@ -154,6 +154,11 @@ body.sidebar-open {
   }
 }
 
+@supports (height: 100dvh) {
+  .windows-theme { min-height: 100dvh; }
+  .windows-theme aside { height: 100dvh; }
+}
+
 /* Windows 11 light palette: mica surfaces, neutral text and Windows blue. */
 .windows-theme {
   color: #1f1f1f;
