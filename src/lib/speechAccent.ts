@@ -31,11 +31,14 @@ export function setSpeechAccent(accent: SpeechAccent) {
   }
 }
 
-export function configureEnglishUtterance(utterance: SpeechSynthesisUtterance, gender?: VoiceGender) {
-  const accent = getSpeechAccent();
-  utterance.lang = accent;
+function voiceGenderPattern(gender?: VoiceGender) {
+  if (gender === 'male') return /\b(male|david|mark|guy|james|daniel|george|christopher|ryan|andrew|thomas|alex)\b/i;
+  if (gender === 'female') return /\b(female|zira|samantha|jenny|aria|ava|michelle|susan|karen)\b/i;
+  return null;
+}
 
-  if (!('speechSynthesis' in window)) return;
+export function findAccentVoice(accent: SpeechAccent = getSpeechAccent(), gender?: VoiceGender) {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
   const normalizeLocale = (locale: string) => locale.toLowerCase().replace(/_/g, '-');
   const locale = normalizeLocale(accent);
   const voices = window.speechSynthesis.getVoices();
@@ -44,12 +47,23 @@ export function configureEnglishUtterance(utterance: SpeechSynthesisUtterance, g
     return voiceLocale === locale || voiceLocale.startsWith(`${locale}-`);
   });
 
-  const genderPattern = gender === 'male'
-    ? /\b(male|david|mark|guy|james|daniel|george|christopher|ryan|andrew|thomas|alex)\b/i
-    : gender === 'female'
-      ? /\b(female|zira|samantha|jenny|aria|ava|michelle|susan|karen)\b/i
-      : null;
+  const genderPattern = voiceGenderPattern(gender);
   const selectedVoice = (genderPattern && accentVoices.find(voice => genderPattern.test(`${voice.name} ${voice.voiceURI}`)))
     || accentVoices[0];
-  if (selectedVoice) utterance.voice = selectedVoice;
+  return selectedVoice ?? null;
+}
+
+export function getAccentVoiceStatus(accent: SpeechAccent = getSpeechAccent()) {
+  const voice = findAccentVoice(accent);
+  return voice
+    ? `Voz disponible: ${voice.name} (${voice.lang})`
+    : `No hay una voz ${speechAccents.find(item => item.value === accent)?.label ?? accent} instalada; depende de las voces del navegador.`;
+}
+
+export function configureEnglishUtterance(utterance: SpeechSynthesisUtterance, gender?: VoiceGender) {
+  const accent = getSpeechAccent();
+  utterance.lang = accent;
+  if (!('speechSynthesis' in window)) return;
+  const voice = findAccentVoice(accent, gender);
+  if (voice) utterance.voice = voice;
 }

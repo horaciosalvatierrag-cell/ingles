@@ -3,7 +3,7 @@ import { regularVerbs } from './data/regularVerbs';
 import { irregularVerbs } from './data/irregularVerbs';
 import { dialogues } from './data/dialogues';
 import { pastParticiple } from './data/verbForms';
-import { configureEnglishUtterance, getSpeechAccent, setSpeechAccent, speechAccents, type SpeechAccent } from './lib/speechAccent';
+import { configureEnglishUtterance, getAccentVoiceStatus, getSpeechAccent, setSpeechAccent, speechAccents, type SpeechAccent } from './lib/speechAccent';
 import { webSearchUrl } from './lib/webSearch';
 import InstallAppButton from './components/InstallAppButton';
 
@@ -66,6 +66,8 @@ function App() {
   const [currentWord, setCurrentWord] = useState<'infinitive' | 'past' | 'participle'>('infinitive');
   const [speechRate, setSpeechRate] = useState(0.8);
   const [selectedSpeechAccent, setSelectedSpeechAccent] = useState<SpeechAccent>(() => getSpeechAccent());
+  const [speechAccentStatus, setSpeechAccentStatus] = useState(() => getAccentVoiceStatus(getSpeechAccent()));
+  const [accentNotice, setAccentNotice] = useState('');
   const [showTranslations, setShowTranslations] = useState(true);
   const [quizMode, setQuizMode] = useState(false);
   const [quizVerb, setQuizVerb] = useState<Verb | null>(null);
@@ -74,6 +76,7 @@ function App() {
   const [selectedDialogue, setSelectedDialogue] = useState<number | null>(null);
 
   const recognitionRef = useRef<any>(null);
+  const accentNoticeTimerRef = useRef<number | null>(null);
   const itemsPerPage = 20;
 
   const currentVerbList = verbType === 'regular' ? regularVerbs : irregularVerbs;
@@ -96,10 +99,38 @@ function App() {
   // Load voices
   useEffect(() => {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.getVoices();
-      window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+      const updateAccentVoice = () => {
+        window.speechSynthesis.getVoices();
+        setSpeechAccentStatus(getAccentVoiceStatus(selectedSpeechAccent));
+      };
+      updateAccentVoice();
+      window.speechSynthesis.addEventListener('voiceschanged', updateAccentVoice);
+      return () => window.speechSynthesis.removeEventListener('voiceschanged', updateAccentVoice);
     }
-  }, []);
+  }, [selectedSpeechAccent]);
+
+  const accentSamples: Record<SpeechAccent, string> = {
+    'en-US': "I'll meet you after work. Let's grab a cup of tea downtown.",
+    'en-GB': "I'll meet you after work. Let's have a cup of tea in the city centre.",
+    'en-IN': "I'll meet you after work. Let's have a cup of tea near the railway station.",
+  };
+  const previewSpeechAccent = (accent: SpeechAccent) => {
+    setSpeechAccent(accent);
+    setSelectedSpeechAccent(accent);
+    const voiceStatus = getAccentVoiceStatus(accent);
+    setSpeechAccentStatus(voiceStatus);
+    const accentLabel = speechAccents.find(item => item.value === accent)?.label ?? accent;
+    setAccentNotice(`${accentLabel} (${accent}): ${voiceStatus}`);
+    if (accentNoticeTimerRef.current !== null) window.clearTimeout(accentNoticeTimerRef.current);
+    accentNoticeTimerRef.current = window.setTimeout(() => setAccentNotice(''), 7000);
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(accentSamples[accent]);
+    configureEnglishUtterance(utterance);
+    utterance.rate = 1.05;
+    utterance.pitch = 1;
+    window.speechSynthesis.speak(utterance);
+  };
 
   // Text-to-Speech
   const speak = useCallback((text: string) => {
@@ -415,16 +446,15 @@ function App() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <label className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/10 px-2.5 py-1.5 text-xs text-white" title="Acento usado en las voces de la aplicación">
+                <label className="flex items-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/10 px-2.5 py-1.5 text-xs text-white" title={`Acento seleccionado: ${speechAccents.find(item => item.value === selectedSpeechAccent)?.label} (${selectedSpeechAccent}). ${speechAccentStatus}`}>
                   <span aria-hidden="true">🗣️</span><span className="hidden sm:inline">Acento</span>
-                  <select aria-label="Acento de pronunciación" value={selectedSpeechAccent} onChange={event => {
-                    const accent = event.target.value as SpeechAccent;
-                    setSpeechAccent(accent);
-                    setSelectedSpeechAccent(accent);
-                  }} className="max-w-28 cursor-pointer bg-transparent font-semibold text-current outline-none">
-                    {speechAccents.map(accent => <option key={accent.value} value={accent.value} className="bg-white text-slate-900">{accent.label}</option>)}
+                  <select aria-label="Acento de pronunciación" value={selectedSpeechAccent} onChange={event => previewSpeechAccent(event.target.value as SpeechAccent)} className="max-w-[148px] cursor-pointer bg-transparent font-semibold text-current outline-none">
+                    {speechAccents.map(accent => <option key={accent.value} value={accent.value} className="bg-white text-slate-900">{accent.label} · {accent.value}</option>)}
                   </select>
                 </label>
+                <button onClick={() => previewSpeechAccent(selectedSpeechAccent)} aria-label={`Escuchar muestra con acento ${speechAccents.find(item => item.value === selectedSpeechAccent)?.label}`} title={`Probar acento ${selectedSpeechAccent} · ${speechAccentStatus}`} className="rounded-lg border border-blue-500/25 bg-blue-500/15 px-2.5 py-1.5 text-xs font-semibold text-blue-100 hover:bg-blue-500/25">🔊<span className="ml-1 hidden lg:inline">Probar</span></button>
+                <span className="hidden 2xl:block max-w-40 truncate text-[10px] text-purple-200" title={speechAccentStatus} aria-live="polite">{speechAccentStatus}</span>
+                <span className="sr-only" aria-live="polite">Acento {selectedSpeechAccent}. {speechAccentStatus}</span>
                 {appSection === 'verbs' && (
                   <button
                     onClick={() => { if (!quizMode) getRandomQuizVerb(); setQuizMode(!quizMode); }}
@@ -439,6 +469,7 @@ function App() {
             </div>
           </div>
         </header>
+        {accentNotice && <div role="status" aria-live="polite" className="fixed bottom-4 right-4 z-[60] max-w-[calc(100vw-2rem)] rounded-xl border border-blue-300/40 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-xl md:max-w-md">🔊 {accentNotice}</div>}
 
         {/* Main Content Area */}
         <main className="flex-1 px-3 md:px-6 py-4 overflow-y-auto">
