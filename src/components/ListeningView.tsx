@@ -3,6 +3,7 @@ import { listeningStories } from '../data/listeningStories';
 import { additionalListeningActivities } from '../data/additionalListeningActivities';
 import { configureEnglishUtterance } from '../lib/speechAccent';
 import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
+import { getEstimatedWordIndex, getSpeechWordRanges } from '../lib/speechTiming';
 
 const levels = ['A1', 'A2', 'B1', 'B2', 'C1'] as const;
 const allListeningActivities = [...listeningStories, ...additionalListeningActivities];
@@ -28,10 +29,7 @@ export default function ListeningView() {
   const receivedWordBoundaryRef = useRef(false);
   const story = allListeningActivities.find(item => item.id === storyId);
   const text = useMemo(() => story?.paragraphs.join(' ') ?? '', [story]);
-  const wordRanges = useMemo(() => Array.from(text.matchAll(/\S+/g), match => ({
-    start: match.index ?? 0,
-    end: (match.index ?? 0) + match[0].length,
-  })), [text]);
+  const wordRanges = useMemo(() => getSpeechWordRanges(text), [text]);
   const paragraphWordOffsets = useMemo(() => {
     let offset = 0;
     return story?.paragraphs.map(paragraph => {
@@ -63,9 +61,8 @@ export default function ListeningView() {
       const startedAt = performance.now();
       fallbackTimerRef.current = window.setInterval(() => {
         if (receivedWordBoundaryRef.current || wordRanges.length < 2) return;
-        const estimatedWordsPerSecond = 2.5 * Math.max(0.5, rate);
         const elapsedSeconds = (performance.now() - startedAt) / 1000;
-        setHighlightedWord(Math.min(wordRanges.length - 1, Math.floor(elapsedSeconds * estimatedWordsPerSecond)));
+        setHighlightedWord(getEstimatedWordIndex(wordRanges, elapsedSeconds, rate));
       }, 100);
     };
     utterance.onboundary = event => {

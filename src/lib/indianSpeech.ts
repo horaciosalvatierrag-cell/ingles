@@ -1,4 +1,5 @@
 import { getSpeechAccent, type VoiceGender } from './speechAccent';
+import { getSpeechCharIndexAtProgress, getSpeechWordRanges } from './speechTiming';
 
 type UtteranceHandler = ((this: SpeechSynthesisUtterance, event: any) => void) | null;
 type TaggedUtterance = SpeechSynthesisUtterance & { indianVoiceGender?: VoiceGender };
@@ -64,7 +65,10 @@ export function speakUtterance(utterance: SpeechSynthesisUtterance) {
       const boundary = sourceText.lastIndexOf(' ', end);
       if (boundary > start + 1000) end = boundary;
     }
-    chunks.push({ text: sourceText.slice(start, end).trim(), start });
+    const rawChunk = sourceText.slice(start, end);
+    const trimmedChunk = rawChunk.trim();
+    const leadingWhitespace = rawChunk.length - rawChunk.trimStart().length;
+    chunks.push({ text: trimmedChunk, start: start + leadingWhitespace });
     start = end;
   }
 
@@ -79,6 +83,7 @@ export function speakUtterance(utterance: SpeechSynthesisUtterance) {
     if (!response.ok) throw new Error(`Servicio de voz: ${response.status}`);
     const blob = await response.blob();
     if (activeUtterance !== utterance) return;
+    const chunkRanges = getSpeechWordRanges(chunk.text);
     activeObjectUrl = URL.createObjectURL(blob);
     const audio = new Audio(activeObjectUrl);
     activeAudio = audio;
@@ -98,7 +103,7 @@ export function speakUtterance(utterance: SpeechSynthesisUtterance) {
     audio.onerror = () => handleFailure(new Error('No se pudo reproducir el audio.'));
     audio.ontimeupdate = () => {
       if (!Number.isFinite(audio.duration) || audio.duration <= 0 || !utterance.onboundary) return;
-      const localIndex = Math.min(chunk.text.length - 1, Math.floor((audio.currentTime / audio.duration) * chunk.text.length));
+      const localIndex = getSpeechCharIndexAtProgress(chunkRanges, audio.currentTime / audio.duration);
       const charIndex = chunk.start + localIndex;
       const event = { type: 'boundary', target: utterance, currentTarget: utterance, charIndex, charLength: 1, elapsedTime: audio.currentTime, name: 'word', utterance };
       utterance.onboundary?.call(utterance, event as unknown as SpeechSynthesisEvent);

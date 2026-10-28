@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Volume2 } from 'lucide-react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
 import { speakUtterance, cancelSpeech, pauseSpeech, resumeSpeech } from '../lib/indianSpeech';
 import { loadLearningProgress, saveActivityProgress, type LearningProgress } from '../lib/learningProgress';
+import { getEstimatedWordIndex, getSpeechWordRanges } from '../lib/speechTiming';
 import { getUnitActivitiesComplete, learningUnits } from '../learning/curriculum';
 import { learningLevels, learningSkillLabels, type LearningLevel, type LearningSkill, type LearningUnit } from '../learning/types';
 
@@ -66,27 +67,65 @@ function Vocabulary({ unit }: { unit: LearningUnit }) {
 
 function SpeechControls({ transcript }: { transcript: string }) {
   const [state, setState] = useState<'idle' | 'playing' | 'paused' | 'unavailable'>('idle');
-  useEffect(() => () => window.speechSynthesis?.cancel(), []);
+  const [highlightedWord, setHighlightedWord] = useState(-1);
+  const fallbackTimerRef = useRef<number | null>(null);
+  const receivedBoundaryRef = useRef(false);
+  const elapsedRef = useRef(0);
+  const pausedRef = useRef(false);
+  const words = useMemo(() => getSpeechWordRanges(transcript), [transcript]);
+  const clearTimer = () => { if (fallbackTimerRef.current !== null) window.clearInterval(fallbackTimerRef.current); fallbackTimerRef.current = null; };
+  useEffect(() => () => { clearTimer(); cancelSpeech(); }, []);
   const play = () => {
     if (!('speechSynthesis' in window)) { setState('unavailable'); return; }
     cancelSpeech();
+    clearTimer();
+    receivedBoundaryRef.current = false;
+    elapsedRef.current = 0;
+    pausedRef.current = false;
     const utterance = new SpeechSynthesisUtterance(transcript);
     configureEnglishUtterance(utterance);
     utterance.rate = 0.88;
-    utterance.onstart = () => setState('playing');
-    utterance.onend = () => setState('idle');
-    utterance.onerror = () => setState('unavailable');
+    utterance.onstart = () => {
+      setState('playing');
+      setHighlightedWord(0);
+      fallbackTimerRef.current = window.setInterval(() => {
+        if (receivedBoundaryRef.current) return;
+        if (!pausedRef.current) elapsedRef.current += 0.08;
+        setHighlightedWord(getEstimatedWordIndex(words, elapsedRef.current, utterance.rate));
+      }, 80);
+    };
+    utterance.onboundary = event => {
+      if (!Number.isFinite(event.charIndex)) return;
+      const isWordBoundary = !event.name || event.name === 'word';
+      let low = 0;
+      let high = words.length - 1;
+      while (low <= high) {
+        const middle = (low + high) >> 1;
+        if (event.charIndex < words[middle].start) high = middle - 1;
+        else if (event.charIndex >= words[middle].end) low = middle + 1;
+        else {
+          if (isWordBoundary) { receivedBoundaryRef.current = true; clearTimer(); }
+          setHighlightedWord(middle);
+          return;
+        }
+      }
+      if (isWordBoundary) { receivedBoundaryRef.current = true; clearTimer(); }
+      setHighlightedWord(Math.min(low, words.length - 1));
+    };
+    utterance.onend = () => { clearTimer(); setState('idle'); setHighlightedWord(-1); };
+    utterance.onerror = () => { clearTimer(); setState('unavailable'); setHighlightedWord(-1); };
     speakUtterance(utterance);
   };
   const togglePause = () => {
-    if (state === 'paused') { resumeSpeech(); setState('playing'); }
-    else { pauseSpeech(); setState('paused'); }
+    if (state === 'paused') { pausedRef.current = false; resumeSpeech(); setState('playing'); }
+    else { pausedRef.current = true; pauseSpeech(); setState('paused'); }
   };
-  const stop = () => { window.speechSynthesis?.cancel(); setState('idle'); };
+  const stop = () => { cancelSpeech(); clearTimer(); setState('idle'); setHighlightedWord(-1); };
   return <div className="mt-3 flex flex-wrap gap-2" aria-label="Controles de narración">
     <button type="button" onClick={play} className="inline-flex items-center gap-2 rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white hover:bg-blue-800"><Volume2 size={18} aria-hidden="true" />Escuchar</button>
     {(state === 'playing' || state === 'paused') && <><button type="button" onClick={togglePause} className="rounded-xl border border-blue-300 bg-white px-4 py-3 font-semibold text-blue-800">{state === 'paused' ? 'Reanudar' : 'Pausar'}</button><button type="button" onClick={stop} className="rounded-xl border border-slate-300 bg-white px-4 py-3 font-semibold text-slate-700">Detener</button></>}
     <span className="sr-only" role="status" aria-live="polite">{state === 'playing' ? 'Reproduciendo narración' : state === 'paused' ? 'Narración en pausa' : state === 'unavailable' ? 'La síntesis de voz no está disponible en este navegador' : ''}</span>
+    <p className="basis-full rounded-xl bg-white p-3 text-base leading-8 text-slate-800" aria-label="Texto sincronizado con la narración">{words.map((word, index) => <span key={`${word.start}-${word.end}`} className={highlightedWord === index ? 'rounded bg-yellow-200 px-0.5 font-bold text-slate-950 ring-2 ring-yellow-500' : ''}>{transcript.slice(word.start, word.end)}{' '}</span>)}</p>
     {state === 'unavailable' && <p className="basis-full text-sm text-amber-800">La síntesis de voz no está disponible; puedes usar la transcripción y continuar con las preguntas.</p>}
   </div>;
 }
