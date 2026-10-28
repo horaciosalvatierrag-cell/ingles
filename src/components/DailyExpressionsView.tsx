@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
 import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
+import { searchWiktionary, type WiktionaryResult } from '../lib/wiktionarySearch';
 
 type DailyExpression = {
   phrase: string;
@@ -12,26 +13,6 @@ type DailyExpression = {
   where: string;
   register: string;
 };
-
-type InternetResult = { title: string; snippet: string; url: string };
-
-async function searchInternet(query: string, signal: AbortSignal): Promise<InternetResult[]> {
-  const params = new URLSearchParams({
-    action: 'query', list: 'search', srsearch: query, srnamespace: '0',
-    srlimit: '5', srprop: 'snippet', format: 'json', origin: '*',
-  });
-  const response = await fetch(`https://en.wiktionary.org/w/api.php?${params}`, {
-    signal,
-    headers: { Accept: 'application/json' },
-  });
-  if (!response.ok) throw new Error(`Búsqueda externa: ${response.status}`);
-  const data = await response.json() as { query?: { search?: Array<{ title: string; snippet: string }> } };
-  return (data.query?.search ?? []).map(result => ({
-    title: result.title,
-    snippet: new DOMParser().parseFromString(result.snippet, 'text/html').body.textContent?.trim() ?? '',
-    url: `https://en.wiktionary.org/wiki/${encodeURIComponent(result.title.replace(/ /g, '_'))}`,
-  }));
-}
 
 const expressions: DailyExpression[] = [
   { phrase: 'How are you?', aliases: ['How are you doing?'], meaning: '¿Cómo estás? / ¿Cómo está?', example: 'Hi, Ana. How are you today?', translation: 'Hola, Ana. ¿Cómo estás hoy?', where: 'Saludo cotidiano con amigos, compañeros y personas que conoces. En un contexto formal también es apropiada.', register: 'Neutral · formal o informal' },
@@ -100,7 +81,7 @@ export default function DailyExpressionsView() {
   const [selected, setSelected] = useState<DailyExpression | null>(null);
   const [suggestions, setSuggestions] = useState<DailyExpression[]>([]);
   const [message, setMessage] = useState('');
-  const [internetResults, setInternetResults] = useState<InternetResult[]>([]);
+  const [internetResults, setInternetResults] = useState<WiktionaryResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const searchControllerRef = useRef<AbortController | null>(null);
 
@@ -150,7 +131,7 @@ export default function DailyExpressionsView() {
     let timedOut = false;
     const timeoutId = window.setTimeout(() => { timedOut = true; controller.abort(); }, 12000);
     try {
-      const results = await searchInternet(`${query} English`, controller.signal);
+      const results = await searchWiktionary(`${query} English`, controller.signal);
       if (searchControllerRef.current !== controller) return;
       setInternetResults(results);
       setMessage(results.length

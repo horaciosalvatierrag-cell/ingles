@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { FormEvent } from 'react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
 import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
-import { webSearchUrl } from '../lib/webSearch';
+import { searchWiktionary, type WiktionaryResult } from '../lib/wiktionarySearch';
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
 type Expression = { phrase: string; meaning: string; example: string; translation: string; use: string; register: string };
@@ -80,9 +81,59 @@ const levelGuides: Record<Level, string> = {
 export default function SlangView() {
   const [level, setLevel] = useState<Level>('A1');
   const [search, setSearch] = useState('');
+  const [internetResults, setInternetResults] = useState<WiktionaryResult[]>([]);
+  const [searchMessage, setSearchMessage] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+  const searchControllerRef = useRef<AbortController | null>(null);
   const filtered = useMemo(() => expressions[level].filter(item =>
     `${item.phrase} ${item.meaning} ${item.example} ${item.use}`.toLowerCase().includes(search.toLowerCase().trim())
   ), [level, search]);
+
+  useEffect(() => () => {
+    searchControllerRef.current?.abort();
+    searchControllerRef.current = null;
+  }, []);
+
+  const explainExpression = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const query = search.trim();
+    if (!query) {
+      setInternetResults([]);
+      setSearchMessage('Escribe un modismo o expresión para buscar su significado.');
+      return;
+    }
+    searchControllerRef.current?.abort();
+    const controller = new AbortController();
+    searchControllerRef.current = controller;
+    setInternetResults([]);
+    setIsSearching(true);
+    setSearchMessage('Buscando la expresión en Internet…');
+    let timedOut = false;
+    const timeoutId = window.setTimeout(() => { timedOut = true; controller.abort(); }, 12000);
+    try {
+      const results = await searchWiktionary(`${query} English slang idiom meaning`, controller.signal);
+      if (searchControllerRef.current !== controller) return;
+      setInternetResults(results);
+      setSearchMessage(results.length
+        ? filtered.length
+          ? 'Consulté Wiktionary. Aquí están los resultados de Internet junto con las expresiones de esta guía.'
+          : 'No estaba en esta guía; encontré estos resultados en Internet.'
+        : filtered.length
+          ? 'No encontré resultados relacionados en Internet. Puedes consultar las expresiones de esta guía.'
+          : 'No encontré resultados para esta expresión. Prueba otra variante o una frase más corta.');
+    } catch {
+      if (searchControllerRef.current !== controller || (controller.signal.aborted && !timedOut)) return;
+      setSearchMessage(timedOut
+        ? 'La búsqueda en Internet tardó demasiado. Las expresiones locales siguen disponibles.'
+        : 'No se pudo conectar con Internet. Puedes seguir consultando las expresiones de esta guía.');
+    } finally {
+      window.clearTimeout(timeoutId);
+      if (searchControllerRef.current === controller) {
+        searchControllerRef.current = null;
+        setIsSearching(false);
+      }
+    }
+  };
 
   const speak = (text: string) => {
     if (!('speechSynthesis' in window)) return;
@@ -107,9 +158,14 @@ export default function SlangView() {
         </button>)}
       </div>
       <p className="mt-3 text-xs leading-5 text-purple-200">{levelGuides[level]}</p>
-      <label className="mt-4 block text-sm font-medium text-white" htmlFor="slang-search">Buscar expresión, significado o ejemplo</label>
-      <input id="slang-search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Ej.: no worries, trabajo, secreto…"
-        className="mt-1.5 w-full rounded-xl border border-white/15 bg-white px-3 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-500 focus:ring-2 focus:ring-blue-400" />
+      <form onSubmit={explainExpression} className="mt-4">
+        <label className="block text-sm font-medium text-white" htmlFor="slang-search">Buscar o explicar un modismo</label>
+        <div className="mt-1.5 flex flex-col gap-2 sm:flex-row">
+          <input id="slang-search" value={search} maxLength={120} onChange={event => { searchControllerRef.current?.abort(); searchControllerRef.current = null; setIsSearching(false); setInternetResults([]); setSearchMessage(''); setSearch(event.target.value); }} placeholder="Ej.: no worries, spill the beans…"
+            className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white px-3 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-500 focus:ring-2 focus:ring-blue-400" />
+          <button type="submit" disabled={isSearching} className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-wait disabled:opacity-70">{isSearching ? 'Buscando en Internet…' : 'Explicar expresión'}</button>
+        </div>
+      </form>
     </div>
 
     <div className="grid gap-3 lg:grid-cols-2">
@@ -124,7 +180,9 @@ export default function SlangView() {
         <span className="mt-3 inline-flex rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-purple-200">{item.register}</span>
       </article>)}
     </div>
-    {filtered.length === 0 && <div className="rounded-xl border border-white/10 bg-white/10 p-6 text-center text-purple-100"><p>No encontré expresiones con esa búsqueda en {level}. Prueba otra palabra o cambia de nivel.</p>{search.trim() && <a href={webSearchUrl(`${search} English slang meaning example`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700">Buscar en Internet ↗</a>}</div>}
+    {searchMessage && <p className="rounded-xl border border-blue-300/20 bg-blue-400/10 p-4 text-sm leading-6 text-blue-100" role="status" aria-live="polite">{searchMessage}</p>}
+    {internetResults.length > 0 && <section className="space-y-3" aria-label="Resultados de Internet"><h3 className="text-lg font-bold text-white">Resultados de Internet · Wiktionary</h3>{internetResults.map(result => <article key={`${result.title}-${result.url}`} className="rounded-xl border border-white/10 bg-white/10 p-4"><h4 className="font-semibold text-white">{result.title}</h4><p className="mt-1 text-sm leading-6 text-purple-100">{result.snippet || 'Abre la entrada para leer su definición completa.'}</p><a href={result.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex text-sm font-semibold text-sky-200 underline underline-offset-2">Ver entrada y contexto ↗</a></article>)}</section>}
+    {filtered.length === 0 && search.trim() && <div className="rounded-xl border border-white/10 bg-white/10 p-6 text-center text-purple-100"><p>No encontré expresiones con esa búsqueda en el nivel {level}. Revisa también los resultados de Internet o cambia de nivel.</p></div>}
     <p className="rounded-xl border border-amber-300/20 bg-amber-400/10 p-4 text-xs leading-5 text-amber-100">El slang depende de la región, la edad y la confianza entre las personas. Estas expresiones son principalmente informales: en entrevistas, documentos o correos formales, elige una alternativa neutral cuando tengas dudas.</p>
   </section>;
 }
