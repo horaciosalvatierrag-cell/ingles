@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
 import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
-import { webSearchUrl } from '../lib/webSearch';
 
 type DailyExpression = {
   phrase: string;
@@ -13,6 +12,26 @@ type DailyExpression = {
   where: string;
   register: string;
 };
+
+type InternetResult = { title: string; snippet: string; url: string };
+
+async function searchInternet(query: string, signal: AbortSignal): Promise<InternetResult[]> {
+  const params = new URLSearchParams({
+    action: 'query', list: 'search', srsearch: query, srnamespace: '0',
+    srlimit: '5', srprop: 'snippet', format: 'json', origin: '*',
+  });
+  const response = await fetch(`https://en.wiktionary.org/w/api.php?${params}`, {
+    signal,
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error(`Búsqueda externa: ${response.status}`);
+  const data = await response.json() as { query?: { search?: Array<{ title: string; snippet: string }> } };
+  return (data.query?.search ?? []).map(result => ({
+    title: result.title,
+    snippet: new DOMParser().parseFromString(result.snippet, 'text/html').body.textContent?.trim() ?? '',
+    url: `https://en.wiktionary.org/wiki/${encodeURIComponent(result.title.replace(/ /g, '_'))}`,
+  }));
+}
 
 const expressions: DailyExpression[] = [
   { phrase: 'How are you?', aliases: ['How are you doing?'], meaning: '¿Cómo estás? / ¿Cómo está?', example: 'Hi, Ana. How are you today?', translation: 'Hola, Ana. ¿Cómo estás hoy?', where: 'Saludo cotidiano con amigos, compañeros y personas que conoces. En un contexto formal también es apropiada.', register: 'Neutral · formal o informal' },
@@ -81,18 +100,34 @@ export default function DailyExpressionsView() {
   const [selected, setSelected] = useState<DailyExpression | null>(null);
   const [suggestions, setSuggestions] = useState<DailyExpression[]>([]);
   const [message, setMessage] = useState('');
+  const [internetResults, setInternetResults] = useState<InternetResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const searchControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => () => {
+    searchControllerRef.current?.abort();
+    searchControllerRef.current = null;
+  }, []);
 
   const explain = (expression: DailyExpression) => {
+    searchControllerRef.current?.abort();
+    searchControllerRef.current = null;
+    setIsSearching(false);
+    setInternetResults([]);
     setSelected(expression);
     setQuery(expression.phrase);
     setSuggestions([]);
     setMessage('');
   };
 
-  const lookup = (event: FormEvent<HTMLFormElement>) => {
+  const lookup = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const normalizedQuery = normalize(query);
     if (!normalizedQuery) {
+      searchControllerRef.current?.abort();
+      searchControllerRef.current = null;
+      setIsSearching(false);
+      setInternetResults([]);
       setSelected(null);
       setSuggestions([]);
       setMessage('Escribe una expresión en inglés para buscar su significado.');
@@ -102,21 +137,45 @@ export default function DailyExpressionsView() {
     const contained = exact ?? expressions
       .filter(item => [item.phrase, ...(item.aliases ?? [])].some(phrase => normalizedQuery.includes(normalize(phrase)) && normalize(phrase).length > 5))
       .sort((a, b) => b.phrase.length - a.phrase.length)[0];
-    if (contained) {
-      explain(contained);
-      return;
-    }
-    const found = findSuggestions(query);
-    setSelected(null);
+    const found = contained ? [] : findSuggestions(query);
+    searchControllerRef.current?.abort();
+    const controller = new AbortController();
+    searchControllerRef.current = controller;
+    setSelected(contained ?? null);
     setSuggestions(found);
-    if (found.length) {
-      setMessage('No encontré una coincidencia exacta. Quizá te refieres a alguna de estas expresiones:');
-      return;
-    }
+    setInternetResults([]);
+    setIsSearching(true);
+    setMessage('Buscando la expresión en Internet…');
 
-    const searchUrl = webSearchUrl(`${query} English expression meaning usage examples`);
-    window.open(searchUrl, '_blank', 'noopener,noreferrer');
-    setMessage('No encontré esta expresión en la guía. Abrí una búsqueda en Internet en otra pestaña para consultar su significado y uso.');
+    let timedOut = false;
+    const timeoutId = window.setTimeout(() => { timedOut = true; controller.abort(); }, 12000);
+    try {
+      const results = await searchInternet(`${query} English`, controller.signal);
+      if (searchControllerRef.current !== controller) return;
+      setInternetResults(results);
+      setMessage(results.length
+        ? contained
+          ? 'También consulté Internet; aquí tienes resultados de Wiktionary junto con la explicación de la guía.'
+          : found.length
+            ? 'Consulté Internet. Revisa estos resultados y las sugerencias de la guía.'
+            : 'No estaba en la guía; encontré estos resultados en Internet.'
+        : contained
+          ? 'La guía tiene una explicación para esta expresión, pero Internet no devolvió resultados relacionados.'
+          : found.length
+            ? 'No encontré una coincidencia directa en Internet. También puedes revisar estas sugerencias de la guía.'
+            : 'No encontré resultados para esta expresión en la guía ni en Wiktionary. Prueba con otra forma de escribirla.');
+    } catch {
+      if (searchControllerRef.current !== controller || (controller.signal.aborted && !timedOut)) return;
+      setMessage(timedOut
+        ? 'La búsqueda en Internet tardó demasiado. Puedes consultar la explicación local, si está disponible, e intentarlo de nuevo.'
+        : 'No se pudo conectar con Internet. Puedes consultar las sugerencias o la guía local, si hay una coincidencia.');
+    } finally {
+      window.clearTimeout(timeoutId);
+      if (searchControllerRef.current === controller) {
+        searchControllerRef.current = null;
+        setIsSearching(false);
+      }
+    }
   };
 
   const speak = (text: string) => {
@@ -135,15 +194,16 @@ export default function DailyExpressionsView() {
       <form onSubmit={lookup} className="mt-5 space-y-2">
         <label htmlFor="daily-expression" className="block text-sm font-semibold text-white">Expresión en inglés</label>
         <div className="flex flex-col gap-2 sm:flex-row">
-          <input id="daily-expression" value={query} onChange={event => { setQuery(event.target.value); setMessage(''); setSuggestions([]); }} placeholder="Ej.: Could you give me a hand?" autoComplete="off"
+          <input id="daily-expression" value={query} maxLength={120} onChange={event => { searchControllerRef.current?.abort(); searchControllerRef.current = null; setIsSearching(false); setInternetResults([]); setSelected(null); setQuery(event.target.value); setMessage(''); setSuggestions([]); }} placeholder="Ej.: Could you give me a hand?" autoComplete="off"
             className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white px-4 py-3 text-slate-900 outline-none placeholder:text-slate-500 focus:ring-2 focus:ring-blue-400" />
-          <button type="submit" className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700">Explicar expresión</button>
+          <button type="submit" disabled={isSearching} className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-wait disabled:opacity-70">{isSearching ? 'Buscando en Internet…' : 'Explicar expresión'}</button>
         </div>
         <p className="text-xs text-purple-200">Prueba también: “How are you?”, “Could I have…?” o “I’m on my way.”</p>
       </form>
     </div>
 
     {message && <div className="rounded-xl border border-blue-400/20 bg-blue-500/10 p-4 text-sm leading-6 text-blue-100" role="status">{message}</div>}
+    {internetResults.length > 0 && <section className="space-y-3" aria-label="Resultados de Internet"><h3 className="text-lg font-bold text-white">Resultados de Internet · Wiktionary</h3>{internetResults.map(result => <article key={`${result.title}-${result.url}`} className="rounded-xl border border-white/10 bg-white/10 p-4"><h4 className="font-semibold text-white">{result.title}</h4><p className="mt-1 text-sm leading-6 text-purple-100">{result.snippet || 'Consulta la entrada para ver su definición completa.'}</p><a href={result.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex text-sm font-semibold text-sky-200 underline underline-offset-2">Ver entrada y contexto ↗</a></article>)}</section>}
     {selected && <article className="rounded-2xl border border-blue-400/25 bg-white/10 p-5 shadow-sm md:p-7" aria-live="polite">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div><p className="text-xs font-semibold uppercase tracking-wide text-blue-200">Expresión</p><h3 className="mt-1 text-2xl font-bold text-white">{selected.phrase}</h3></div>
