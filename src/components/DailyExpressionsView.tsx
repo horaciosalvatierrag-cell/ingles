@@ -109,9 +109,14 @@ export default function DailyExpressionsView() {
     const found = findSuggestions(query);
     setSelected(null);
     setSuggestions(found);
-    setMessage(found.length
-      ? 'No encontré una coincidencia exacta. Quizá te refieres a alguna de estas expresiones:'
-      : 'Todavía no tengo esta expresión en la guía. Prueba con una frase cotidiana como “I’m running late” o “Could you help me?”.');
+    if (found.length) {
+      setMessage('No encontré una coincidencia exacta. Quizá te refieres a alguna de estas expresiones:');
+      return;
+    }
+
+    const searchUrl = webSearchUrl(`${query} English expression meaning usage examples`);
+    window.open(searchUrl, '_blank', 'noopener,noreferrer');
+    setMessage('No encontré esta expresión en la guía. Abrí una búsqueda en Internet en otra pestaña para consultar su significado y uso.');
   };
 
   const speak = (text: string) => {
@@ -138,7 +143,7 @@ export default function DailyExpressionsView() {
       </form>
     </div>
 
-    {message && <div className="rounded-xl border border-blue-400/20 bg-blue-500/10 p-4 text-sm leading-6 text-blue-100" role="status">{message}{query.trim() && !selected && <a href={webSearchUrl(`${query} English expression meaning usage`)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-lg bg-blue-600 px-3 py-2 font-semibold text-white hover:bg-blue-700">Buscar en Internet ↗</a>}</div>}
+    {message && <div className="rounded-xl border border-blue-400/20 bg-blue-500/10 p-4 text-sm leading-6 text-blue-100" role="status">{message}</div>}
     {selected && <article className="rounded-2xl border border-blue-400/25 bg-white/10 p-5 shadow-sm md:p-7" aria-live="polite">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div><p className="text-xs font-semibold uppercase tracking-wide text-blue-200">Expresión</p><h3 className="mt-1 text-2xl font-bold text-white">{selected.phrase}</h3></div>

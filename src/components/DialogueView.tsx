@@ -8,7 +8,6 @@ interface DialogueViewProps {
 }
 
 function DialogueView({ dialogue }: DialogueViewProps) {
-  const [playbackLevel, setPlaybackLevel] = useState<'A1' | 'A2' | 'B1' | 'B2' | 'C1'>((['A1', 'A2', 'B1', 'B2', 'C1'].includes(dialogue.level) ? dialogue.level : 'B1') as 'A1' | 'A2' | 'B1' | 'B2' | 'C1');
   const [activeLine, setActiveLine] = useState<DialogueLine | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [feedback, setFeedback] = useState<'success' | 'error' | null>(null);
@@ -25,8 +24,8 @@ function DialogueView({ dialogue }: DialogueViewProps) {
   const isPlayingRef = useRef<boolean>(false);
   const timeoutRef = useRef<any>(null);
   const currentIndexRef = useRef<number>(0);
-  const levelRates = { A1: 0.62, A2: 0.74, B1: 0.86, B2: 0.98, C1: 1.08 };
-  const playbackRate = levelRates[playbackLevel];
+  const playbackRate = 1;
+  const turnPauseMs = 240;
 
   const speakerPitch = (speaker: string) => speaker === 'customer' || speaker === 'student' ? 1.05 : 0.66;
 
@@ -131,13 +130,13 @@ function DialogueView({ dialogue }: DialogueViewProps) {
         utterance.onend = () => {
           currentIndexRef.current++;
           // Store timeout ID so we can clear it if needed
-          timeoutRef.current = setTimeout(speakNext, 500);
+          timeoutRef.current = setTimeout(speakNext, turnPauseMs);
         };
 
         utterance.onerror = () => {
           currentIndexRef.current++;
           // Store timeout ID so we can clear it if needed
-          timeoutRef.current = setTimeout(speakNext, 500);
+          timeoutRef.current = setTimeout(speakNext, turnPauseMs);
         };
 
         speakUtterance(utterance);
@@ -342,8 +341,7 @@ function DialogueView({ dialogue }: DialogueViewProps) {
         <p className="text-purple-200 text-sm mb-4">{dialogue.descriptionEs}</p>
 
         <div className="mb-4 rounded-xl border border-white/10 bg-black/10 p-3">
-          <div className="mb-2 flex items-center justify-between gap-2"><p className="text-xs font-semibold text-purple-100">Ritmo de reproducción por nivel</p><span className="text-xs text-purple-200">{playbackLevel} · {playbackRate.toFixed(2)}×</span></div>
-          <div className="flex flex-wrap gap-2">{(['A1', 'A2', 'B1', 'B2', 'C1'] as const).map(level => <button key={level} onClick={() => setPlaybackLevel(level)} className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${playbackLevel === level ? 'bg-violet-500 text-white' : 'bg-white/10 text-purple-100 hover:bg-white/20'}`}>{level}</button>)}</div>
+          <div className="flex items-center justify-between gap-2"><p className="text-xs font-semibold text-purple-100">Ritmo conversacional natural</p><span className="text-xs text-purple-200">1.0× · constante en todos los niveles</span></div>
         </div>
 
         {/* Controls */}
