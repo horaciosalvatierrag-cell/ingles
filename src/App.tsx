@@ -32,8 +32,8 @@ interface LevelInfo {
 }
 
 const levels: LevelInfo[] = [
-  { id: 'verbs', name: 'Verbos', description: '300 regulares · 160 irregulares', icon: '📘', color: 'from-blue-500 to-sky-600' },
   { id: 'course', name: 'Ruta A1–C1', description: '50 unidades · 4 destrezas', icon: '🧭', color: 'from-blue-500 to-indigo-600' },
+  { id: 'verbs', name: 'Verbos', description: '300 regulares · 160 irregulares', icon: '📘', color: 'from-blue-500 to-sky-600' },
   { id: 'A1', name: 'Nivel A1', description: 'Principiante', icon: '🌱', color: 'from-green-400 to-green-600' },
   { id: 'A2', name: 'Nivel A2', description: 'Elemental', icon: '🌿', color: 'from-teal-400 to-teal-600' },
   { id: 'B1', name: 'Nivel B1', description: 'Intermedio', icon: '🌳', color: 'from-blue-400 to-blue-600' },
@@ -50,8 +50,8 @@ const levels: LevelInfo[] = [
 ];
 
 function App() {
-  const [activeLevel, setActiveLevel] = useState<Level>('verbs');
-  const [appSection, setAppSection] = useState<AppSection>('verbs');
+  const [activeLevel, setActiveLevel] = useState<Level>('course');
+  const [appSection, setAppSection] = useState<AppSection>('course');
   const [verbType, setVerbType] = useState<VerbType>('regular');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
