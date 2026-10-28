@@ -8,8 +8,6 @@ let activeAudio: HTMLAudioElement | null = null;
 let activeObjectUrl: string | null = null;
 let activeRequest: AbortController | null = null;
 let activeUtterance: SpeechSynthesisUtterance | null = null;
-let pendingSpeechTimer: number | null = null;
-let speechGeneration = 0;
 
 function endpoint() {
   return (import.meta.env.VITE_INDIAN_TTS_ENDPOINT as string | undefined)?.trim().replace(/\/$/, '') ?? '';
@@ -22,9 +20,6 @@ function callHandler(utterance: SpeechSynthesisUtterance, handler: UtteranceHand
 }
 
 export function cancelSpeech() {
-  speechGeneration += 1;
-  if (pendingSpeechTimer !== null) window.clearTimeout(pendingSpeechTimer);
-  pendingSpeechTimer = null;
   activeRequest?.abort();
   activeRequest = null;
   if (activeAudio) {
@@ -58,24 +53,19 @@ export function speakUtterance(utterance: SpeechSynthesisUtterance) {
       return;
     }
 
-    // A few browsers can leave a cancelled utterance blocking the queue. Reset
-    // it and start on the next task; voices are also loaded lazily in browsers.
-    cancelSpeech();
-    const generation = speechGeneration;
+    // Start synchronously in the click/input event. Deferring speech with a
+    // timer can lose browser audio activation and leave the whole app silent.
     activeUtterance = utterance;
-    pendingSpeechTimer = window.setTimeout(() => {
-      pendingSpeechTimer = null;
-      if (generation !== speechGeneration || activeUtterance !== utterance) return;
-      try {
-        window.speechSynthesis.getVoices();
-        const tagged = utterance as TaggedUtterance;
-        configureEnglishUtterance(utterance, tagged.indianVoiceGender);
-        window.speechSynthesis.speak(utterance);
-      } catch {
-        activeUtterance = null;
-        callHandler(utterance, utterance.onerror, 'error', { error: 'audio-busy' });
-      }
-    }, 80);
+    try {
+      window.speechSynthesis.getVoices();
+      const tagged = utterance as TaggedUtterance;
+      configureEnglishUtterance(utterance, tagged.indianVoiceGender);
+      window.speechSynthesis.resume();
+      window.speechSynthesis.speak(utterance);
+    } catch {
+      activeUtterance = null;
+      callHandler(utterance, utterance.onerror, 'error', { error: 'audio-busy' });
+    }
     utterance.addEventListener('end', () => {
       if (activeUtterance === utterance) activeUtterance = null;
     }, { once: true });
