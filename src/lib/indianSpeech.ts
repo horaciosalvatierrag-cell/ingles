@@ -1,4 +1,4 @@
-import { getSpeechAccent, type VoiceGender } from './speechAccent';
+import { configureEnglishUtterance, getSpeechAccent, type VoiceGender } from './speechAccent';
 import { getSpeechCharIndexAtProgress, getSpeechWordRanges } from './speechTiming';
 
 type UtteranceHandler = ((this: SpeechSynthesisUtterance, event: any) => void) | null;
@@ -8,6 +8,8 @@ let activeAudio: HTMLAudioElement | null = null;
 let activeObjectUrl: string | null = null;
 let activeRequest: AbortController | null = null;
 let activeUtterance: SpeechSynthesisUtterance | null = null;
+let pendingSpeechTimer: number | null = null;
+let speechGeneration = 0;
 
 function endpoint() {
   return (import.meta.env.VITE_INDIAN_TTS_ENDPOINT as string | undefined)?.trim().replace(/\/$/, '') ?? '';
@@ -20,6 +22,9 @@ function callHandler(utterance: SpeechSynthesisUtterance, handler: UtteranceHand
 }
 
 export function cancelSpeech() {
+  speechGeneration += 1;
+  if (pendingSpeechTimer !== null) window.clearTimeout(pendingSpeechTimer);
+  pendingSpeechTimer = null;
   activeRequest?.abort();
   activeRequest = null;
   if (activeAudio) {
@@ -46,8 +51,41 @@ export function resumeSpeech() {
 
 export function speakUtterance(utterance: SpeechSynthesisUtterance) {
   const api = endpoint();
-  if (getSpeechAccent() !== 'en-IN' || !api || !('speechSynthesis' in window)) {
-    window.speechSynthesis.speak(utterance);
+  const canUseBrowserVoice = typeof window !== 'undefined' && 'speechSynthesis' in window;
+  const speakLocally = () => {
+    if (!canUseBrowserVoice) {
+      callHandler(utterance, utterance.onerror, 'error', { error: 'not-allowed' });
+      return;
+    }
+
+    // A few browsers can leave a cancelled utterance blocking the queue. Reset
+    // it and start on the next task; voices are also loaded lazily in browsers.
+    cancelSpeech();
+    const generation = speechGeneration;
+    activeUtterance = utterance;
+    pendingSpeechTimer = window.setTimeout(() => {
+      pendingSpeechTimer = null;
+      if (generation !== speechGeneration || activeUtterance !== utterance) return;
+      try {
+        window.speechSynthesis.getVoices();
+        const tagged = utterance as TaggedUtterance;
+        configureEnglishUtterance(utterance, tagged.indianVoiceGender);
+        window.speechSynthesis.speak(utterance);
+      } catch {
+        activeUtterance = null;
+        callHandler(utterance, utterance.onerror, 'error', { error: 'audio-busy' });
+      }
+    }, 80);
+    utterance.addEventListener('end', () => {
+      if (activeUtterance === utterance) activeUtterance = null;
+    }, { once: true });
+    utterance.addEventListener('error', () => {
+      if (activeUtterance === utterance) activeUtterance = null;
+    }, { once: true });
+  };
+
+  if (getSpeechAccent() !== 'en-IN' || !api) {
+    speakLocally();
     return;
   }
 
@@ -119,7 +157,7 @@ export function speakUtterance(utterance: SpeechSynthesisUtterance) {
     if (activeObjectUrl) { URL.revokeObjectURL(activeObjectUrl); activeObjectUrl = null; }
     // If the cloud service is unavailable, preserve playback through any local voice.
     activeUtterance = null;
-    window.speechSynthesis.speak(utterance);
+    speakLocally();
   };
 
   void playChunk(0).catch(handleFailure);
