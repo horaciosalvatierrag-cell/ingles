@@ -4,6 +4,7 @@ import type { IrregularVerb } from './data/irregularVerbs';
 import type { Dialogue } from './data/dialogues';
 import { pastParticiple } from './data/verbForms';
 import { configureEnglishUtterance, getAccentVoiceStatus, getSpeechAccent, setSpeechAccent, speechAccents, type SpeechAccent } from './lib/speechAccent';
+import { speakUtterance, cancelSpeech } from './lib/indianSpeech';
 import { webSearchUrl } from './lib/webSearch';
 import InstallAppButton from './components/InstallAppButton';
 
@@ -145,23 +146,23 @@ function App() {
     if (accentNoticeTimerRef.current !== null) window.clearTimeout(accentNoticeTimerRef.current);
     accentNoticeTimerRef.current = window.setTimeout(() => setAccentNotice(''), 7000);
     if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
+    cancelSpeech();
     const utterance = new SpeechSynthesisUtterance(accentSamples[accent]);
     configureEnglishUtterance(utterance);
     utterance.rate = 1.05;
     utterance.pitch = 1;
-    window.speechSynthesis.speak(utterance);
+    speakUtterance(utterance);
   };
 
   // Text-to-Speech
   const speak = useCallback((text: string) => {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+      cancelSpeech();
       const utterance = new SpeechSynthesisUtterance(text);
       configureEnglishUtterance(utterance);
       utterance.rate = speechRate;
       utterance.pitch = 1;
-      window.speechSynthesis.speak(utterance);
+      speakUtterance(utterance);
     }
   }, [speechRate]);
 
@@ -822,7 +823,7 @@ function App() {
               ) : (
                 <div className="space-y-4">
                   <button
-                    onClick={() => { setSelectedDialogue(null); window.speechSynthesis.cancel(); }}
+                    onClick={() => { setSelectedDialogue(null); cancelSpeech(); }}
                     className="flex items-center gap-2 px-4 py-2 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-all text-sm"
                   >
                     ← Volver a diálogos

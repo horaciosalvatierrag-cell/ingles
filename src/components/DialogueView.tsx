@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Dialogue, DialogueLine } from '../data/dialogues';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
 
 interface DialogueViewProps {
   dialogue: Dialogue;
@@ -48,14 +49,14 @@ function DialogueView({ dialogue }: DialogueViewProps) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      window.speechSynthesis.cancel();
+      cancelSpeech();
     };
   }, []);
 
   // Text-to-Speech
   const speak = useCallback((text: string, lineId: number, speaker = '') => {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+      cancelSpeech();
       const utterance = new SpeechSynthesisUtterance(text);
       configureEnglishUtterance(utterance, speaker === 'customer' || speaker === 'student' ? 'female' : 'male');
       utterance.rate = playbackRate;
@@ -74,14 +75,14 @@ function DialogueView({ dialogue }: DialogueViewProps) {
         setHighlightedLine(null);
       };
 
-      window.speechSynthesis.speak(utterance);
+      speakUtterance(utterance);
     }
   }, [playbackRate]);
 
   // Play entire dialogue from a specific index
   const playDialogueFromIndex = useCallback((startIndex: number = 0) => {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+      cancelSpeech();
       // Clear any pending timeout
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -139,7 +140,7 @@ function DialogueView({ dialogue }: DialogueViewProps) {
           timeoutRef.current = setTimeout(speakNext, 500);
         };
 
-        window.speechSynthesis.speak(utterance);
+        speakUtterance(utterance);
       };
 
       speakNext();
@@ -162,7 +163,7 @@ function DialogueView({ dialogue }: DialogueViewProps) {
     }
     
     // Cancel speech synthesis
-    window.speechSynthesis.cancel();
+    cancelSpeech();
     setCurrentPlayingId(null);
     setHighlightedLine(null);
     

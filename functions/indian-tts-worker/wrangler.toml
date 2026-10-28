@@ -1,0 +1,6 @@
+name = "ingles-indian-tts"
+main = "src/index.ts"
+compatibility_date = "2026-10-28"
+
+[vars]
+ALLOWED_ORIGIN = "https://horaciosalvatierrag-cell.github.io,http://localhost:3000"

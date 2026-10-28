@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { listeningStories } from '../data/listeningStories';
 import { additionalListeningActivities } from '../data/additionalListeningActivities';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
 
 const levels = ['A1', 'A2', 'B1', 'B2', 'C1'] as const;
 const allListeningActivities = [...listeningStories, ...additionalListeningActivities];
@@ -31,7 +32,7 @@ export default function ListeningView() {
 
   const play = (rate: number) => {
     if (!story || !('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
+    cancelSpeech();
     const utterance = new SpeechSynthesisUtterance(text);
     configureEnglishUtterance(utterance);
     utterance.rate = rate;
@@ -44,13 +45,13 @@ export default function ListeningView() {
     };
     utterance.onend = () => { setPlaying(false); setHighlightedWord(-1); };
     utterance.onerror = () => { setPlaying(false); setHighlightedWord(-1); };
-    window.speechSynthesis.speak(utterance);
+    speakUtterance(utterance);
   };
 
   if (storyId && story) return <div className="space-y-4">
-    <button onClick={() => { window.speechSynthesis.cancel(); setStoryId(null); }} className="rounded-xl bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">← Todas las historias</button>
+    <button onClick={() => { cancelSpeech(); setStoryId(null); }} className="rounded-xl bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">← Todas las historias</button>
     <section className="rounded-2xl border border-white/10 bg-white/10 p-3 sm:p-5">
-      <div className="flex flex-wrap items-start justify-between gap-3"><div><span className="rounded-full bg-sky-300/15 px-2.5 py-1 text-xs font-semibold text-sky-100">Nivel {story.level}</span><h2 className="mt-3 text-2xl font-bold text-white">{story.title}</h2><p className="mt-1 text-sm text-purple-200">{story.summary}</p></div><div className="flex flex-wrap gap-2"><button onClick={() => setShowText(value => !value)} className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white">{showText ? '🙈 Ocultar texto' : '📖 Mostrar texto'}</button><button disabled={playing} onClick={() => play(0.78)} className="rounded-lg bg-sky-500 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">🐢 Lento</button><button disabled={playing} onClick={() => play(1)} className="rounded-lg bg-indigo-500 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">▶ Escuchar</button>{playing && <button onClick={() => { window.speechSynthesis.cancel(); setPlaying(false); setHighlightedWord(-1); }} className="rounded-lg bg-rose-500 px-3 py-2 text-sm font-semibold text-white">⏹ Detener</button>}</div></div>
+      <div className="flex flex-wrap items-start justify-between gap-3"><div><span className="rounded-full bg-sky-300/15 px-2.5 py-1 text-xs font-semibold text-sky-100">Nivel {story.level}</span><h2 className="mt-3 text-2xl font-bold text-white">{story.title}</h2><p className="mt-1 text-sm text-purple-200">{story.summary}</p></div><div className="flex flex-wrap gap-2"><button onClick={() => setShowText(value => !value)} className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white">{showText ? '🙈 Ocultar texto' : '📖 Mostrar texto'}</button><button disabled={playing} onClick={() => play(0.78)} className="rounded-lg bg-sky-500 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">🐢 Lento</button><button disabled={playing} onClick={() => play(1)} className="rounded-lg bg-indigo-500 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">▶ Escuchar</button>{playing && <button onClick={() => { cancelSpeech(); setPlaying(false); setHighlightedWord(-1); }} className="rounded-lg bg-rose-500 px-3 py-2 text-sm font-semibold text-white">⏹ Detener</button>}</div></div>
       {showText && <div className="listening-transcript mt-5 space-y-4 rounded-xl p-4 sm:p-6">{story.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph.split(/\s+/).map((word, wordIndex) => { const absoluteIndex = story.paragraphs.slice(0, paragraphIndex).join(' ').split(/\s+/).filter(Boolean).length + wordIndex; return <span key={wordIndex} className={highlightedWord === absoluteIndex ? 'listening-word-active rounded px-1 font-bold ring-2' : ''}>{word}{' '}</span>; })}</p>)}</div>}
     </section>
     <section className="rounded-2xl border border-sky-200/10 bg-sky-300/5 p-5">

@@ -1,17 +1,18 @@
 import { useMemo, useRef, useState } from 'react';
 import { phrasalVerbs } from '../data/phrasalVerbs';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
 import { webSearchUrl } from '../lib/webSearch';
 
 type VoicePractice = { id: number; target: string; label: string };
 
 const speakText = (text: string, repetitions = 1) => {
   if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
+  cancelSpeech();
   const utterance = new SpeechSynthesisUtterance(Array.from({ length: repetitions }, () => text).join('. '));
   configureEnglishUtterance(utterance);
   utterance.rate = 0.82;
-  window.speechSynthesis.speak(utterance);
+  speakUtterance(utterance);
 };
 
 const normalize = (value: string) => value.toLowerCase().replace(/[^a-z\s]/g, ' ').replace(/\s+/g, ' ').trim();

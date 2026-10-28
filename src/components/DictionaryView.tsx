@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { dictionaryWords } from '../data/dictionary';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
 import { webSearchUrl } from '../lib/webSearch';
 
 function DictionaryView() {
@@ -36,7 +37,7 @@ function DictionaryView() {
   // Función de pronunciación
   const speak = (text: string, wordId: number) => {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+      cancelSpeech();
       
       const utterance = new SpeechSynthesisUtterance(text);
       configureEnglishUtterance(utterance);
@@ -47,7 +48,7 @@ function DictionaryView() {
       utterance.onend = () => setIsSpeaking(null);
       utterance.onerror = () => setIsSpeaking(null);
 
-      window.speechSynthesis.speak(utterance);
+      speakUtterance(utterance);
     }
   };
 

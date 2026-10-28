@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Volume2 } from 'lucide-react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { speakUtterance, cancelSpeech, pauseSpeech, resumeSpeech } from '../lib/indianSpeech';
 import { loadLearningProgress, saveActivityProgress, type LearningProgress } from '../lib/learningProgress';
 import { getUnitActivitiesComplete, learningUnits } from '../learning/curriculum';
 import { learningLevels, learningSkillLabels, type LearningLevel, type LearningSkill, type LearningUnit } from '../learning/types';
@@ -68,18 +69,18 @@ function SpeechControls({ transcript }: { transcript: string }) {
   useEffect(() => () => window.speechSynthesis?.cancel(), []);
   const play = () => {
     if (!('speechSynthesis' in window)) { setState('unavailable'); return; }
-    window.speechSynthesis.cancel();
+    cancelSpeech();
     const utterance = new SpeechSynthesisUtterance(transcript);
     configureEnglishUtterance(utterance);
     utterance.rate = 0.88;
     utterance.onstart = () => setState('playing');
     utterance.onend = () => setState('idle');
     utterance.onerror = () => setState('unavailable');
-    window.speechSynthesis.speak(utterance);
+    speakUtterance(utterance);
   };
   const togglePause = () => {
-    if (state === 'paused') { window.speechSynthesis.resume(); setState('playing'); }
-    else { window.speechSynthesis.pause(); setState('paused'); }
+    if (state === 'paused') { resumeSpeech(); setState('playing'); }
+    else { pauseSpeech(); setState('paused'); }
   };
   const stop = () => { window.speechSynthesis?.cancel(); setState('idle'); };
   return <div className="mt-3 flex flex-wrap gap-2" aria-label="Controles de narración">

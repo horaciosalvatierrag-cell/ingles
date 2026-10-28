@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
 import { webSearchUrl } from '../lib/webSearch';
 
 type DailyExpression = {
@@ -115,10 +116,10 @@ export default function DailyExpressionsView() {
 
   const speak = (text: string) => {
     if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
+    cancelSpeech();
     const utterance = new SpeechSynthesisUtterance(text);
     configureEnglishUtterance(utterance);
-    window.speechSynthesis.speak(utterance);
+    speakUtterance(utterance);
   };
 
   return <section className="mx-auto max-w-4xl space-y-5">

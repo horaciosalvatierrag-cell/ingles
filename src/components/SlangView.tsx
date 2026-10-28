@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { configureEnglishUtterance } from '../lib/speechAccent';
+import { speakUtterance, cancelSpeech } from '../lib/indianSpeech';
 import { webSearchUrl } from '../lib/webSearch';
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
@@ -85,11 +86,11 @@ export default function SlangView() {
 
   const speak = (text: string) => {
     if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
+    cancelSpeech();
     const utterance = new SpeechSynthesisUtterance(text);
     configureEnglishUtterance(utterance);
     utterance.rate = level === 'A1' || level === 'A2' ? 0.82 : 0.94;
-    window.speechSynthesis.speak(utterance);
+    speakUtterance(utterance);
   };
 
   return <section className="mx-auto max-w-6xl space-y-5">

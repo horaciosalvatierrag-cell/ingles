@@ -30,6 +30,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: 'true'
+          VITE_INDIAN_TTS_ENDPOINT: ${{ vars.VITE_INDIAN_TTS_ENDPOINT }}
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload site artifact

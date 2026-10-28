@@ -15,6 +15,7 @@ Aplicación web para practicar inglés americano desde una interfaz adaptable co
 - **SLANG inglés:** expresiones informales graduadas por nivel, significado, ejemplos y contexto cultural.
 - **Expresiones cotidianas:** buscador de frases comunes con significado, ejemplo traducido y situaciones de uso.
 - **Acentos:** selector de pronunciación americano, británico e indio para las voces disponibles en el navegador.
+- **Voz neural india opcional:** reproducción de sesiones en English (India) con Azure Speech mediante un endpoint protegido de Cloudflare Workers; consulta [la configuración](docs/INDIAN_TTS_SETUP.md). Sin endpoint, se conserva la voz `en-IN` local si el navegador ofrece una.
 - **PWA adaptable:** puede instalarse en computadora, Android y iPhone/iPad desde el navegador. La interfaz puede abrirse offline después de cargarla; las búsquedas web y algunos servicios de voz requieren conexión.
 
 ## Ejecutar en local

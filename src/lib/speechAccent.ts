@@ -54,15 +54,21 @@ export function findAccentVoice(accent: SpeechAccent = getSpeechAccent(), gender
 }
 
 export function getAccentVoiceStatus(accent: SpeechAccent = getSpeechAccent()) {
+  if (accent === 'en-IN' && import.meta.env.VITE_INDIAN_TTS_ENDPOINT?.trim()) {
+    return 'Voz neural india disponible · Azure Speech';
+  }
   const voice = findAccentVoice(accent);
   return voice
     ? `Voz disponible: ${voice.name} (${voice.lang})`
-    : `No hay una voz ${speechAccents.find(item => item.value === accent)?.label ?? accent} instalada; depende de las voces del navegador.`;
+    : accent === 'en-IN'
+      ? 'Falta configurar el servicio de voz neural; se necesita un endpoint de Azure Speech.'
+      : `No hay una voz ${speechAccents.find(item => item.value === accent)?.label ?? accent} instalada; depende de las voces del navegador.`;
 }
 
 export function configureEnglishUtterance(utterance: SpeechSynthesisUtterance, gender?: VoiceGender) {
   const accent = getSpeechAccent();
   utterance.lang = accent;
+  (utterance as SpeechSynthesisUtterance & { indianVoiceGender?: VoiceGender }).indianVoiceGender = gender;
   if (!('speechSynthesis' in window)) return;
   const voice = findAccentVoice(accent, gender);
   if (voice) utterance.voice = voice;
