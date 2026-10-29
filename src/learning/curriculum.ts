@@ -79,11 +79,11 @@ const speakingRubric = [
   { criterion: 'Claridad oral', descriptionEs: 'Habla con ritmo y pronunciación suficientemente claros para comunicar el mensaje.' },
 ];
 const expressionsByLevel: Record<LearningLevel, Array<[string, string]>> = {
-  A1: [['good morning','buenos días'],['nice to meet you','mucho gusto'],['at seven o’clock','a las siete'],['next to','al lado de'],['a cup of','una taza de'],['go to school','ir a la escuela'],['by bus','en autobús'],['Can I…?','¿Puedo…?'],['turn left','gira a la izquierda'],['look for','buscar']],
-  A2: [['last week','la semana pasada'],['look after','cuidar de'],['run out of','quedarse sin'],['be going to','ir a / tener pensado'],['be interested in','tener interés en'],['have to','tener que'],['take the bus','tomar el autobús'],['at the moment','en este momento'],['as soon as','tan pronto como'],['get home','llegar a casa']],
-  B1: [['used to','solía'],['take part in','participar en'],['since then','desde entonces'],['find out','averiguar'],['get along with','llevarse bien con'],['look forward to','esperar con ilusión'],['even though','aunque'],['in the end','al final'],['by the time','para cuando'],['make a decision','tomar una decisión']],
-  B2: [['on the other hand','por otro lado'],['take into account','tener en cuenta'],['carry out','llevar a cabo'],['in contrast','en contraste'],['in charge of','a cargo de'],['bring about','provocar'],['as a result','como resultado'],['in the long run','a largo plazo'],['provided that','siempre que'],['rather than','en lugar de']],
-  C1: [['in light of','a la luz de'],['to a lesser extent','en menor medida'],['call into question','poner en duda'],['account for','dar cuenta de / explicar'],['on balance','en conjunto'],['with regard to','con respecto a'],['in conjunction with','junto con'],['by no means','de ninguna manera'],['take precedence','tener prioridad'],['under scrutiny','bajo escrutinio']],
+  A1: [['sign in','iniciar sesión'],['turn on Wi-Fi','activar el wifi'],['press Print','pulsar Imprimir'],['plug in','conectar'],['open the file','abrir el archivo'],['charge the laptop','cargar la laptop'],['click the icon','hacer clic en el icono'],['restart the computer','reiniciar la computadora'],['connect the mouse','conectar el ratón'],['turn on the webcam','activar la cámara web']],
+  A2: [['install an update','instalar una actualización'],['save a copy','guardar una copia'],['check the settings','revisar la configuración'],['clear the cache','borrar la caché'],['sign out','cerrar sesión'],['back up files','respaldar archivos'],['run a test','ejecutar una prueba'],['connect a device','conectar un dispositivo'],['report an error','reportar un error'],['follow the steps','seguir los pasos']],
+  B1: [['network connection','conexión de red'],['IP address','dirección IP'],['check the logs','revisar los registros'],['rule out a cause','descartar una causa'],['roll back a change','revertir un cambio'],['escalate a ticket','escalar un ticket'],['restore access','restablecer el acceso'],['test the connection','probar la conexión'],['service outage','interrupción del servicio'],['root cause','causa raíz']],
+  B2: [['multi-factor authentication','autenticación multifactor'],['least privilege','mínimo privilegio'],['suspicious sign-in','inicio de sesión sospechoso'],['contain the incident','contener el incidente'],['access control','control de acceso'],['security posture','postura de seguridad'],['cloud workload','carga de trabajo en la nube'],['mitigation plan','plan de mitigación'],['audit trail','pista de auditoría'],['data exposure','exposición de datos']],
+  C1: [['service-level agreement','acuerdo de nivel de servicio'],['blast radius','alcance del impacto'],['business continuity','continuidad del negocio'],['coordinate a response','coordinar una respuesta'],['evidence-based assessment','evaluación basada en evidencia'],['resilience strategy','estrategia de resiliencia'],['underlying dependency','dependencia subyacente'],['mitigate downstream effects','mitigar efectos posteriores'],['executive briefing','informe ejecutivo'],['post-incident review','revisión posterior al incidente']],
 };
 
 function makeExercise(id: string, prompt: string, correct: string, wrong: [string, string], explanationEs: string, position: number): ChoiceExercise {
@@ -184,17 +184,17 @@ function buildUnit(level: LearningLevel, unitNumber: number, grammar: GrammarSee
     id,
     level,
     unitNumber,
-    title: `${String(unitNumber).padStart(2, '0')}. ${grammar.title}`,
+    title: `${String(unitNumber).padStart(2, '0')}. ${grammar.title} · ${story.title}`,
     objectives: [
       `Usar ${grammar.title.toLowerCase()} en oraciones propias.`,
-      `Comprender la idea principal y detalles de “${story.title}”.`,
-      'Expresar una respuesta oral clara sobre la situación de la unidad.',
+      `Comprender y explicar el caso de TI “${story.title}”.`,
+      'Comunicar síntomas, diagnóstico y una respuesta segura usando vocabulario técnico adecuado al nivel.',
     ],
     grammarTopics: [grammar.title],
     vocabulary: vocabularyFor(story, level, unitNumber - 1),
     activities: {
       grammar: {
-        explanationEs: grammar.rule,
+        explanationEs: `${grammar.rule} Aplicación TI: practica esta estructura al describir el caso “${story.title}” y explicar qué harías.`,
         examples: [
           { english: grammar.examples[0], spanish: grammar.examples[1] },
           { english: grammar.examples[2], spanish: grammar.examples[3] },
@@ -212,10 +212,11 @@ function buildUnit(level: LearningLevel, unitNumber: number, grammar: GrammarSee
         questions: comprehension.map(question => ({ ...question, id: question.id.replace('-q', '-listen-q') })),
       },
       speaking: {
-        situationEs: `Cuenta qué ocurre en “${story.title}” y comenta cómo responderías tú ante una situación parecida.`,
+        situationEs: `Simula una conversación de soporte sobre “${story.title}”: identifica el problema, explica tus comprobaciones y propone una acción segura.`,
         prompts: [
-          `What is the main situation in “${story.title}”?`,
-          'What would you do in a similar situation, and why?',
+          `What is the technical problem in “${story.title}”?`,
+          'What would you check first, and why?',
+          'How would you explain a safe solution to the user?',
           `Use ${grammar.title.toLowerCase()} in one original sentence.`,
         ],
         modelAnswer: { english: modelSentence, spanishSupport: `Idea guía (no es una traducción literal): ${story.summary}` },

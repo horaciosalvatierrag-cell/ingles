@@ -6,10 +6,10 @@ Aplicación web para practicar inglés americano desde una interfaz adaptable co
 
 - **Verbos:** 300 regulares y 160 irregulares; infinitivo, pasado simple y pasado participio. Pronunciación, práctica oral y modo quiz.
 - **Verbos frasales:** 400 expresiones con significado, ejemplo, búsqueda, filtro de nivel, pronunciación y reto de práctica. Consulta [la atribución y licencia de estos datos](src/data/PHRASAL_VERBS_ATTRIBUTION.md).
-- **Diálogos:** 50 conversaciones (10 por nivel A1–C1), con traducciones, reproducción, pausa/reanudación, voces diferenciadas cuando el navegador las ofrece y filtro por nivel.
+- **Diálogos:** 50 conversaciones de TI (10 por nivel A1–C1) sobre dispositivos, soporte, redes, nube, seguridad y operaciones, con traducciones, reproducción, pausa/reanudación, voces diferenciadas cuando el navegador las ofrece y filtro por nivel.
 - **Diccionario:** más de 1,390 palabras, búsqueda, categorías y pronunciación.
-- **Listening:** diez actividades por nivel A1–C1 (50 en total), narración de texto con la voz inglesa disponible en el navegador, pausa/reanudación, transcripción y cuatro preguntas por actividad.
-- **Ruta A1–C1:** 50 unidades con Grammar, Reading, Listening y Speaking, explicaciones y ejemplos bilingües, evaluación automática para ejercicios escritos, rúbrica oral manual y progreso local versionado. El temario es una propuesta alineada al CEFR; consulta [el mapa curricular](docs/CEFR_CURRICULUM.md).
+- **Listening:** diez situaciones de TI por nivel A1–C1 (50 en total), narración de texto con la voz inglesa disponible en el navegador, pausa/reanudación, transcripción y cuatro preguntas por actividad.
+- **Ruta A1–C1:** 50 unidades con enfoque progresivo en inglés para TI: Grammar, Reading, Listening y Speaking aplicados a casos técnicos, con ejercicios autocorregibles, rúbrica oral manual y progreso local versionado. El temario gramatical es una propuesta alineada al CEFR; consulta [el mapa curricular](docs/CEFR_CURRICULUM.md).
 - **Profesor virtual:** diez temas, conversación de práctica con voz o texto, reconocimiento y respuesta hablada. La cámara opcional muestra la vista previa local.
 - **Gramática inglés:** redacción por niveles A1–C1 con temas, sugerencias de corrección y explicación de reglas frecuentes.
 - **SLANG inglés:** expresiones informales graduadas por nivel, significado, ejemplos y contexto cultural.

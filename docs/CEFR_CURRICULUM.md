@@ -2,6 +2,8 @@
 
 Esta propuesta organiza el curso por dificultad creciente y práctica integrada de cuatro destrezas. No se encontró una especificación educativa previa en el repositorio; por ello, el contenido se identifica como una propuesta alineada de forma general al CEFR, no como un currículo oficial certificado.
 
+El hilo conductor de los niveles A1–C1 es el inglés aplicado a tecnologías de información: los casos avanzan desde dispositivos, cuentas e instrucciones sencillas hasta redes, ciberseguridad, servicios en la nube, continuidad operativa y comunicación ejecutiva. Se conserva la progresión gramatical por nivel; cada regla se contextualiza en el caso técnico de la unidad. Las historias y conversaciones de Reading, Listening y Speaking usan estos mismos escenarios.
+
 Cada unidad incluye objetivos, contenido gramatical, palabras seleccionadas del texto y una expresión en español/inglés, tres ejercicios autocorregibles de Grammar, un texto y cuatro preguntas de Reading, una narración de ese texto con cuatro preguntas de Listening, y una actividad de Speaking con modelo, situación y rúbrica de autoevaluación de cuatro criterios. Los textos de Reading y Listening se comparten para practicar primero comprensión escrita y después auditiva. La narración usa la voz de síntesis disponible en el navegador; no hay audios grabados ni se presentan como tales.
 
 ## A1 · Principiante
