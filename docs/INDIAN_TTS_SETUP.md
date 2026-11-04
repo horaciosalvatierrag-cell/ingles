@@ -21,7 +21,7 @@ npm exec --yes --package wrangler -- wrangler deploy
 
 Al pedir la clave, Wrangler la guarda como secreto del Worker. No la pegues en el código, en GitHub Pages ni en un archivo `.env` del frontend. La región es el identificador de región del recurso Speech, por ejemplo `centralindia` o `eastus`.
 
-La URL resultante será `https://ingles-indian-tts.<tu-subdominio>.workers.dev`. Configura un límite de solicitudes en Cloudflare para evitar consumo inesperado de la cuota.
+La URL resultante será `https://ingles-indian-tts.<tu-subdominio>.workers.dev`. El Worker solo acepta los orígenes configurados y limita cada cuerpo de solicitud a 12 KB y el texto a 2,500 caracteres. CORS no autentica clientes: antes de habilitar un recurso de Azure con facturación, configura también una regla de límite de solicitudes en Cloudflare (por IP) para evitar consumo automatizado de la cuota.
 
 ## Conectar la aplicación
 

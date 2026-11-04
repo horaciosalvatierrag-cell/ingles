@@ -6,7 +6,8 @@ export default defineConfig({
   base: process.env.GITHUB_PAGES === 'true' ? '/ingles/' : '/',
   plugins: [react(), tailwindcss()],
   server: {
-    host: "0.0.0.0",
+    // Keep the development server private to this device.
+    host: "localhost",
     port: 3000,
     strictPort: true,
     hmr: {
