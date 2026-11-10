@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect, lazy, Suspense } from 'react'
 import type { RegularVerb } from './data/regularVerbs';
 import type { IrregularVerb } from './data/irregularVerbs';
 import type { Dialogue } from './data/dialogues';
+import type { LearningLevel } from './learning/types';
 import { pastParticiple } from './data/verbForms';
 import { configureEnglishUtterance, getAccentVoiceStatus, getSpeechAccent, setSpeechAccent, speechAccents, type SpeechAccent } from './lib/speechAccent';
 import { speakUtterance, cancelSpeech } from './lib/indianSpeech';
@@ -12,6 +13,7 @@ const DialogueView = lazy(() => import('./components/DialogueView'));
 const DictionaryView = lazy(() => import('./components/DictionaryView'));
 const PhrasalVerbsView = lazy(() => import('./components/PhrasalVerbsView'));
 const ListeningView = lazy(() => import('./components/ListeningView'));
+const RandomConversationGenerator = lazy(() => import('./components/RandomConversationGenerator'));
 const TextToSpeechView = lazy(() => import('./components/TextToSpeechView'));
 const VirtualTeacherView = lazy(() => import('./components/VirtualTeacherView'));
 const GrammarView = lazy(() => import('./components/GrammarView'));
@@ -104,6 +106,9 @@ function App() {
 
   const currentVerbList = verbType === 'regular' ? verbData?.regular ?? [] : verbData?.irregular ?? [];
   const dialogues = dialogueData ?? [];
+  const currentLearningLevel: LearningLevel | null = ['A1', 'A2', 'B1', 'B2', 'C1'].includes(activeLevel)
+    ? activeLevel as LearningLevel
+    : null;
   const activeTargetWord = activeVerb
     ? currentWord === 'infinitive' ? activeVerb.infinitive : currentWord === 'past' ? activeVerb.pastSimple : pastParticiple(activeVerb)
     : quizVerb?.pastSimple ?? '';
@@ -515,6 +520,7 @@ function App() {
                 <button onClick={() => handleLevelSelect('listening')} className="rounded-xl bg-white/10 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/20">🎧 Ir a Listening</button>
                 <button onClick={() => handleLevelSelect('dialogues')} className="rounded-xl bg-white/10 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/20">💬 Ir a Diálogos</button>
               </div>
+              {currentLearningLevel && <Suspense fallback={<div role="status" className="mt-7 rounded-xl bg-white/10 p-5 text-center text-blue-100">Cargando generador de conversación…</div>}><RandomConversationGenerator level={currentLearningLevel} /></Suspense>}
             </section>
           )}
 
