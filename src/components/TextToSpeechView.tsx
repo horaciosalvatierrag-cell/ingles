@@ -164,8 +164,8 @@ export default function TextToSpeechView() {
         </div>
 
         <div className="mt-5 flex flex-wrap items-center gap-2" role="group" aria-label="Controles de reproducción">
-          <button type="button" onClick={play} disabled={playback !== 'idle' || words === 0} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 font-semibold text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50">
-            <Play size={18} aria-hidden="true" /> Escuchar
+          <button type="button" onClick={play} disabled={playback !== 'idle' || words === 0} aria-label="Listen to the text in American English" title="Listen to the text in American English" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 font-semibold text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50">
+            <Play size={18} aria-hidden="true" /> Listen
           </button>
           {playback === 'speaking' && <button type="button" onClick={pause} className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 font-semibold text-white hover:bg-white/25"><Pause size={18} aria-hidden="true" /> Pausar</button>}
           {playback === 'paused' && <button type="button" onClick={resume} className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 font-semibold text-white hover:bg-white/25"><Play size={18} aria-hidden="true" /> Reanudar</button>}
