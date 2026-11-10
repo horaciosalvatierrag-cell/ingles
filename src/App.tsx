@@ -12,6 +12,7 @@ const DialogueView = lazy(() => import('./components/DialogueView'));
 const DictionaryView = lazy(() => import('./components/DictionaryView'));
 const PhrasalVerbsView = lazy(() => import('./components/PhrasalVerbsView'));
 const ListeningView = lazy(() => import('./components/ListeningView'));
+const TextToSpeechView = lazy(() => import('./components/TextToSpeechView'));
 const VirtualTeacherView = lazy(() => import('./components/VirtualTeacherView'));
 const GrammarView = lazy(() => import('./components/GrammarView'));
 const SlangView = lazy(() => import('./components/SlangView'));
@@ -21,8 +22,8 @@ const LearningPathView = lazy(() => import('./components/LearningPathView'));
 type VerbType = 'regular' | 'irregular';
 type FeedbackType = 'success' | 'error' | 'neutral' | null;
 type Verb = RegularVerb | IrregularVerb;
-type AppSection = 'verbs' | 'course' | 'levelContent' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
-type Level = 'verbs' | 'course' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
+type AppSection = 'verbs' | 'course' | 'levelContent' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'readAloud' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
+type Level = 'verbs' | 'course' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'dialogues' | 'dictionary' | 'phrasal' | 'listening' | 'readAloud' | 'teacher' | 'grammar' | 'slang' | 'dailyExpressions';
 
 interface LevelInfo {
   id: Level;
@@ -43,6 +44,7 @@ const levels: LevelInfo[] = [
   { id: 'phrasal', name: 'Verbos frasales', description: '400 expresiones', icon: '🔗', color: 'from-violet-400 to-fuchsia-600' },
   { id: 'dialogues', name: 'Diálogos', description: 'Conversaciones', icon: '💬', color: 'from-pink-400 to-rose-600' },
   { id: 'listening', name: 'Listening', description: '50 actividades A1–C1', icon: '🎧', color: 'from-sky-400 to-blue-600' },
+  { id: 'readAloud', name: 'Escuchar texto', description: 'Lectura en voz alta · hasta 1,500 palabras', icon: '🔊', color: 'from-cyan-500 to-blue-600' },
   { id: 'teacher', name: 'Profesor virtual', description: '10 temas · voz y video', icon: '🎙️', color: 'from-fuchsia-400 to-purple-600' },
   { id: 'slang', name: 'SLANG inglés', description: 'Modismos · A1–C1', icon: '💬', color: 'from-cyan-400 to-blue-600' },
   { id: 'dailyExpressions', name: 'Expresiones cotidianas', description: 'Frases para la vida diaria', icon: '🗣️', color: 'from-sky-400 to-cyan-600' },
@@ -354,6 +356,8 @@ function App() {
       setAppSection('phrasal');
     } else if (level === 'listening') {
       setAppSection('listening');
+    } else if (level === 'readAloud') {
+      setAppSection('readAloud');
     } else if (level === 'teacher') {
       setAppSection('teacher');
     } else if (level === 'grammar') {
@@ -845,6 +849,7 @@ function App() {
 
           {appSection === 'phrasal' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando verbos frasales…</div>}><PhrasalVerbsView /></Suspense>}
           {appSection === 'listening' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando historias…</div>}><ListeningView /></Suspense>}
+          {appSection === 'readAloud' && <Suspense fallback={<div role="status" className="rounded-xl bg-white/10 p-6 text-center text-blue-100">Cargando lector de texto…</div>}><TextToSpeechView /></Suspense>}
           {appSection === 'teacher' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando profesor virtual…</div>}><VirtualTeacherView /></Suspense>}
           {appSection === 'grammar' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando práctica de gramática…</div>}><GrammarView /></Suspense>}
           {appSection === 'slang' && <Suspense fallback={<div className="rounded-xl bg-white/5 p-6 text-center text-purple-100">Cargando expresiones de inglés…</div>}><SlangView /></Suspense>}

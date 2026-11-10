@@ -9,6 +9,7 @@ Aplicación web para practicar inglés americano desde una interfaz adaptable co
 - **Diálogos:** 50 conversaciones de TI (10 por nivel A1–C1) sobre dispositivos, soporte, redes, nube, seguridad y operaciones, con traducciones, reproducción, pausa/reanudación, voces diferenciadas cuando el navegador las ofrece y filtro por nivel.
 - **Diccionario:** más de 1,390 palabras, búsqueda, categorías y pronunciación.
 - **Listening:** diez situaciones de TI por nivel A1–C1 (50 en total), narración de texto con la voz inglesa disponible en el navegador, pausa/reanudación, transcripción y cuatro preguntas por actividad.
+- **Escuchar texto:** pega o escribe hasta 1,500 palabras y reprodúcelas en inglés estadounidense con controles de pausa, reanudación, velocidad y detención. Utiliza la voz en-US instalada en el navegador.
 - **Ruta A1–C1:** 50 unidades con enfoque progresivo en inglés para TI: Grammar, Reading, Listening y Speaking aplicados a casos técnicos, con ejercicios autocorregibles, rúbrica oral manual y progreso local versionado. El temario gramatical es una propuesta alineada al CEFR; consulta [el mapa curricular](docs/CEFR_CURRICULUM.md).
 - **Profesor virtual:** diez temas, conversación de práctica con voz o texto, reconocimiento y respuesta hablada. La cámara opcional muestra la vista previa local.
 - **Gramática inglés:** redacción por niveles A1–C1 con temas, sugerencias de corrección y explicación de reglas frecuentes.
